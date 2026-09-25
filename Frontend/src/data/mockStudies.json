@@ -1,0 +1,1872 @@
+[
+  {
+    "studyId": "AIIA-AYU-001",
+    "title": "Ayurvedic Intervention for Type 2 Diabetes",
+    "shortTitle": "AYU-DM-01",
+    "studyType": "Interventional",
+    "phase": "Phase III",
+    "researchArea": "Metabolic Disorders",
+    "intervention": "Ayurvedic formulation for glycemic control",
+    "principalInvestigator": "Dr. Ananya Sharma",
+    "sponsor": "AIIA",
+    "description": "Multicentre study evaluating an Ayurvedic intervention for adults with type 2 diabetes.",
+    "startDate": "2026-01-15",
+    "expectedEndDate": "2027-12-31",
+    "status": "Active",
+    "sites": [
+      {
+        "siteId": "SITE-001",
+        "name": "AIIA Delhi",
+        "location": "New Delhi",
+        "investigator": "Dr. Ananya Sharma",
+        "status": "Active",
+        "activationDate": "2026-01-20"
+      },
+      {
+        "siteId": "SITE-002",
+        "name": "Ayurveda Research Centre Mumbai",
+        "location": "Mumbai",
+        "investigator": "Dr. Rohan Mehta",
+        "status": "Active",
+        "activationDate": "2026-02-05"
+      }
+    ],
+    "participants": {
+      "target": 200,
+      "screened": 178,
+      "eligible": 160,
+      "enrolled": 148,
+      "randomized": 142,
+      "completed": 71
+    },
+    "milestones": [
+      {
+        "name": "Protocol Approval",
+        "status": "Completed",
+        "date": "2026-01-10"
+      },
+      {
+        "name": "Ethics Approval",
+        "status": "Completed",
+        "date": "2026-01-12"
+      },
+      {
+        "name": "CTRI Registration",
+        "status": "Completed",
+        "date": "2026-01-14"
+      },
+      {
+        "name": "Site Activation",
+        "status": "Completed",
+        "date": "2026-02-05"
+      },
+      {
+        "name": "Recruitment",
+        "status": "In Progress",
+        "date": null
+      },
+      {
+        "name": "Data Collection",
+        "status": "In Progress",
+        "date": null
+      },
+      {
+        "name": "Study Close-out",
+        "status": "Pending",
+        "date": null
+      }
+    ],
+    "ethicsRegulatory": {
+      "ethicsCommittee": "AIIA Institutional Ethics Committee",
+      "approvalNumber": "IEC/AIIA/2026/001",
+      "approvalDate": "2026-01-12",
+      "approvalExpiry": "2027-01-11",
+      "ctriNumber": "CTRI/2026/01/000001",
+      "ctriRegistrationDate": "2026-01-14",
+      "regulatoryStatus": "Compliant"
+    },
+    "monitoring": {
+      "plannedVisits": 12,
+      "completedVisits": 7,
+      "upcomingVisits": 2,
+      "overdueVisits": 1
+    },
+    "protocolDeviations": {
+      "total": 5,
+      "open": 2,
+      "resolved": 3,
+      "major": 1,
+      "minor": 4
+    },
+    "dataQuality": {
+      "totalQueries": 34,
+      "openQueries": 8,
+      "resolvedQueries": 26,
+      "overdueQueries": 2
+    },
+    "safety": {
+      "adverseEvents": 18,
+      "seriousAdverseEvents": 1,
+      "pendingSafetyReviews": 1,
+      "reportingDeadlines": 1,
+      "safetySignals": 0
+    },
+    "documents": [
+      "Study Protocol",
+      "Ethics Approval",
+      "CTRI Registration",
+      "Informed Consent",
+      "Monitoring Reports"
+    ],
+    "tasks": [
+      {
+        "task": "Review overdue monitoring visit",
+        "assignedTo": "Study Coordinator",
+        "dueDate": "2026-09-28",
+        "status": "Open"
+      }
+    ],
+    "alerts": [
+      "Monitoring visit overdue"
+    ],
+    "cdiscFhirConfig": {
+      "cdashDomains": ["DM", "VS", "AE", "LB", "CM"],
+      "sdtmExportStatus": "Validated (SDTM IG v3.3)",
+      "adamDatasetsReady": ["ADSL", "ADAE"],
+      "defineXmlVersion": "2.1",
+      "fhirR4Mapping": {
+        "patientResource": "FHIR/R4/Patient/SUBJ-101",
+        "observationResource": "FHIR/R4/Observation/VS-101",
+        "abdmSyncStatus": "Synced to ABDM Health Repository"
+      }
+    },
+    "adverseEventsList": [
+      {
+        "aeId": "AE-001-2026",
+        "subjectId": "SUBJ-101",
+        "siteId": "SITE-001",
+        "term": "Severe Nausea & Epigastric Burning",
+        "isSerious": true,
+        "saeCriteria": "Hospitalization Required",
+        "onsetDatetime": "2026-09-20T10:30:00Z",
+        "reportedDatetime": "2026-09-20T14:15:00Z",
+        "expeditedReportingDeadline": "2026-09-21T14:15:00Z",
+        "medDraCoding": {
+          "soc": "Gastrointestinal disorders",
+          "hlgt": "Gastrointestinal signs and symptoms",
+          "hlt": "Nausea and vomiting symptoms",
+          "pt": "Nausea",
+          "llt": "Severe Nausea"
+        },
+        "whoDrugCoding": {
+          "drugName": "Ayurvedic Formulation A (Shodhana)",
+          "activeIngredient": "Herbal Mixture X"
+        },
+        "causalityAssessment": "Possible (WHO-UMC Scale)",
+        "actionTaken": "Dose Interrupted",
+        "outcome": "Recovering",
+        "status": "Pending PV Officer Review"
+      }
+    ],
+    "consentRecords": [
+      {
+        "subjectId": "SUBJ-101",
+        "icfVersion": "v2.1_Hindi",
+        "consentStatus": "Consented",
+        "consentTimestamp": "2026-02-10T09:15:00Z",
+        "digitalSignatureHash": "0x8f3a92b...b21c",
+        "dataMinimizationNoticeSigned": true,
+        "abhaIdLinked": "91-1234-5678-9012",
+        "reConsentRequired": false
+      }
+    ],
+    "queriesList": [
+      {
+        "queryId": "QRY-104",
+        "subjectId": "SUBJ-105",
+        "formName": "Vital Signs (VS)",
+        "fieldName": "SystolicBP",
+        "issue": "Value (190 mmHg) out of expected protocol range",
+        "raisedBy": "Monitor (CRA)",
+        "raisedDate": "2026-09-22",
+        "status": "Open",
+        "assignedTo": "Study Coordinator",
+        "sdvStatus": "Unverified"
+      }
+    ],
+    "auditTrail": [
+      {
+        "auditId": "AUD-2026-8912",
+        "timestamp": "2026-09-25T16:05:12Z",
+        "userId": "USER-402",
+        "userName": "Dr. Ananya Sharma",
+        "userRole": "Principal Investigator",
+        "action": "eCRF_Field_Update",
+        "entityModified": "Subject SUBJ-101 / Visit 2 / Fasting Blood Glucose",
+        "oldValue": "110 mg/dL",
+        "newValue": "142 mg/dL",
+        "reasonForChange": "Transcription error correction from source lab sheet",
+        "ipAddress": "14.139.xxx.xxx",
+        "digitalSignature": "SHA256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ]
+  },
+  {
+    "studyId": "AIIA-AYU-002",
+    "title": "Ayurvedic Management of Knee Osteoarthritis",
+    "shortTitle": "AYU-OA-02",
+    "studyType": "Interventional",
+    "phase": "Phase II",
+    "researchArea": "Musculoskeletal Disorders",
+    "intervention": "Ayurvedic therapy for knee osteoarthritis",
+    "principalInvestigator": "Dr. Vivek Rao",
+    "sponsor": "AIIA",
+    "description": "Study evaluating symptom improvement and functional outcomes in knee osteoarthritis.",
+    "startDate": "2026-03-01",
+    "expectedEndDate": "2027-08-31",
+    "status": "Active",
+    "sites": [
+      {
+        "siteId": "SITE-003",
+        "name": "AIIA Delhi",
+        "location": "New Delhi",
+        "investigator": "Dr. Vivek Rao",
+        "status": "Active",
+        "activationDate": "2026-03-10"
+      },
+      {
+        "siteId": "SITE-004",
+        "name": "Pune Ayurveda Centre",
+        "location": "Pune",
+        "investigator": "Dr. Neha Kulkarni",
+        "status": "Active",
+        "activationDate": "2026-03-18"
+      }
+    ],
+    "participants": {
+      "target": 150,
+      "screened": 119,
+      "eligible": 105,
+      "enrolled": 92,
+      "randomized": 90,
+      "completed": 38
+    },
+    "milestones": [
+      {
+        "name": "Protocol Approval",
+        "status": "Completed",
+        "date": "2026-02-20"
+      },
+      {
+        "name": "Ethics Approval",
+        "status": "Completed",
+        "date": "2026-02-24"
+      },
+      {
+        "name": "CTRI Registration",
+        "status": "Completed",
+        "date": "2026-02-27"
+      },
+      {
+        "name": "Site Activation",
+        "status": "Completed",
+        "date": "2026-03-18"
+      },
+      {
+        "name": "Recruitment",
+        "status": "In Progress",
+        "date": null
+      },
+      {
+        "name": "Data Collection",
+        "status": "In Progress",
+        "date": null
+      }
+    ],
+    "ethicsRegulatory": {
+      "ethicsCommittee": "AIIA Institutional Ethics Committee",
+      "approvalNumber": "IEC/AIIA/2026/002",
+      "approvalDate": "2026-02-24",
+      "approvalExpiry": "2027-02-23",
+      "ctriNumber": "CTRI/2026/02/000002",
+      "ctriRegistrationDate": "2026-02-27",
+      "regulatoryStatus": "Compliant"
+    },
+    "monitoring": {
+      "plannedVisits": 8,
+      "completedVisits": 4,
+      "upcomingVisits": 2,
+      "overdueVisits": 0
+    },
+    "protocolDeviations": {
+      "total": 3,
+      "open": 1,
+      "resolved": 2,
+      "major": 0,
+      "minor": 3
+    },
+    "dataQuality": {
+      "totalQueries": 21,
+      "openQueries": 5,
+      "resolvedQueries": 16,
+      "overdueQueries": 1
+    },
+    "safety": {
+      "adverseEvents": 9,
+      "seriousAdverseEvents": 0,
+      "pendingSafetyReviews": 0,
+      "reportingDeadlines": 0,
+      "safetySignals": 0
+    },
+    "documents": [
+      "Study Protocol",
+      "Ethics Approval",
+      "CTRI Registration",
+      "Informed Consent"
+    ],
+    "tasks": [
+      {
+        "task": "Resolve participant data queries",
+        "assignedTo": "Study Coordinator",
+        "dueDate": "2026-09-30",
+        "status": "Open"
+      }
+    ],
+    "alerts": [],
+    "cdiscFhirConfig": {
+      "cdashDomains": ["DM", "VS", "PE", "QS"],
+      "sdtmExportStatus": "Draft (SDTM IG v3.3)",
+      "adamDatasetsReady": ["ADSL"],
+      "defineXmlVersion": "2.1",
+      "fhirR4Mapping": {
+        "patientResource": "FHIR/R4/Patient/SUBJ-201",
+        "observationResource": "FHIR/R4/Observation/VS-201",
+        "abdmSyncStatus": "Synced to ABDM Health Repository"
+      }
+    },
+    "adverseEventsList": [],
+    "consentRecords": [
+      {
+        "subjectId": "SUBJ-201",
+        "icfVersion": "v1.0_English",
+        "consentStatus": "Consented",
+        "consentTimestamp": "2026-03-12T11:00:00Z",
+        "digitalSignatureHash": "0x7a2c81...f12a",
+        "dataMinimizationNoticeSigned": true,
+        "abhaIdLinked": "91-9876-5432-1098",
+        "reConsentRequired": false
+      }
+    ],
+    "queriesList": [
+      {
+        "queryId": "QRY-201",
+        "subjectId": "SUBJ-204",
+        "formName": "Pain Scale (QS)",
+        "fieldName": "VAS_Score",
+        "issue": "Missing completion timestamp",
+        "raisedBy": "Study Coordinator",
+        "raisedDate": "2026-09-24",
+        "status": "Open",
+        "assignedTo": "Study Coordinator",
+        "sdvStatus": "Unverified"
+      }
+    ],
+    "auditTrail": [
+      {
+        "auditId": "AUD-2026-8913",
+        "timestamp": "2026-09-24T14:20:00Z",
+        "userId": "USER-102",
+        "userName": "Dr. Vivek Rao",
+        "userRole": "Principal Investigator",
+        "action": "Protocol_Deviation_Logged",
+        "entityModified": "Subject SUBJ-202 / Visit 1",
+        "oldValue": "None",
+        "newValue": "Window Period Exceeded (+2 days)",
+        "reasonForChange": "Patient delayed due to transit issues",
+        "ipAddress": "14.139.xxx.xxx",
+        "digitalSignature": "SHA256:d41d8cd98f00b204e9800998ecf8427e"
+      }
+    ]
+  },
+  {
+    "studyId": "AIIA-AYU-003",
+    "title": "Ayurvedic Intervention for Chronic Migraine",
+    "shortTitle": "AYU-MIG-03",
+    "studyType": "Interventional",
+    "phase": "Phase II",
+    "researchArea": "Neurological Disorders",
+    "intervention": "Ayurvedic formulation for migraine management",
+    "principalInvestigator": "Dr. Kavita Menon",
+    "sponsor": "AIIA",
+    "description": "Clinical study evaluating an Ayurvedic intervention for reducing migraine frequency.",
+    "startDate": "2025-11-10",
+    "expectedEndDate": "2027-05-31",
+    "status": "Recruiting",
+    "sites": [
+      {
+        "siteId": "SITE-005",
+        "name": "AIIA Delhi",
+        "location": "New Delhi",
+        "investigator": "Dr. Kavita Menon",
+        "status": "Active",
+        "activationDate": "2025-11-20"
+      }
+    ],
+    "participants": {
+      "target": 120,
+      "screened": 86,
+      "eligible": 72,
+      "enrolled": 61,
+      "randomized": 59,
+      "completed": 20
+    },
+    "milestones": [
+      {
+        "name": "Protocol Approval",
+        "status": "Completed",
+        "date": "2025-10-30"
+      },
+      {
+        "name": "Ethics Approval",
+        "status": "Completed",
+        "date": "2025-11-03"
+      },
+      {
+        "name": "CTRI Registration",
+        "status": "Completed",
+        "date": "2025-11-06"
+      },
+      {
+        "name": "Site Activation",
+        "status": "Completed",
+        "date": "2025-11-20"
+      },
+      {
+        "name": "Recruitment",
+        "status": "Delayed",
+        "date": null
+      },
+      {
+        "name": "Data Collection",
+        "status": "In Progress",
+        "date": null
+      }
+    ],
+    "ethicsRegulatory": {
+      "ethicsCommittee": "AIIA Institutional Ethics Committee",
+      "approvalNumber": "IEC/AIIA/2025/031",
+      "approvalDate": "2025-11-03",
+      "approvalExpiry": "2026-11-02",
+      "ctriNumber": "CTRI/2025/11/000003",
+      "ctriRegistrationDate": "2025-11-06",
+      "regulatoryStatus": "Review Required"
+    },
+    "monitoring": {
+      "plannedVisits": 9,
+      "completedVisits": 5,
+      "upcomingVisits": 1,
+      "overdueVisits": 1
+    },
+    "protocolDeviations": {
+      "total": 7,
+      "open": 3,
+      "resolved": 4,
+      "major": 1,
+      "minor": 6
+    },
+    "dataQuality": {
+      "totalQueries": 29,
+      "openQueries": 11,
+      "resolvedQueries": 18,
+      "overdueQueries": 4
+    },
+    "safety": {
+      "adverseEvents": 12,
+      "seriousAdverseEvents": 1,
+      "pendingSafetyReviews": 1,
+      "reportingDeadlines": 1,
+      "safetySignals": 0
+    },
+    "documents": [
+      "Study Protocol",
+      "Ethics Approval",
+      "CTRI Registration",
+      "Informed Consent",
+      "Monitoring Reports"
+    ],
+    "tasks": [
+      {
+        "task": "Prepare recruitment recovery plan",
+        "assignedTo": "Principal Investigator",
+        "dueDate": "2026-09-29",
+        "status": "Urgent"
+      }
+    ],
+    "alerts": [
+      "Recruitment behind target",
+      "Ethics approval renewal approaching"
+    ],
+    "cdiscFhirConfig": {
+      "cdashDomains": ["DM", "VS", "AE", "MH"],
+      "sdtmExportStatus": "In Progress",
+      "adamDatasetsReady": [],
+      "defineXmlVersion": "2.1",
+      "fhirR4Mapping": {
+        "patientResource": "FHIR/R4/Patient/SUBJ-301",
+        "observationResource": "FHIR/R4/Observation/VS-301",
+        "abdmSyncStatus": "Sync Pending"
+      }
+    },
+    "adverseEventsList": [
+      {
+        "aeId": "AE-002-2026",
+        "subjectId": "SUBJ-308",
+        "siteId": "SITE-005",
+        "term": "Moderate Vertigo",
+        "isSerious": false,
+        "saeCriteria": null,
+        "onsetDatetime": "2026-09-18T08:00:00Z",
+        "reportedDatetime": "2026-09-18T12:00:00Z",
+        "expeditedReportingDeadline": null,
+        "medDraCoding": {
+          "soc": "Nervous system disorders",
+          "hlgt": "Neurological disorders NEC",
+          "hlt": "Disturbances of consciousness and awareness",
+          "pt": "Dizziness",
+          "llt": "Vertigo"
+        },
+        "whoDrugCoding": {
+          "drugName": "Ayurvedic Formulation B",
+          "activeIngredient": "Herbal Mixture Y"
+        },
+        "causalityAssessment": "Unlikely",
+        "actionTaken": "None",
+        "outcome": "Resolved",
+        "status": "Reviewed"
+      }
+    ],
+    "consentRecords": [
+      {
+        "subjectId": "SUBJ-301",
+        "icfVersion": "v1.1",
+        "consentStatus": "Consented",
+        "consentTimestamp": "2025-11-22T10:00:00Z",
+        "digitalSignatureHash": "0x3f1a90...c88d",
+        "dataMinimizationNoticeSigned": true,
+        "abhaIdLinked": "91-4567-8901-2345",
+        "reConsentRequired": true
+      }
+    ],
+    "queriesList": [
+      {
+        "queryId": "QRY-301",
+        "subjectId": "SUBJ-308",
+        "formName": "Adverse Events (AE)",
+        "fieldName": "Causality",
+        "issue": "Requires PI signature verification",
+        "raisedBy": "Pharmacovigilance Officer",
+        "raisedDate": "2026-09-19",
+        "status": "Open",
+        "assignedTo": "Principal Investigator",
+        "sdvStatus": "Unverified"
+      }
+    ],
+    "auditTrail": [
+      {
+        "auditId": "AUD-2026-8914",
+        "timestamp": "2026-09-19T09:12:00Z",
+        "userId": "USER-301",
+        "userName": "Dr. Kavita Menon",
+        "userRole": "Principal Investigator",
+        "action": "AE_Log_Created",
+        "entityModified": "AE-002-2026",
+        "oldValue": null,
+        "newValue": "Moderate Vertigo",
+        "reasonForChange": "Initial reporting by subject during Visit 3",
+        "ipAddress": "14.139.xxx.xxx",
+        "digitalSignature": "SHA256:098f6bcd4621d373cade4e832627b4f6"
+      }
+    ]
+  },
+  {
+    "studyId": "AIIA-AYU-004",
+    "title": "Ayurvedic Supportive Therapy for Mild Asthma",
+    "shortTitle": "AYU-AST-04",
+    "studyType": "Interventional",
+    "phase": "Phase III",
+    "researchArea": "Respiratory Disorders",
+    "intervention": "Ayurvedic supportive therapy for mild asthma",
+    "principalInvestigator": "Dr. Rajiv Nair",
+    "sponsor": "AIIA",
+    "description": "Multicentre study assessing an Ayurvedic supportive intervention for mild asthma.",
+    "startDate": "2025-08-15",
+    "expectedEndDate": "2027-08-15",
+    "status": "Active",
+    "sites": [
+      {
+        "siteId": "SITE-006",
+        "name": "AIIA Delhi",
+        "location": "New Delhi",
+        "investigator": "Dr. Rajiv Nair",
+        "status": "Active",
+        "activationDate": "2025-08-25"
+      },
+      {
+        "siteId": "SITE-007",
+        "name": "Jaipur Ayurveda Institute",
+        "location": "Jaipur",
+        "investigator": "Dr. Meera Joshi",
+        "status": "Active",
+        "activationDate": "2025-09-02"
+      },
+      {
+        "siteId": "SITE-008",
+        "name": "Bengaluru Ayurveda Centre",
+        "location": "Bengaluru",
+        "investigator": "Dr. Arjun Rao",
+        "status": "Active",
+        "activationDate": "2025-09-10"
+      }
+    ],
+    "participants": {
+      "target": 300,
+      "screened": 280,
+      "eligible": 251,
+      "enrolled": 235,
+      "randomized": 228,
+      "completed": 142
+    },
+    "milestones": [
+      {
+        "name": "Protocol Approval",
+        "status": "Completed",
+        "date": "2025-08-01"
+      },
+      {
+        "name": "Ethics Approval",
+        "status": "Completed",
+        "date": "2025-08-05"
+      },
+      {
+        "name": "CTRI Registration",
+        "status": "Completed",
+        "date": "2025-08-08"
+      },
+      {
+        "name": "Site Activation",
+        "status": "Completed",
+        "date": "2025-09-10"
+      },
+      {
+        "name": "Recruitment",
+        "status": "In Progress",
+        "date": null
+      },
+      {
+        "name": "Data Collection",
+        "status": "In Progress",
+        "date": null
+      }
+    ],
+    "ethicsRegulatory": {
+      "ethicsCommittee": "AIIA Institutional Ethics Committee",
+      "approvalNumber": "IEC/AIIA/2025/018",
+      "approvalDate": "2025-08-05",
+      "approvalExpiry": "2026-08-04",
+      "ctriNumber": "CTRI/2025/08/000004",
+      "ctriRegistrationDate": "2025-08-08",
+      "regulatoryStatus": "Compliant"
+    },
+    "monitoring": {
+      "plannedVisits": 18,
+      "completedVisits": 14,
+      "upcomingVisits": 2,
+      "overdueVisits": 0
+    },
+    "protocolDeviations": {
+      "total": 4,
+      "open": 1,
+      "resolved": 3,
+      "major": 0,
+      "minor": 4
+    },
+    "dataQuality": {
+      "totalQueries": 46,
+      "openQueries": 6,
+      "resolvedQueries": 40,
+      "overdueQueries": 0
+    },
+    "safety": {
+      "adverseEvents": 24,
+      "seriousAdverseEvents": 2,
+      "pendingSafetyReviews": 0,
+      "reportingDeadlines": 0,
+      "safetySignals": 1
+    },
+    "documents": [
+      "Study Protocol",
+      "Ethics Approval",
+      "CTRI Registration",
+      "Informed Consent",
+      "Safety Reports"
+    ],
+    "tasks": [
+      {
+        "task": "Review safety signal",
+        "assignedTo": "Pharmacovigilance Officer",
+        "dueDate": "2026-09-27",
+        "status": "Open"
+      }
+    ],
+    "alerts": [
+      "Potential safety signal requires review"
+    ],
+    "cdiscFhirConfig": {
+      "cdashDomains": ["DM", "VS", "AE", "LB", "RE"],
+      "sdtmExportStatus": "Validated (SDTM IG v3.3)",
+      "adamDatasetsReady": ["ADSL", "ADAE", "ADRESP"],
+      "defineXmlVersion": "2.1",
+      "fhirR4Mapping": {
+        "patientResource": "FHIR/R4/Patient/SUBJ-401",
+        "observationResource": "FHIR/R4/Observation/RESP-401",
+        "abdmSyncStatus": "Synced to ABDM Health Repository"
+      }
+    },
+    "adverseEventsList": [
+      {
+        "aeId": "AE-003-2026",
+        "subjectId": "SUBJ-412",
+        "siteId": "SITE-007",
+        "term": "Bronchospasm Exacerbation",
+        "isSerious": true,
+        "saeCriteria": "Life-threatening event",
+        "onsetDatetime": "2026-09-15T18:00:00Z",
+        "reportedDatetime": "2026-09-15T20:00:00Z",
+        "expeditedReportingDeadline": "2026-09-16T20:00:00Z",
+        "medDraCoding": {
+          "soc": "Respiratory, thoracic and mediastinal disorders",
+          "hlgt": "Bronchial disorders (excl neoplasms)",
+          "hlt": "Asthma symptoms",
+          "pt": "Bronchospasm",
+          "llt": "Acute Bronchospasm"
+        },
+        "whoDrugCoding": {
+          "drugName": "Ayurvedic Herbal Decoction C",
+          "activeIngredient": "Herbal Mix Z"
+        },
+        "causalityAssessment": "Probable",
+        "actionTaken": "Drug Permanently Withdrawn",
+        "outcome": "Recovered with Sequelae",
+        "status": "DSMB Signal Logged"
+      }
+    ],
+    "consentRecords": [
+      {
+        "subjectId": "SUBJ-401",
+        "icfVersion": "v2.0_English",
+        "consentStatus": "Consented",
+        "consentTimestamp": "2025-08-28T09:30:00Z",
+        "digitalSignatureHash": "0x1b9c20...e99a",
+        "dataMinimizationNoticeSigned": true,
+        "abhaIdLinked": "91-3456-7890-1234",
+        "reConsentRequired": false
+      }
+    ],
+    "queriesList": [
+      {
+        "queryId": "QRY-401",
+        "subjectId": "SUBJ-412",
+        "formName": "Spirometry / Pulmonary Test (RE)",
+        "fieldName": "FEV1_Score",
+        "issue": "Values inconsistently recorded post-dose",
+        "raisedBy": "Monitor (CRA)",
+        "raisedDate": "2026-09-17",
+        "status": "Resolved",
+        "assignedTo": "Study Coordinator",
+        "sdvStatus": "Verified"
+      }
+    ],
+    "auditTrail": [
+      {
+        "auditId": "AUD-2026-8915",
+        "timestamp": "2026-09-15T20:05:00Z",
+        "userId": "USER-501",
+        "userName": "Dr. Rajiv Nair",
+        "userRole": "Principal Investigator",
+        "action": "SAE_Expedited_Notification_Sent",
+        "entityModified": "AE-003-2026",
+        "oldValue": "Draft",
+        "newValue": "Submitted to IEC and CDSCO",
+        "reasonForChange": "Mandatory 24-hour SAE notification",
+        "ipAddress": "14.139.xxx.xxx",
+        "digitalSignature": "SHA256:5d41402abc4b2a76b9719d911017c592"
+      }
+    ]
+  },
+  {
+    "studyId": "AIIA-AYU-005",
+    "title": "Ayurvedic Management of Chronic Skin Conditions",
+    "shortTitle": "AYU-DERM-05",
+    "studyType": "Observational",
+    "phase": "Not Applicable",
+    "researchArea": "Dermatology",
+    "intervention": "Observation of Ayurvedic treatment outcomes",
+    "principalInvestigator": "Dr. Priya Deshmukh",
+    "sponsor": "AIIA",
+    "description": "Observational study tracking outcomes of patients receiving routine Ayurvedic care for chronic skin conditions.",
+    "startDate": "2026-02-01",
+    "expectedEndDate": "2027-01-31",
+    "status": "Active",
+    "sites": [
+      {
+        "siteId": "SITE-009",
+        "name": "AIIA Delhi",
+        "location": "New Delhi",
+        "investigator": "Dr. Priya Deshmukh",
+        "status": "Active",
+        "activationDate": "2026-02-10"
+      }
+    ],
+    "participants": {
+      "target": 100,
+      "screened": 93,
+      "eligible": 87,
+      "enrolled": 82,
+      "randomized": 0,
+      "completed": 41
+    },
+    "milestones": [
+      {
+        "name": "Protocol Approval",
+        "status": "Completed",
+        "date": "2026-01-20"
+      },
+      {
+        "name": "Ethics Approval",
+        "status": "Completed",
+        "date": "2026-01-24"
+      },
+      {
+        "name": "CTRI Registration",
+        "status": "Completed",
+        "date": "2026-01-27"
+      },
+      {
+        "name": "Site Activation",
+        "status": "Completed",
+        "date": "2026-02-10"
+      },
+      {
+        "name": "Data Collection",
+        "status": "In Progress",
+        "date": null
+      },
+      {
+        "name": "Analysis",
+        "status": "Pending",
+        "date": null
+      }
+    ],
+    "ethicsRegulatory": {
+      "ethicsCommittee": "AIIA Institutional Ethics Committee",
+      "approvalNumber": "IEC/AIIA/2026/005",
+      "approvalDate": "2026-01-24",
+      "approvalExpiry": "2027-01-23",
+      "ctriNumber": "CTRI/2026/01/000005",
+      "ctriRegistrationDate": "2026-01-27",
+      "regulatoryStatus": "Compliant"
+    },
+    "monitoring": {
+      "plannedVisits": 6,
+      "completedVisits": 3,
+      "upcomingVisits": 1,
+      "overdueVisits": 0
+    },
+    "protocolDeviations": {
+      "total": 2,
+      "open": 0,
+      "resolved": 2,
+      "major": 0,
+      "minor": 2
+    },
+    "dataQuality": {
+      "totalQueries": 16,
+      "openQueries": 3,
+      "resolvedQueries": 13,
+      "overdueQueries": 0
+    },
+    "safety": {
+      "adverseEvents": 5,
+      "seriousAdverseEvents": 0,
+      "pendingSafetyReviews": 0,
+      "reportingDeadlines": 0,
+      "safetySignals": 0
+    },
+    "documents": [
+      "Study Protocol",
+      "Ethics Approval",
+      "CTRI Registration",
+      "Consent Documents"
+    ],
+    "tasks": [
+      {
+        "task": "Complete pending data queries",
+        "assignedTo": "Study Coordinator",
+        "dueDate": "2026-10-02",
+        "status": "Open"
+      }
+    ],
+    "alerts": [],
+    "cdiscFhirConfig": {
+      "cdashDomains": ["DM", "PE", "AE"],
+      "sdtmExportStatus": "Draft",
+      "adamDatasetsReady": [],
+      "defineXmlVersion": "2.1",
+      "fhirR4Mapping": {
+        "patientResource": "FHIR/R4/Patient/SUBJ-501",
+        "observationResource": "FHIR/R4/Observation/DERM-501",
+        "abdmSyncStatus": "Synced to ABDM Health Repository"
+      }
+    },
+    "adverseEventsList": [],
+    "consentRecords": [
+      {
+        "subjectId": "SUBJ-501",
+        "icfVersion": "v1.0",
+        "consentStatus": "Consented",
+        "consentTimestamp": "2026-02-15T14:20:00Z",
+        "digitalSignatureHash": "0x9c3d11...a42b",
+        "dataMinimizationNoticeSigned": true,
+        "abhaIdLinked": "91-7890-1234-5678",
+        "reConsentRequired": false
+      }
+    ],
+    "queriesList": [
+      {
+        "queryId": "QRY-501",
+        "subjectId": "SUBJ-510",
+        "formName": "Physical Examination (PE)",
+        "fieldName": "LesionArea_cm2",
+        "issue": "Unclear measurement unit",
+        "raisedBy": "Study Coordinator",
+        "raisedDate": "2026-09-21",
+        "status": "Open",
+        "assignedTo": "Study Coordinator",
+        "sdvStatus": "Unverified"
+      }
+    ],
+    "auditTrail": [
+      {
+        "auditId": "AUD-2026-8916",
+        "timestamp": "2026-09-21T11:00:00Z",
+        "userId": "USER-601",
+        "userName": "Dr. Priya Deshmukh",
+        "userRole": "Principal Investigator",
+        "action": "Query_Created",
+        "entityModified": "Subject SUBJ-510 / Lesion Form",
+        "oldValue": null,
+        "newValue": "Query QRY-501 Issued",
+        "reasonForChange": "Data validation rule trigger",
+        "ipAddress": "14.139.xxx.xxx",
+        "digitalSignature": "SHA256:008d3c321013a700f1352e89648937d1"
+      }
+    ]
+  },
+  {
+    "studyId": "AIIA-AYU-006",
+    "title": "Ayurvedic Intervention for Hypertension",
+    "shortTitle": "AYU-HTN-06",
+    "studyType": "Interventional",
+    "phase": "Phase III",
+    "researchArea": "Cardiovascular Health",
+    "intervention": "Ayurvedic formulation for blood pressure management",
+    "principalInvestigator": "Dr. Sameer Iyer",
+    "sponsor": "AIIA",
+    "description": "Study evaluating an Ayurvedic intervention for adults with hypertension.",
+    "startDate": "2025-06-01",
+    "expectedEndDate": "2027-06-30",
+    "status": "Active",
+    "sites": [
+      {
+        "siteId": "SITE-010",
+        "name": "AIIA Delhi",
+        "location": "New Delhi",
+        "investigator": "Dr. Sameer Iyer",
+        "status": "Active",
+        "activationDate": "2025-06-12"
+      },
+      {
+        "siteId": "SITE-011",
+        "name": "Lucknow Ayurveda Institute",
+        "location": "Lucknow",
+        "investigator": "Dr. Nitin Verma",
+        "status": "Active",
+        "activationDate": "2025-07-01"
+      }
+    ],
+    "participants": {
+      "target": 250,
+      "screened": 244,
+      "eligible": 220,
+      "enrolled": 210,
+      "randomized": 205,
+      "completed": 160
+    },
+    "milestones": [
+      {
+        "name": "Protocol Approval",
+        "status": "Completed",
+        "date": "2025-05-15"
+      },
+      {
+        "name": "Ethics Approval",
+        "status": "Completed",
+        "date": "2025-05-20"
+      },
+      {
+        "name": "CTRI Registration",
+        "status": "Completed",
+        "date": "2025-05-25"
+      },
+      {
+        "name": "Site Activation",
+        "status": "Completed",
+        "date": "2025-07-01"
+      },
+      {
+        "name": "Recruitment",
+        "status": "Completed",
+        "date": "2026-04-10"
+      },
+      {
+        "name": "Data Collection",
+        "status": "In Progress",
+        "date": null
+      },
+      {
+        "name": "Study Close-out",
+        "status": "Pending",
+        "date": null
+      }
+    ],
+    "ethicsRegulatory": {
+      "ethicsCommittee": "AIIA Institutional Ethics Committee",
+      "approvalNumber": "IEC/AIIA/2025/006",
+      "approvalDate": "2025-05-20",
+      "approvalExpiry": "2026-05-19",
+      "ctriNumber": "CTRI/2025/05/000006",
+      "ctriRegistrationDate": "2025-05-25",
+      "regulatoryStatus": "Compliant"
+    },
+    "monitoring": {
+      "plannedVisits": 20,
+      "completedVisits": 17,
+      "upcomingVisits": 1,
+      "overdueVisits": 0
+    },
+    "protocolDeviations": {
+      "total": 6,
+      "open": 1,
+      "resolved": 5,
+      "major": 1,
+      "minor": 5
+    },
+    "dataQuality": {
+      "totalQueries": 51,
+      "openQueries": 4,
+      "resolvedQueries": 47,
+      "overdueQueries": 0
+    },
+    "safety": {
+      "adverseEvents": 27,
+      "seriousAdverseEvents": 2,
+      "pendingSafetyReviews": 0,
+      "reportingDeadlines": 0,
+      "safetySignals": 0
+    },
+    "documents": [
+      "Study Protocol",
+      "Ethics Approval",
+      "CTRI Registration",
+      "Informed Consent",
+      "Monitoring Reports",
+      "Safety Reports"
+    ],
+    "tasks": [
+      {
+        "task": "Prepare interim study report",
+        "assignedTo": "Principal Investigator",
+        "dueDate": "2026-10-10",
+        "status": "Open"
+      }
+    ],
+    "alerts": [],
+    "cdiscFhirConfig": {
+      "cdashDomains": ["DM", "VS", "EG", "LB", "CM"],
+      "sdtmExportStatus": "Validated (SDTM IG v3.3)",
+      "adamDatasetsReady": ["ADSL", "ADVS"],
+      "defineXmlVersion": "2.1",
+      "fhirR4Mapping": {
+        "patientResource": "FHIR/R4/Patient/SUBJ-601",
+        "observationResource": "FHIR/R4/Observation/BP-601",
+        "abdmSyncStatus": "Synced to ABDM Health Repository"
+      }
+    },
+    "adverseEventsList": [],
+    "consentRecords": [
+      {
+        "subjectId": "SUBJ-601",
+        "icfVersion": "v2.0_Hindi",
+        "consentStatus": "Consented",
+        "consentTimestamp": "2025-06-15T10:00:00Z",
+        "digitalSignatureHash": "0x4a2e10...b99f",
+        "dataMinimizationNoticeSigned": true,
+        "abhaIdLinked": "91-2345-6789-0123",
+        "reConsentRequired": false
+      }
+    ],
+    "queriesList": [
+      {
+        "queryId": "QRY-601",
+        "subjectId": "SUBJ-615",
+        "formName": "ECG (EG)",
+        "fieldName": "QTc_Interval",
+        "issue": "Requires cardiologist re-verification",
+        "raisedBy": "Monitor (CRA)",
+        "raisedDate": "2026-09-20",
+        "status": "Open",
+        "assignedTo": "Principal Investigator",
+        "sdvStatus": "Unverified"
+      }
+    ],
+    "auditTrail": [
+      {
+        "auditId": "AUD-2026-8917",
+        "timestamp": "2026-09-20T15:30:00Z",
+        "userId": "USER-701",
+        "userName": "Dr. Sameer Iyer",
+        "userRole": "Principal Investigator",
+        "action": "Interim_Dataset_Export",
+        "entityModified": "SDTM Domain VS & EG",
+        "oldValue": null,
+        "newValue": "Export Generated (ZIP)",
+        "reasonForChange": "Interim analysis submission",
+        "ipAddress": "14.139.xxx.xxx",
+        "digitalSignature": "SHA256:32625293c0d8329d0106208a0d93f18a"
+      }
+    ]
+  },
+  {
+    "studyId": "AIIA-AYU-007",
+    "title": "Ayurvedic Support for Chronic Digestive Disorders",
+    "shortTitle": "AYU-GI-07",
+    "studyType": "Interventional",
+    "phase": "Phase II",
+    "researchArea": "Gastrointestinal Disorders",
+    "intervention": "Ayurvedic dietary and herbal intervention",
+    "principalInvestigator": "Dr. Meera Joshi",
+    "sponsor": "AIIA",
+    "description": "Study assessing an Ayurvedic intervention for chronic digestive symptoms.",
+    "startDate": "2026-04-10",
+    "expectedEndDate": "2027-10-31",
+    "status": "Recruiting",
+    "sites": [
+      {
+        "siteId": "SITE-012",
+        "name": "AIIA Delhi",
+        "location": "New Delhi",
+        "investigator": "Dr. Meera Joshi",
+        "status": "Active",
+        "activationDate": "2026-04-20"
+      },
+      {
+        "siteId": "SITE-013",
+        "name": "Ahmedabad Ayurveda Centre",
+        "location": "Ahmedabad",
+        "investigator": "Dr. Karan Shah",
+        "status": "Active",
+        "activationDate": "2026-05-02"
+      }
+    ],
+    "participants": {
+      "target": 180,
+      "screened": 73,
+      "eligible": 61,
+      "enrolled": 54,
+      "randomized": 52,
+      "completed": 11
+    },
+    "milestones": [
+      {
+        "name": "Protocol Approval",
+        "status": "Completed",
+        "date": "2026-03-20"
+      },
+      {
+        "name": "Ethics Approval",
+        "status": "Completed",
+        "date": "2026-03-25"
+      },
+      {
+        "name": "CTRI Registration",
+        "status": "Completed",
+        "date": "2026-03-30"
+      },
+      {
+        "name": "Site Activation",
+        "status": "Completed",
+        "date": "2026-05-02"
+      },
+      {
+        "name": "Recruitment",
+        "status": "In Progress",
+        "date": null
+      },
+      {
+        "name": "Data Collection",
+        "status": "In Progress",
+        "date": null
+      }
+    ],
+    "ethicsRegulatory": {
+      "ethicsCommittee": "AIIA Institutional Ethics Committee",
+      "approvalNumber": "IEC/AIIA/2026/007",
+      "approvalDate": "2026-03-25",
+      "approvalExpiry": "2027-03-24",
+      "ctriNumber": "CTRI/2026/03/000007",
+      "ctriRegistrationDate": "2026-03-30",
+      "regulatoryStatus": "Compliant"
+    },
+    "monitoring": {
+      "plannedVisits": 10,
+      "completedVisits": 2,
+      "upcomingVisits": 2,
+      "overdueVisits": 0
+    },
+    "protocolDeviations": {
+      "total": 1,
+      "open": 1,
+      "resolved": 0,
+      "major": 0,
+      "minor": 1
+    },
+    "dataQuality": {
+      "totalQueries": 12,
+      "openQueries": 6,
+      "resolvedQueries": 6,
+      "overdueQueries": 2
+    },
+    "safety": {
+      "adverseEvents": 4,
+      "seriousAdverseEvents": 0,
+      "pendingSafetyReviews": 0,
+      "reportingDeadlines": 0,
+      "safetySignals": 0
+    },
+    "documents": [
+      "Study Protocol",
+      "Ethics Approval",
+      "CTRI Registration",
+      "Informed Consent"
+    ],
+    "tasks": [
+      {
+        "task": "Resolve overdue data queries",
+        "assignedTo": "Study Coordinator",
+        "dueDate": "2026-09-26",
+        "status": "Urgent"
+      }
+    ],
+    "alerts": [
+      "2 data queries overdue"
+    ],
+    "cdiscFhirConfig": {
+      "cdashDomains": ["DM", "VS", "GI"],
+      "sdtmExportStatus": "In Progress",
+      "adamDatasetsReady": [],
+      "defineXmlVersion": "2.1",
+      "fhirR4Mapping": {
+        "patientResource": "FHIR/R4/Patient/SUBJ-701",
+        "observationResource": "FHIR/R4/Observation/GI-701",
+        "abdmSyncStatus": "Synced to ABDM Health Repository"
+      }
+    },
+    "adverseEventsList": [],
+    "consentRecords": [
+      {
+        "subjectId": "SUBJ-701",
+        "icfVersion": "v1.0_Gujarati",
+        "consentStatus": "Consented",
+        "consentTimestamp": "2026-04-22T09:10:00Z",
+        "digitalSignatureHash": "0x12a3b4...c56d",
+        "dataMinimizationNoticeSigned": true,
+        "abhaIdLinked": "91-8901-2345-6789",
+        "reConsentRequired": false
+      }
+    ],
+    "queriesList": [
+      {
+        "queryId": "QRY-701",
+        "subjectId": "SUBJ-705",
+        "formName": "Dietary Log (GI)",
+        "fieldName": "Calorie_Intake",
+        "issue": "Missing daily entry for Day 4",
+        "raisedBy": "Study Coordinator",
+        "raisedDate": "2026-09-23",
+        "status": "Open",
+        "assignedTo": "Study Coordinator",
+        "sdvStatus": "Unverified"
+      }
+    ],
+    "auditTrail": [
+      {
+        "auditId": "AUD-2026-8918",
+        "timestamp": "2026-09-23T10:00:00Z",
+        "userId": "USER-801",
+        "userName": "Dr. Meera Joshi",
+        "userRole": "Principal Investigator",
+        "action": "Form_Validation_Failed",
+        "entityModified": "Subject SUBJ-705 / Visit 1",
+        "oldValue": "Incomplete",
+        "newValue": "Query Raised",
+        "reasonForChange": "Automated system check",
+        "ipAddress": "14.139.xxx.xxx",
+        "digitalSignature": "SHA256:81dc9bdb52d04dc20036dbd8313ed055"
+      }
+    ]
+  },
+  {
+    "studyId": "AIIA-AYU-008",
+    "title": "Ayurvedic Management of Stress and Sleep Disturbance",
+    "shortTitle": "AYU-SLP-08",
+    "studyType": "Interventional",
+    "phase": "Phase II",
+    "researchArea": "Mental Wellness",
+    "intervention": "Ayurvedic lifestyle and herbal intervention",
+    "principalInvestigator": "Dr. Ritu Kapoor",
+    "sponsor": "AIIA",
+    "description": "Study evaluating an Ayurvedic intervention for stress and sleep-related symptoms.",
+    "startDate": "2025-10-01",
+    "expectedEndDate": "2026-12-31",
+    "status": "Active",
+    "sites": [
+      {
+        "siteId": "SITE-014",
+        "name": "AIIA Delhi",
+        "location": "New Delhi",
+        "investigator": "Dr. Ritu Kapoor",
+        "status": "Active",
+        "activationDate": "2025-10-15"
+      }
+    ],
+    "participants": {
+      "target": 100,
+      "screened": 108,
+      "eligible": 94,
+      "enrolled": 90,
+      "randomized": 88,
+      "completed": 72
+    },
+    "milestones": [
+      {
+        "name": "Protocol Approval",
+        "status": "Completed",
+        "date": "2025-09-10"
+      },
+      {
+        "name": "Ethics Approval",
+        "status": "Completed",
+        "date": "2025-09-15"
+      },
+      {
+        "name": "CTRI Registration",
+        "status": "Completed",
+        "date": "2025-09-20"
+      },
+      {
+        "name": "Site Activation",
+        "status": "Completed",
+        "date": "2025-10-15"
+      },
+      {
+        "name": "Recruitment",
+        "status": "Completed",
+        "date": "2026-03-20"
+      },
+      {
+        "name": "Data Collection",
+        "status": "In Progress",
+        "date": null
+      },
+      {
+        "name": "Analysis",
+        "status": "Pending",
+        "date": null
+      }
+    ],
+    "ethicsRegulatory": {
+      "ethicsCommittee": "AIIA Institutional Ethics Committee",
+      "approvalNumber": "IEC/AIIA/2025/021",
+      "approvalDate": "2025-09-15",
+      "approvalExpiry": "2026-09-14",
+      "ctriNumber": "CTRI/2025/09/000008",
+      "ctriRegistrationDate": "2025-09-20",
+      "regulatoryStatus": "Renewal Required"
+    },
+    "monitoring": {
+      "plannedVisits": 7,
+      "completedVisits": 6,
+      "upcomingVisits": 1,
+      "overdueVisits": 0
+    },
+    "protocolDeviations": {
+      "total": 3,
+      "open": 0,
+      "resolved": 3,
+      "major": 0,
+      "minor": 3
+    },
+    "dataQuality": {
+      "totalQueries": 19,
+      "openQueries": 2,
+      "resolvedQueries": 17,
+      "overdueQueries": 0
+    },
+    "safety": {
+      "adverseEvents": 7,
+      "seriousAdverseEvents": 0,
+      "pendingSafetyReviews": 0,
+      "reportingDeadlines": 0,
+      "safetySignals": 0
+    },
+    "documents": [
+      "Study Protocol",
+      "Ethics Approval",
+      "CTRI Registration",
+      "Informed Consent",
+      "Final Monitoring Report"
+    ],
+    "tasks": [
+      {
+        "task": "Submit ethics renewal",
+        "assignedTo": "Principal Investigator",
+        "dueDate": "2026-10-05",
+        "status": "Urgent"
+      }
+    ],
+    "alerts": [
+      "Ethics approval renewal required"
+    ],
+    "cdiscFhirConfig": {
+      "cdashDomains": ["DM", "VS", "QS"],
+      "sdtmExportStatus": "Validated (SDTM IG v3.3)",
+      "adamDatasetsReady": ["ADSL", "ADQS"],
+      "defineXmlVersion": "2.1",
+      "fhirR4Mapping": {
+        "patientResource": "FHIR/R4/Patient/SUBJ-801",
+        "observationResource": "FHIR/R4/Observation/PSQI-801",
+        "abdmSyncStatus": "Synced to ABDM Health Repository"
+      }
+    },
+    "adverseEventsList": [],
+    "consentRecords": [
+      {
+        "subjectId": "SUBJ-801",
+        "icfVersion": "v1.0_English",
+        "consentStatus": "Consented",
+        "consentTimestamp": "2025-10-20T11:45:00Z",
+        "digitalSignatureHash": "0x5e6f7a...b12c",
+        "dataMinimizationNoticeSigned": true,
+        "abhaIdLinked": "91-9012-3456-7890",
+        "reConsentRequired": false
+      }
+    ],
+    "queriesList": [
+      {
+        "queryId": "QRY-801",
+        "subjectId": "SUBJ-812",
+        "formName": "Sleep Index Questionnaire (QS)",
+        "fieldName": "PSQI_Score",
+        "issue": "Score miscalculated on paper source",
+        "raisedBy": "Monitor (CRA)",
+        "raisedDate": "2026-09-18",
+        "status": "Resolved",
+        "assignedTo": "Study Coordinator",
+        "sdvStatus": "Verified"
+      }
+    ],
+    "auditTrail": [
+      {
+        "auditId": "AUD-2026-8919",
+        "timestamp": "2026-09-18T16:00:00Z",
+        "userId": "USER-901",
+        "userName": "Dr. Ritu Kapoor",
+        "userRole": "Principal Investigator",
+        "action": "Ethics_Renewal_Document_Uploaded",
+        "entityModified": "Ethics Approval Document",
+        "oldValue": "IEC/AIIA/2025/021 (Expired)",
+        "newValue": "IEC/AIIA/2025/021_Renewal_Draft",
+        "reasonForChange": "Annual renewal submission process",
+        "ipAddress": "14.139.xxx.xxx",
+        "digitalSignature": "SHA256:a87ff679a2f3e71d9181a67b7542122c"
+      }
+    ]
+  },
+  {
+    "studyId": "AIIA-AYU-009",
+    "title": "Ayurvedic Intervention for Chronic Respiratory Symptoms",
+    "shortTitle": "AYU-RESP-09",
+    "studyType": "Observational",
+    "phase": "Not Applicable",
+    "researchArea": "Respiratory Disorders",
+    "intervention": "Observation of routine Ayurvedic care",
+    "principalInvestigator": "Dr. Arjun Rao",
+    "sponsor": "AIIA",
+    "description": "Observational study evaluating outcomes among patients receiving routine Ayurvedic respiratory care.",
+    "startDate": "2025-04-01",
+    "expectedEndDate": "2026-11-30",
+    "status": "Near Completion",
+    "sites": [
+      {
+        "siteId": "SITE-015",
+        "name": "AIIA Delhi",
+        "location": "New Delhi",
+        "investigator": "Dr. Arjun Rao",
+        "status": "Active",
+        "activationDate": "2025-04-10"
+      },
+      {
+        "siteId": "SITE-016",
+        "name": "Kochi Ayurveda Centre",
+        "location": "Kochi",
+        "investigator": "Dr. Anjali Nair",
+        "status": "Active",
+        "activationDate": "2025-05-01"
+      }
+    ],
+    "participants": {
+      "target": 160,
+      "screened": 170,
+      "eligible": 155,
+      "enrolled": 150,
+      "randomized": 0,
+      "completed": 139
+    },
+    "milestones": [
+      {
+        "name": "Protocol Approval",
+        "status": "Completed",
+        "date": "2025-03-10"
+      },
+      {
+        "name": "Ethics Approval",
+        "status": "Completed",
+        "date": "2025-03-15"
+      },
+      {
+        "name": "CTRI Registration",
+        "status": "Completed",
+        "date": "2025-03-20"
+      },
+      {
+        "name": "Site Activation",
+        "status": "Completed",
+        "date": "2025-05-01"
+      },
+      {
+        "name": "Recruitment",
+        "status": "Completed",
+        "date": "2026-01-15"
+      },
+      {
+        "name": "Data Collection",
+        "status": "Completed",
+        "date": "2026-08-30"
+      },
+      {
+        "name": "Analysis",
+        "status": "In Progress",
+        "date": null
+      },
+      {
+        "name": "Study Close-out",
+        "status": "Pending",
+        "date": null
+      }
+    ],
+    "ethicsRegulatory": {
+      "ethicsCommittee": "AIIA Institutional Ethics Committee",
+      "approvalNumber": "IEC/AIIA/2025/003",
+      "approvalDate": "2025-03-15",
+      "approvalExpiry": "2026-03-14",
+      "ctriNumber": "CTRI/2025/03/000009",
+      "ctriRegistrationDate": "2025-03-20",
+      "regulatoryStatus": "Compliant"
+    },
+    "monitoring": {
+      "plannedVisits": 10,
+      "completedVisits": 10,
+      "upcomingVisits": 0,
+      "overdueVisits": 0
+    },
+    "protocolDeviations": {
+      "total": 2,
+      "open": 0,
+      "resolved": 2,
+      "major": 0,
+      "minor": 2
+    },
+    "dataQuality": {
+      "totalQueries": 38,
+      "openQueries": 1,
+      "resolvedQueries": 37,
+      "overdueQueries": 0
+    },
+    "safety": {
+      "adverseEvents": 6,
+      "seriousAdverseEvents": 0,
+      "pendingSafetyReviews": 0,
+      "reportingDeadlines": 0,
+      "safetySignals": 0
+    },
+    "documents": [
+      "Study Protocol",
+      "Ethics Approval",
+      "CTRI Registration",
+      "Consent Documents",
+      "Final Data Report"
+    ],
+    "tasks": [
+      {
+        "task": "Complete final analysis documentation",
+        "assignedTo": "Principal Investigator",
+        "dueDate": "2026-10-20",
+        "status": "Open"
+      }
+    ],
+    "alerts": [],
+    "cdiscFhirConfig": {
+      "cdashDomains": ["DM", "VS", "PE", "AE"],
+      "sdtmExportStatus": "Validated (SDTM IG v3.3)",
+      "adamDatasetsReady": ["ADSL", "ADAE"],
+      "defineXmlVersion": "2.1",
+      "fhirR4Mapping": {
+        "patientResource": "FHIR/R4/Patient/SUBJ-901",
+        "observationResource": "FHIR/R4/Observation/RESP-901",
+        "abdmSyncStatus": "Synced to ABDM Health Repository"
+      }
+    },
+    "adverseEventsList": [],
+    "consentRecords": [
+      {
+        "subjectId": "SUBJ-901",
+        "icfVersion": "v1.0_Malayalam",
+        "consentStatus": "Consented",
+        "consentTimestamp": "2025-04-12T10:15:00Z",
+        "digitalSignatureHash": "0x2b3c4d...e56f",
+        "dataMinimizationNoticeSigned": true,
+        "abhaIdLinked": "91-0123-4567-8901",
+        "reConsentRequired": false
+      }
+    ],
+    "queriesList": [
+      {
+        "queryId": "QRY-901",
+        "subjectId": "SUBJ-930",
+        "formName": "Demographics (DM)",
+        "fieldName": "Age",
+        "issue": "Date of birth vs age discrepancy",
+        "raisedBy": "Study Coordinator",
+        "raisedDate": "2026-08-28",
+        "status": "Open",
+        "assignedTo": "Study Coordinator",
+        "sdvStatus": "Unverified"
+      }
+    ],
+    "auditTrail": [
+      {
+        "auditId": "AUD-2026-8920",
+        "timestamp": "2026-08-30T17:45:00Z",
+        "userId": "USER-1001",
+        "userName": "Dr. Arjun Rao",
+        "userRole": "Principal Investigator",
+        "action": "Data_Lock_Executed",
+        "entityModified": "All Study Domains",
+        "oldValue": "Unlocked",
+        "newValue": "Locked for Close-out Analysis",
+        "reasonForChange": "Data collection complete",
+        "ipAddress": "14.139.xxx.xxx",
+        "digitalSignature": "SHA256:e4d909c290d0fb1ca068ffaddf22cbd0"
+      }
+    ]
+  },
+  {
+    "studyId": "AIIA-AYU-010",
+    "title": "Ayurvedic Approach to Metabolic Health in Adults",
+    "shortTitle": "AYU-MET-10",
+    "studyType": "Interventional",
+    "phase": "Phase I",
+    "researchArea": "Metabolic Health",
+    "intervention": "Ayurvedic dietary and lifestyle intervention",
+    "principalInvestigator": "Dr. Neelam Singh",
+    "sponsor": "AIIA",
+    "description": "Early-stage study evaluating the safety and feasibility of an Ayurvedic lifestyle intervention.",
+    "startDate": "2026-06-01",
+    "expectedEndDate": "2027-05-31",
+    "status": "Active",
+    "sites": [
+      {
+        "siteId": "SITE-017",
+        "name": "AIIA Delhi",
+        "location": "New Delhi",
+        "investigator": "Dr. Neelam Singh",
+        "status": "Active",
+        "activationDate": "2026-06-12"
+      }
+    ],
+    "participants": {
+      "target": 60,
+      "screened": 41,
+      "eligible": 35,
+      "enrolled": 30,
+      "randomized": 28,
+      "completed": 8
+    },
+    "milestones": [
+      {
+        "name": "Protocol Approval",
+        "status": "Completed",
+        "date": "2026-05-10"
+      },
+      {
+        "name": "Ethics Approval",
+        "status": "Completed",
+        "date": "2026-05-15"
+      },
+      {
+        "name": "CTRI Registration",
+        "status": "Completed",
+        "date": "2026-05-20"
+      },
+      {
+        "name": "Site Activation",
+        "status": "Completed",
+        "date": "2026-06-12"
+      },
+      {
+        "name": "Recruitment",
+        "status": "In Progress",
+        "date": null
+      },
+      {
+        "name": "Data Collection",
+        "status": "In Progress",
+        "date": null
+      }
+    ],
+    "ethicsRegulatory": {
+      "ethicsCommittee": "AIIA Institutional Ethics Committee",
+      "approvalNumber": "IEC/AIIA/2026/010",
+      "approvalDate": "2026-05-15",
+      "approvalExpiry": "2027-05-14",
+      "ctriNumber": "CTRI/2026/05/000010",
+      "ctriRegistrationDate": "2026-05-20",
+      "regulatoryStatus": "Compliant"
+    },
+    "monitoring": {
+      "plannedVisits": 5,
+      "completedVisits": 1,
+      "upcomingVisits": 1,
+      "overdueVisits": 0
+    },
+    "protocolDeviations": {
+      "total": 0,
+      "open": 0,
+      "resolved": 0,
+      "major": 0,
+      "minor": 0
+    },
+    "dataQuality": {
+      "totalQueries": 7,
+      "openQueries": 2,
+      "resolvedQueries": 5,
+      "overdueQueries": 0
+    },
+    "safety": {
+      "adverseEvents": 2,
+      "seriousAdverseEvents": 0,
+      "pendingSafetyReviews": 0,
+      "reportingDeadlines": 0,
+      "safetySignals": 0
+    },
+    "documents": [
+      "Study Protocol",
+      "Ethics Approval",
+      "CTRI Registration",
+      "Informed Consent"
+    ],
+    "tasks": [
+      {
+        "task": "Complete first monitoring visit",
+        "assignedTo": "Monitor",
+        "dueDate": "2026-10-01",
+        "status": "Open"
+      }
+    ],
+    "alerts": [],
+    "cdiscFhirConfig": {
+      "cdashDomains": ["DM", "VS", "LB"],
+      "sdtmExportStatus": "In Progress",
+      "adamDatasetsReady": [],
+      "defineXmlVersion": "2.1",
+      "fhirR4Mapping": {
+        "patientResource": "FHIR/R4/Patient/SUBJ-1001",
+        "observationResource": "FHIR/R4/Observation/MET-1001",
+        "abdmSyncStatus": "Synced to ABDM Health Repository"
+      }
+    },
+    "adverseEventsList": [],
+    "consentRecords": [
+      {
+        "subjectId": "SUBJ-1001",
+        "icfVersion": "v1.0_Hindi",
+        "consentStatus": "Consented",
+        "consentTimestamp": "2026-06-18T11:20:00Z",
+        "digitalSignatureHash": "0x6f5e4d...c321",
+        "dataMinimizationNoticeSigned": true,
+        "abhaIdLinked": "91-1122-3344-5566",
+        "reConsentRequired": false
+      }
+    ],
+    "queriesList": [
+      {
+        "queryId": "QRY-1001",
+        "subjectId": "SUBJ-1005",
+        "formName": "Lab Testing (LB)",
+        "fieldName": "HbA1c",
+        "issue": "Lab report scan attachment missing",
+        "raisedBy": "Monitor (CRA)",
+        "raisedDate": "2026-09-22",
+        "status": "Open",
+        "assignedTo": "Study Coordinator",
+        "sdvStatus": "Unverified"
+      }
+    ],
+    "auditTrail": [
+      {
+        "auditId": "AUD-2026-8921",
+        "timestamp": "2026-09-22T13:10:00Z",
+        "userId": "USER-1101",
+        "userName": "Dr. Neelam Singh",
+        "userRole": "Principal Investigator",
+        "action": "Site_Monitoring_Initiated",
+        "entityModified": "Site SITE-017",
+        "oldValue": "Inactive",
+        "newValue": "Active Monitoring",
+        "reasonForChange": "First site visit scheduled",
+        "ipAddress": "14.139.xxx.xxx",
+        "digitalSignature": "SHA256:f12a3b4c5d6e7f8a9b0c1d2e3f4a5b6c"
+      }
+    ]
+  }
+]
