@@ -1,232 +1,205 @@
-:root {
-  /* Core Layout & Brand Colors (Ayurveda Botanical Revised) */
-  --text: #2D3748;
-  /* Dark Charcoal Slate */
-  --text-h: #1A221E;
-  /* Deep Forest Charcoal */
-  --text-muted: #5A6A70;
-  /* Secondary Muted Slate */
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
 
-  /* Dominant Background (Sand Beige) */
-  --bg: #F4F0EA;
-  /* Warm Sand Beige (Dominant) */
-  --border: #D4A373;
-  /* Earthen Ochre Border */
+@theme {
+  --color-sand: #F4F0EA;
+  --color-cream: #FAF8F5;
+  --color-oat: #EFEAD8;
+  --color-linen: #EFE8D8;
+  --color-ochre: #D4A373;
+  --color-sage: #84A98C;
+  --color-sage-deep: #6B9080;
+  --color-cream-ink: #FAF8F5;
+  --color-clay: #C86D51;
+  --color-ink: #2D3748;
+  --color-forest: #1A221E;
+  --color-muted: #5A6A70;
+  --color-mint: #E2ECE9;
+  --color-mint-ink: #2C4A3E;
+  --color-amber-soft: #F7EEDF;
+  --color-amber-ink: #B87333;
+  --color-gold-soft: #F8EEDF;
+  --color-gold-ink: #D48C46;
+  --color-clay-soft: #F8EAE6;
+}
 
-  /* Surface & Container Colors */
-  --card-bg: #FAF8F5;
-  /* Soft Cream Surface */
-  --code-bg: #EFE8D8;
-  /* Light Sand Table/Code Row */
-  --header-bg: #EFEAD8;
-  /* Muted Oat (Slightly darker beige for Header) */
+@layer base {
+  :root {
+    --text: #2D3748;
+    --text-h: #1A221E;
+    --text-muted: #5A6A70;
+    --bg: #F4F0EA;
+    --border: #D4A373;
+    --card-bg: #FAF8F5;
+    --code-bg: #EFE8D8;
+    --header-bg: #EFEAD8;
+    --accent: #84A98C;
+    --accent-hover: #6B9080;
+    --accent-text: #FAF8F5;
+    --accent-terracotta: #C86D51;
+    --accent-bg: rgba(132, 169, 140, 0.1);
+    --shadow: rgba(45, 55, 72, 0.05) 0 10px 15px -3px, rgba(45, 55, 72, 0.02) 0 4px 6px -2px;
+    --badge-active-bg: #E2ECE9;
+    --badge-active-text: #2C4A3E;
+    --badge-pending-bg: #F7EEDF;
+    --badge-pending-text: #B87333;
+    --badge-warning-bg: #F8EEDF;
+    --badge-warning-text: #D48C46;
+    --badge-urgent-bg: #F8EAE6;
+    --badge-urgent-text: #C86D51;
+    --sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --heading: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --mono: ui-monospace, Consolas, monospace;
 
-  /* Primary Accent (Sage Green) - Used only for Highlights & Actions */
-  --accent: #84A98C;
-  /* Pastel Sage Green */
-  --accent-hover: #6B9080;
-  /* Deep Muted Sage */
-  --accent-text: #FAF8F5;
-  /* Light text for sage background */
+    font: 18px/145% var(--sans);
+    letter-spacing: 0.18px;
+    color-scheme: light;
+    color: var(--text);
+    background: var(--bg);
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-  /* Secondary Accents */
-  --accent-terracotta: #C86D51;
-  /* Clay Accent / Urgent */
-  --accent-bg: rgba(132, 169, 140, 0.1);
-  /* Very subtle sage tint */
-  --shadow: rgba(45, 55, 72, 0.05) 0 10px 15px -3px, rgba(45, 55, 72, 0.02) 0 4px 6px -2px;
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    font-family: inherit;
+  }
 
-  /* Status Badges */
-  --badge-active-bg: #E2ECE9;
-  --badge-active-text: #2C4A3E;
-  --badge-pending-bg: #F7EEDF;
-  --badge-pending-text: #B87333;
-  --badge-warning-bg: #F8EEDF;
-  --badge-warning-text: #D48C46;
-  --badge-urgent-bg: #F8EAE6;
-  --badge-urgent-text: #C86D51;
+  body {
+    margin: 0;
+    background-color: var(--bg);
+    color: var(--text);
+  }
 
-  /* Typography */
-  --sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+  #root {
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    text-align: left;
+    border-inline: none;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg);
+  }
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light;
-  color: var(--text);
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--heading);
+    font-weight: 600;
+    color: var(--text-h);
+  }
 
-  /* CHANGE 1: Set dominant application background to Sand Beige */
-  background: var(--bg);
+  p {
+    margin: 0;
+  }
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  @media (max-width: 1024px) {
-    font-size: 16px;
+  code {
+    font-family: var(--mono);
+    font-size: 15px;
+    padding: 4px 8px;
+    background: var(--code-bg);
+    border-radius: 4px;
+    color: var(--text-h);
   }
 }
 
-/* 1. Base resets & styles - Remove margins & padding (No Gutter) */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  /* Gutter Part 1 */
-  padding: 0;
-  /* Gutter Part 2 */
-  font-family: inherit;
-}
-
-body {
-  margin: 0;
-  background-color: var(--bg);
-  /* CHANGE 2: Also set Body to Dominant Beige */
-  color: var(--text);
-}
-
-/* 2. Optimized Full-Width Layout Container */
-#root {
-  /* Simplified for Full-Width Layout */
-  width: 100%;
-  max-width: 1440px;
-  /* Optimal wide reading width */
-  margin: 0 auto;
-  text-align: left;
-
-  /* CHANGE 3: Remove vertical side borders completely (Border-Free) */
-  border-inline: none;
-
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  background-color: var(--bg);
-  /* Content surface color matches body */
-}
-
-/* Typography styles ( remain same) */
-h1,
-h2,
-h3,
-h4 {
-  font-family: var(--heading);
-  font-weight: 600;
-  color: var(--text-h);
-}
-
-h1 {
-  font-size: 42px;
-  letter-spacing: -1.2px;
-  margin: 24px 0;
-}
-
-h2 {
-  font-size: 24px;
-  line-height: 120%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-}
-
-@media (max-width: 1024px) {
-  h1 {
-    font-size: 30px;
-    margin: 16px 0;
+@layer components {
+  .card {
+    background-color: var(--card-bg);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: var(--shadow);
   }
 
-  h2 {
-    font-size: 20px;
+  .btn-primary {
+    background-color: var(--accent);
+    color: var(--accent-text);
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+
+  .btn-primary:hover {
+    background-color: var(--accent-hover);
+  }
+
+  .btn-terracotta {
+    background-color: var(--accent-terracotta);
+    color: var(--accent-text);
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .badge-active {
+    background-color: var(--badge-active-bg);
+    color: var(--badge-active-text);
+  }
+
+  .badge-pending {
+    background-color: var(--badge-pending-bg);
+    color: var(--badge-pending-text);
+  }
+
+  .badge-warning {
+    background-color: var(--badge-warning-bg);
+    color: var(--badge-warning-text);
+  }
+
+  .badge-urgent {
+    background-color: var(--badge-urgent-bg);
+    color: var(--badge-urgent-text);
+  }
+
+  .iec-pipeline-card {
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .iec-pipeline-card:hover {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.1);
+  }
+
+  .pulse-badge {
+    animation: pulseGlow 2s infinite;
+  }
+
+  .shimmer-banner {
+    background: linear-gradient(90deg, var(--card-bg) 25%, var(--code-bg) 50%, var(--card-bg) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 4s infinite;
   }
 }
-
-p {
-  margin: 0;
-}
-
-code {
-  font-family: var(--mono);
-  font-size: 15px;
-  padding: 4px 8px;
-  background: var(--code-bg);
-  border-radius: 4px;
-  color: var(--text-h);
-}
-
-/* Card & Component Utility Classes ( remain same) */
-.card {
-  background-color: var(--card-bg);
-  border: 1.5px solid var(--border);
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: var(--shadow);
-}
-
-.btn-primary {
-  background-color: var(--accent);
-  color: var(--accent-text);
-  border: none;
-  border-radius: 8px;
-  padding: 8px 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.btn-primary:hover {
-  background-color: var(--accent-hover);
-}
-
-.btn-terracotta {
-  background-color: var(--accent-terracotta);
-  color: var(--accent-text);
-  border: none;
-  border-radius: 8px;
-  padding: 8px 16px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-/* Status Badges ( remain same) */
-.badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 4px 12px;
-  border-radius: 12px;
-  font-size: 12px;
-  font-weight: 700;
-}
-
-.badge-active {
-  background-color: var(--badge-active-bg);
-  color: var(--badge-active-text);
-}
-
-.badge-pending {
-  background-color: var(--badge-pending-bg);
-  color: var(--badge-pending-text);
-}
-
-.badge-warning {
-  background-color: var(--badge-warning-bg);
-  color: var(--badge-warning-text);
-}
-
-.badge-urgent {
-  background-color: var(--badge-urgent-bg);
-  color: var(--badge-urgent-text);
-}
-
-/* --- IEC Pipeline & Glassmorphism Micro-Animations --- */
 
 @keyframes pulseGlow {
   0% {
     box-shadow: 0 0 0 0 rgba(192, 86, 33, 0.4);
   }
-
   70% {
     box-shadow: 0 0 0 8px rgba(192, 86, 33, 0);
   }
-
   100% {
     box-shadow: 0 0 0 0 rgba(192, 86, 33, 0);
   }
@@ -236,11 +209,9 @@ code {
   0% {
     transform: translateY(0px);
   }
-
   50% {
     transform: translateY(-4px);
   }
-
   100% {
     transform: translateY(0px);
   }
@@ -250,27 +221,7 @@ code {
   0% {
     background-position: -200% 0;
   }
-
   100% {
     background-position: 200% 0;
   }
-}
-
-.iec-pipeline-card {
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.iec-pipeline-card:hover {
-  transform: translateY(-4px) scale(1.01);
-  box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.1);
-}
-
-.pulse-badge {
-  animation: pulseGlow 2s infinite;
-}
-
-.shimmer-banner {
-  background: linear-gradient(90deg, var(--card-bg) 25%, var(--code-bg) 50%, var(--card-bg) 75%);
-  background-size: 200% 100%;
-  animation: shimmer 4s infinite;
 }

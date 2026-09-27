@@ -156,7 +156,7 @@ export default function AuditLogs({ onBack }) {
 
       {/* CLEAN ENTERPRISE AUDIT STREAM CARD */}
       <Card title="System-wide Verification Audit Trail" subtitle="Attributable, Legible, Contemporaneous, Original, Accurate">
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', maxHeight: 420, overflow: 'auto' }}>
           {filteredLogs.map((log) => (
             <div
               key={log.id}

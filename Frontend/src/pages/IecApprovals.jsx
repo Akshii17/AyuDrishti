@@ -248,7 +248,8 @@ export default function IecApprovals({ onBack }) {
                   backgroundColor: 'var(--code-bg)', 
                   borderTop: `4px solid ${stage.color}`, 
                   padding: '16px',
-                  minHeight: '420px',
+                  minHeight: '0',
+                  maxHeight: '480px',
                   display: 'flex',
                   flexDirection: 'column',
                   gap: '12px',
@@ -275,7 +276,8 @@ export default function IecApprovals({ onBack }) {
                     No protocols in this stage.
                   </div>
                 ) : (
-                  stageProtocols.map((p) => (
+                  <div style={{ maxHeight: 360, overflow: 'auto', display: 'flex', flexDirection: 'column', gap: 12 }}>
+                  {stageProtocols.map((p) => (
                     <div
                       key={p.id}
                       className="iec-pipeline-card"
@@ -313,7 +315,8 @@ export default function IecApprovals({ onBack }) {
                         <span style={{ color: 'var(--accent)', fontWeight: 600 }}>Review Dossier &rarr;</span>
                       </div>
                     </div>
-                  ))
+                  ))}
+                  </div>
                 )}
               </div>
             );

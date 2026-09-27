@@ -1,0 +1,22 @@
+[
+    {
+      "email": "ananya.sharma@aiia.gov.in",
+      "name": "Dr. Ananya Sharma",
+      "role": "pi"
+    },
+    {
+      "email": "vivek.rao@aiia.gov.in",
+      "name": "Dr. Vivek Rao",
+      "role": "pi"
+    },
+    {
+      "email": "priya.nambiar@aiia.gov.in",
+      "name": "Priya Nambiar",
+      "role": "coordinator"
+    },
+    {
+      "email": "karan.mehta@aiia.gov.in",
+      "name": "Karan Mehta",
+      "role": "monitor"
+    }
+  ]

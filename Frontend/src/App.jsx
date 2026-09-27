@@ -8,6 +8,12 @@ import AuditLogs from './pages/AuditLogs';
 import mockData from './data/mockStudies.json';
 import RegisterProtocol from './pages/RegisterProtocol';
 import ConsentManagementPage from './pages/ConsentManagementPage';
+import LandingPage from './pages/LandingPage';
+import AuthModal from './components/auth/AuthModal';
+import PIDashboard from './pages/PIDashboard';
+import CoordinatorDashboard from './pages/CoordinatorDashboard';
+import MonitorDashboard from './pages/MonitorDashboard';
+import EthicsDashboard from './pages/EthicsDashboard';
 
 // --- Dedicated Secondary Page Views ---
 
@@ -91,7 +97,7 @@ export default function App() {
     if (path.includes('pvdashboard')) {
       return 'PvDashboard';
     }
-    if (path.includes('studydetails')) {
+    if (path.includes('/study/') || path.includes('studydetails')) {
       return 'StudyDetails';
     }
     if (path.includes('registerprotocol')) {
@@ -106,15 +112,69 @@ export default function App() {
     if (path.includes('auditlogs')) {
       return 'AuditLogs';
     }
+    if (path.includes('executivedashboard')) {
+      return 'ExecutiveDashboard';
+    }
+    if (path.includes('pidashboard')) {
+      return 'PIDashboard';
+    }
+    if (path.includes('coordinatordashboard')) {
+      return 'CoordinatorDashboard';
+    }
+    if (path.includes('monitordashboard') || path.endsWith('/monitor') || path === '/monitor') {
+      return 'MonitorDashboard';
+    }
+    if (path.includes('ethicsdashboard') || path.includes('/ethics') || path === '/iec') {
+      return 'EthicsDashboard';
+    }
+    return 'Landing';
+  };
+
+  const getAuthModeFromPath = () => {
+    const path = window.location.pathname.replace(/\/$/, '').toLowerCase();
+    if (path.endsWith('/register') || path === '/register') return 'register';
+    if (path.endsWith('/login') || path === '/login') return 'login';
+    return null;
+  };
+
+  const readSessionUser = () => {
+    try {
+      return JSON.parse(sessionStorage.getItem('ayudrishti_user') || 'null');
+    } catch {
+      return null;
+    }
+  };
+
+  const homePageForRole = (role) => {
+    const key = (role || '').trim();
+    if (key === 'Principal Investigator') return 'PIDashboard';
+    if (key === 'Study Coordinator') return 'CoordinatorDashboard';
+    if (key === 'Monitor') return 'MonitorDashboard';
+    if (key === 'Ethics Committee') return 'EthicsDashboard';
     return 'ExecutiveDashboard';
   };
 
+  const studyIdFromPath = () => {
+    const match = window.location.pathname.match(/\/study\/([^/?#]+)/i);
+    return match ? decodeURIComponent(match[1]) : null;
+  };
+
+  const studyFromPath = () => {
+    const id = studyIdFromPath();
+    if (!id) return mockData[0];
+    return mockData.find((s) => s.studyId.toLowerCase() === id.toLowerCase()) || mockData[0];
+  };
+
   const [currentPage, setCurrentPage] = useState(getPageFromPath);
-  const [selectedStudy, setSelectedStudy] = useState(mockData[0]);
+  const [selectedStudy, setSelectedStudy] = useState(studyFromPath);
+  const [authMode, setAuthMode] = useState(getAuthModeFromPath);
+  const [sessionUser, setSessionUser] = useState(readSessionUser);
 
   useEffect(() => {
     const handlePopState = () => {
       setCurrentPage(getPageFromPath());
+      setAuthMode(getAuthModeFromPath());
+      setSelectedStudy(studyFromPath());
     };
     window.addEventListener('popstate', handlePopState);
     return () => {
@@ -125,21 +185,88 @@ export default function App() {
   const handleSelectStudy = (study) => {
     setSelectedStudy(study);
     setCurrentPage('StudyDetails');
-    window.history.pushState({}, '', '/StudyDetails');
+    window.history.pushState({}, '', `/study/${study.studyId}`);
   };
 
   const handleHeaderNavigate = (pageKey) => {
     setCurrentPage(pageKey);
-    window.history.pushState({}, '', `/${pageKey}`);
+    const path = pageKey === 'Landing' ? '/' : `/${pageKey}`;
+    window.history.pushState({}, '', path);
   };
 
   const navigateToHome = () => {
-    setCurrentPage('ExecutiveDashboard');
+    const page = homePageForRole(sessionUser?.role);
+    setCurrentPage(page);
+    window.history.pushState({}, '', `/${page}`);
+  };
+
+  const openAuth = (mode) => {
+    setAuthMode(mode);
+    window.history.pushState({}, '', mode === 'register' ? '/register' : '/login');
+  };
+
+  const closeAuth = () => {
+    setAuthMode(null);
+    if (currentPage === 'Landing') {
+      window.history.pushState({}, '', '/');
+    }
+  };
+
+  const handleLogout = () => {
+    sessionStorage.removeItem('ayudrishti_user');
+    setSessionUser(null);
+    setAuthMode(null);
+    setCurrentPage('Landing');
     window.history.pushState({}, '', '/');
+  };
+
+  const handleAuthSuccess = (user) => {
+    sessionStorage.setItem('ayudrishti_user', JSON.stringify(user));
+    setSessionUser(user);
+    setAuthMode(null);
+    const page = homePageForRole(user.role);
+    setCurrentPage(page);
+    window.history.pushState({}, '', `/${page}`);
   };
 
   const renderContent = () => {
     switch (currentPage) {
+      case 'Landing':
+        return <LandingPage onOpenAuth={openAuth} />;
+      case 'PIDashboard':
+        return (
+          <PIDashboard
+            studies={mockData}
+            sessionUser={sessionUser}
+            onOpenStudy={handleSelectStudy}
+          />
+        );
+      case 'CoordinatorDashboard':
+        return (
+          <CoordinatorDashboard
+            studies={mockData}
+            sessionUser={sessionUser}
+            onOpenStudy={handleSelectStudy}
+          />
+        );
+      case 'MonitorDashboard':
+        return (
+          <MonitorDashboard
+            studies={mockData}
+            sessionUser={sessionUser}
+            onOpenStudy={handleSelectStudy}
+          />
+        );
+      case 'EthicsDashboard':
+        return (
+          <EthicsDashboard
+            studies={mockData}
+            onOpenIec={() => {
+              setCurrentPage('IecApprovals');
+              window.history.pushState({}, '', '/IecApprovals');
+            }}
+          />
+        );
       case 'ExecutiveDashboard':
         return (
           <ExecutiveDashboard 
@@ -196,24 +323,48 @@ export default function App() {
     }
   };
 
+  const isLanding = currentPage === 'Landing';
+
   return (
     <div id="root">
-      <Header onNavigate={handleHeaderNavigate} currentPage={currentPage} />
+      {!isLanding && (
+        <Header
+          onNavigate={handleHeaderNavigate}
+          currentPage={currentPage}
+          sessionUser={sessionUser}
+          onLogout={handleLogout}
+        />
+      )}
 
-      <main style={{ flex: 1, width: '100%', maxWidth: '1440px', margin: '0 auto', boxSizing: 'border-box' }}>
-        {renderContent()}
-      </main>
+      {isLanding ? (
+        renderContent()
+      ) : (
+        <main style={{ flex: 1, width: '100%', maxWidth: '1440px', margin: '0 auto', boxSizing: 'border-box', padding: '0 24px 32px' }}>
+          {renderContent()}
+        </main>
+      )}
 
-      <footer style={{
-        backgroundColor: 'var(--code-bg)',
-        borderTop: '1px solid var(--border)',
-        padding: '16px 24px',
-        textAlign: 'center',
-        fontSize: '12px',
-        color: 'var(--text-muted)',
-      }}>
-        All India Institute of Ayurveda (AIIA) | Ministry of Ayush, Govt. of India | GCP Compliant CTMS
-      </footer>
+      {!isLanding && (
+        <footer style={{
+          backgroundColor: 'var(--code-bg)',
+          borderTop: '1px solid var(--border)',
+          padding: '16px 24px',
+          textAlign: 'center',
+          fontSize: '12px',
+          color: 'var(--text-muted)',
+        }}>
+          All India Institute of Ayurveda (AIIA) | Ministry of Ayush, Govt. of India | GCP Compliant CTMS
+        </footer>
+      )}
+
+      {authMode && (
+        <AuthModal
+          mode={authMode}
+          onClose={closeAuth}
+          onSwitchMode={openAuth}
+          onSuccess={handleAuthSuccess}
+        />
+      )}
     </div>
   );
 }

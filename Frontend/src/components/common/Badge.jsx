@@ -7,7 +7,7 @@ export default function Badge({ status, text }) {
     const normalized = statusType.toLowerCase();
 
     // Active / Compliant / Completed -> Green Mint Badge
-    if (['active', 'compliant', 'completed', 'resolved', 'site activation'].includes(normalized)) {
+    if (['active', 'compliant', 'completed', 'resolved', 'site activation', 'near completion'].includes(normalized)) {
       return 'badge-active';
     }
 

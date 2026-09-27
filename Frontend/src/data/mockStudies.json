@@ -37,7 +37,8 @@
       "eligible": 160,
       "enrolled": 148,
       "randomized": 142,
-      "completed": 71
+      "completed": 71,
+      "screenedThisWeek": 8
     },
     "milestones": [
       {
@@ -102,7 +103,9 @@
       "totalQueries": 34,
       "openQueries": 8,
       "resolvedQueries": 26,
-      "overdueQueries": 2
+      "overdueQueries": 2,
+      "crfPending": 4,
+      "crfCompletionPct": 94
     },
     "safety": {
       "adverseEvents": 18,
@@ -129,85 +132,71 @@
     "alerts": [
       "Monitoring visit overdue"
     ],
-    "cdiscFhirConfig": {
-      "cdashDomains": ["DM", "VS", "AE", "LB", "CM"],
-      "sdtmExportStatus": "Validated (SDTM IG v3.3)",
-      "adamDatasetsReady": ["ADSL", "ADAE"],
-      "defineXmlVersion": "2.1",
-      "fhirR4Mapping": {
-        "patientResource": "FHIR/R4/Patient/SUBJ-101",
-        "observationResource": "FHIR/R4/Observation/VS-101",
-        "abdmSyncStatus": "Synced to ABDM Health Repository"
-      }
-    },
-    "adverseEventsList": [
+    "studyCoordinator": "Priya Nambiar",
+    "nextVisitDate": "2026-09-29",
+    "visitsList": [
       {
-        "aeId": "AE-001-2026",
-        "subjectId": "SUBJ-101",
-        "siteId": "SITE-001",
-        "term": "Severe Nausea & Epigastric Burning",
-        "isSerious": true,
-        "saeCriteria": "Hospitalization Required",
-        "onsetDatetime": "2026-09-20T10:30:00Z",
-        "reportedDatetime": "2026-09-20T14:15:00Z",
-        "expeditedReportingDeadline": "2026-09-21T14:15:00Z",
-        "medDraCoding": {
-          "soc": "Gastrointestinal disorders",
-          "hlgt": "Gastrointestinal signs and symptoms",
-          "hlt": "Nausea and vomiting symptoms",
-          "pt": "Nausea",
-          "llt": "Severe Nausea"
-        },
-        "whoDrugCoding": {
-          "drugName": "Ayurvedic Formulation A (Shodhana)",
-          "activeIngredient": "Herbal Mixture X"
-        },
-        "causalityAssessment": "Possible (WHO-UMC Scale)",
-        "actionTaken": "Dose Interrupted",
-        "outcome": "Recovering",
-        "status": "Pending PV Officer Review"
-      }
-    ],
-    "consentRecords": [
+        "participantId": "SUBJ-102",
+        "visitName": "HbA1c Follow-up (V3)",
+        "date": "2026-09-22",
+        "status": "Completed"
+      },
       {
-        "subjectId": "SUBJ-101",
-        "icfVersion": "v2.1_Hindi",
-        "consentStatus": "Consented",
-        "consentTimestamp": "2026-02-10T09:15:00Z",
-        "digitalSignatureHash": "0x8f3a92b...b21c",
-        "dataMinimizationNoticeSigned": true,
-        "abhaIdLinked": "91-1234-5678-9012",
-        "reConsentRequired": false
+        "participantId": "SUBJ-115",
+        "visitName": "Dosha & Metabolic Evaluation",
+        "date": "2026-09-25",
+        "status": "Completed"
+      },
+      {
+        "participantId": "SUBJ-128",
+        "visitName": "Safety Labs & Glycemic Profile",
+        "date": "2026-09-26",
+        "status": "Scheduled"
       }
     ],
     "queriesList": [
       {
         "queryId": "QRY-104",
-        "subjectId": "SUBJ-105",
-        "formName": "Vital Signs (VS)",
-        "fieldName": "SystolicBP",
-        "issue": "Value (190 mmHg) out of expected protocol range",
-        "raisedBy": "Monitor (CRA)",
-        "raisedDate": "2026-09-22",
-        "status": "Open",
+        "subjectId": "SUBJ-115",
+        "formName": "Fasting Blood Glucose",
+        "fieldName": "Glucose Level",
+        "issue": "Missing fasting timestamp on lab requisition form",
         "assignedTo": "Study Coordinator",
+        "raisedDate": "2026-09-23",
+        "status": "Open",
         "sdvStatus": "Unverified"
       }
     ],
-    "auditTrail": [
+    "adverseEventsList": [
       {
-        "auditId": "AUD-2026-8912",
-        "timestamp": "2026-09-25T16:05:12Z",
-        "userId": "USER-402",
-        "userName": "Dr. Ananya Sharma",
-        "userRole": "Principal Investigator",
-        "action": "eCRF_Field_Update",
-        "entityModified": "Subject SUBJ-101 / Visit 2 / Fasting Blood Glucose",
-        "oldValue": "110 mg/dL",
-        "newValue": "142 mg/dL",
-        "reasonForChange": "Transcription error correction from source lab sheet",
-        "ipAddress": "14.139.xxx.xxx",
-        "digitalSignature": "SHA256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        "aeId": "AE-102",
+        "subjectId": "SUBJ-128",
+        "term": "Abdominal bloating after herbal formulation",
+        "severity": "Mild",
+        "status": "Draft",
+        "isSerious": false,
+        "reportedDate": "2026-09-24"
+      }
+    ],
+    "monitor": "Karan Mehta",
+    "findings": [
+      {
+        "findingId": "FND-101",
+        "siteId": "SITE-001",
+        "subjectId": "SUBJ-105",
+        "description": "Systolic BP value out of protocol range, unverified",
+        "severity": "Major",
+        "status": "Open",
+        "raisedDate": "2026-09-22"
+      },
+      {
+        "findingId": "FND-102",
+        "siteId": "SITE-002",
+        "subjectId": "SUBJ-112",
+        "description": "Source document missing signature for Visit 3",
+        "severity": "Minor",
+        "status": "CAPA Assigned",
+        "raisedDate": "2026-09-18"
       }
     ]
   },
@@ -249,7 +238,8 @@
       "eligible": 105,
       "enrolled": 92,
       "randomized": 90,
-      "completed": 38
+      "completed": 38,
+      "screenedThisWeek": 6
     },
     "milestones": [
       {
@@ -309,7 +299,9 @@
       "totalQueries": 21,
       "openQueries": 5,
       "resolvedQueries": 16,
-      "overdueQueries": 1
+      "overdueQueries": 1,
+      "crfPending": 3,
+      "crfCompletionPct": 88
     },
     "safety": {
       "adverseEvents": 9,
@@ -333,58 +325,61 @@
       }
     ],
     "alerts": [],
-    "cdiscFhirConfig": {
-      "cdashDomains": ["DM", "VS", "PE", "QS"],
-      "sdtmExportStatus": "Draft (SDTM IG v3.3)",
-      "adamDatasetsReady": ["ADSL"],
-      "defineXmlVersion": "2.1",
-      "fhirR4Mapping": {
-        "patientResource": "FHIR/R4/Patient/SUBJ-201",
-        "observationResource": "FHIR/R4/Observation/VS-201",
-        "abdmSyncStatus": "Synced to ABDM Health Repository"
-      }
-    },
-    "adverseEventsList": [],
-    "consentRecords": [
+    "studyCoordinator": "Priya Nambiar",
+    "nextVisitDate": "2026-09-28",
+    "visitsList": [
       {
-        "subjectId": "SUBJ-201",
-        "icfVersion": "v1.0_English",
-        "consentStatus": "Consented",
-        "consentTimestamp": "2026-03-12T11:00:00Z",
-        "digitalSignatureHash": "0x7a2c81...f12a",
-        "dataMinimizationNoticeSigned": true,
-        "abhaIdLinked": "91-9876-5432-1098",
-        "reConsentRequired": false
+        "participantId": "SUBJ-201",
+        "visitName": "Vital Signs (VS)",
+        "date": "2026-09-23",
+        "status": "Completed"
+      },
+      {
+        "participantId": "SUBJ-204",
+        "visitName": "Pain Scale (QS)",
+        "date": "2026-09-26",
+        "status": "Overdue"
+      },
+      {
+        "participantId": "SUBJ-207",
+        "visitName": "Screening Visit",
+        "date": "2026-09-28",
+        "status": "Scheduled"
       }
     ],
     "queriesList": [
       {
-        "queryId": "QRY-201",
+        "queryId": "QRY-202",
         "subjectId": "SUBJ-204",
-        "formName": "Pain Scale (QS)",
-        "fieldName": "VAS_Score",
-        "issue": "Missing completion timestamp",
-        "raisedBy": "Study Coordinator",
+        "formName": "WOMAC Osteoarthritis Index",
+        "fieldName": "Stiffness Score",
+        "issue": "Sub-score item 3 unrecorded; please verify questionnaire completion",
+        "assignedTo": "Study Coordinator",
         "raisedDate": "2026-09-24",
         "status": "Open",
+        "sdvStatus": "Unverified"
+      },
+      {
+        "queryId": "QRY-208",
+        "subjectId": "SUBJ-207",
+        "formName": "Informed Consent",
+        "fieldName": "Witness Signature",
+        "issue": "Impartial witness signature block required for vernacular consent",
         "assignedTo": "Study Coordinator",
+        "raisedDate": "2026-09-25",
+        "status": "Open",
         "sdvStatus": "Unverified"
       }
     ],
-    "auditTrail": [
+    "adverseEventsList": [
       {
-        "auditId": "AUD-2026-8913",
-        "timestamp": "2026-09-24T14:20:00Z",
-        "userId": "USER-102",
-        "userName": "Dr. Vivek Rao",
-        "userRole": "Principal Investigator",
-        "action": "Protocol_Deviation_Logged",
-        "entityModified": "Subject SUBJ-202 / Visit 1",
-        "oldValue": "None",
-        "newValue": "Window Period Exceeded (+2 days)",
-        "reasonForChange": "Patient delayed due to transit issues",
-        "ipAddress": "14.139.xxx.xxx",
-        "digitalSignature": "SHA256:d41d8cd98f00b204e9800998ecf8427e"
+        "aeId": "AE-201",
+        "subjectId": "SUBJ-204",
+        "term": "Localised joint erythema post-application",
+        "severity": "Mild",
+        "status": "To report",
+        "isSerious": false,
+        "reportedDate": "2026-09-25"
       }
     ]
   },
@@ -418,7 +413,8 @@
       "eligible": 72,
       "enrolled": 61,
       "randomized": 59,
-      "completed": 20
+      "completed": 20,
+      "screenedThisWeek": 4
     },
     "milestones": [
       {
@@ -478,7 +474,9 @@
       "totalQueries": 29,
       "openQueries": 11,
       "resolvedQueries": 18,
-      "overdueQueries": 4
+      "overdueQueries": 4,
+      "crfPending": 5,
+      "crfCompletionPct": 82
     },
     "safety": {
       "adverseEvents": 12,
@@ -506,85 +504,61 @@
       "Recruitment behind target",
       "Ethics approval renewal approaching"
     ],
-    "cdiscFhirConfig": {
-      "cdashDomains": ["DM", "VS", "AE", "MH"],
-      "sdtmExportStatus": "In Progress",
-      "adamDatasetsReady": [],
-      "defineXmlVersion": "2.1",
-      "fhirR4Mapping": {
-        "patientResource": "FHIR/R4/Patient/SUBJ-301",
-        "observationResource": "FHIR/R4/Observation/VS-301",
-        "abdmSyncStatus": "Sync Pending"
-      }
-    },
-    "adverseEventsList": [
+    "studyCoordinator": "Priya Nambiar",
+    "nextVisitDate": "2026-09-26",
+    "visitsList": [
       {
-        "aeId": "AE-002-2026",
-        "subjectId": "SUBJ-308",
-        "siteId": "SITE-005",
-        "term": "Moderate Vertigo",
-        "isSerious": false,
-        "saeCriteria": null,
-        "onsetDatetime": "2026-09-18T08:00:00Z",
-        "reportedDatetime": "2026-09-18T12:00:00Z",
-        "expeditedReportingDeadline": null,
-        "medDraCoding": {
-          "soc": "Nervous system disorders",
-          "hlgt": "Neurological disorders NEC",
-          "hlt": "Disturbances of consciousness and awareness",
-          "pt": "Dizziness",
-          "llt": "Vertigo"
-        },
-        "whoDrugCoding": {
-          "drugName": "Ayurvedic Formulation B",
-          "activeIngredient": "Herbal Mixture Y"
-        },
-        "causalityAssessment": "Unlikely",
-        "actionTaken": "None",
-        "outcome": "Resolved",
-        "status": "Reviewed"
-      }
-    ],
-    "consentRecords": [
+        "participantId": "SUBJ-301",
+        "visitName": "Vital Signs (VS)",
+        "date": "2026-09-26",
+        "status": "Overdue"
+      },
       {
-        "subjectId": "SUBJ-301",
-        "icfVersion": "v1.1",
-        "consentStatus": "Consented",
-        "consentTimestamp": "2025-11-22T10:00:00Z",
-        "digitalSignatureHash": "0x3f1a90...c88d",
-        "dataMinimizationNoticeSigned": true,
-        "abhaIdLinked": "91-4567-8901-2345",
-        "reConsentRequired": true
+        "participantId": "SUBJ-305",
+        "visitName": "Adverse Event Follow-up",
+        "date": "2026-09-26",
+        "status": "Scheduled"
+      },
+      {
+        "participantId": "SUBJ-308",
+        "visitName": "Neurological Assessment",
+        "date": "2026-09-24",
+        "status": "Completed"
       }
     ],
     "queriesList": [
       {
         "queryId": "QRY-301",
-        "subjectId": "SUBJ-308",
-        "formName": "Adverse Events (AE)",
-        "fieldName": "Causality",
-        "issue": "Requires PI signature verification",
-        "raisedBy": "Pharmacovigilance Officer",
-        "raisedDate": "2026-09-19",
+        "subjectId": "SUBJ-301",
+        "formName": "Headache Impact Test (HIT-6)",
+        "fieldName": "Baseline Score",
+        "issue": "Discrepancy between paper diary total and digital CRF entry",
+        "assignedTo": "Study Coordinator",
+        "raisedDate": "2026-09-22",
         "status": "Open",
-        "assignedTo": "Principal Investigator",
+        "sdvStatus": "Unverified"
+      },
+      {
+        "queryId": "QRY-305",
+        "subjectId": "SUBJ-305",
+        "formName": "Concomitant Medication",
+        "fieldName": "Dosage Interval",
+        "issue": "Missing frequency for co-prescribed analgesic",
+        "assignedTo": "Study Coordinator",
+        "raisedDate": "2026-09-25",
+        "status": "Open",
         "sdvStatus": "Unverified"
       }
     ],
-    "auditTrail": [
+    "adverseEventsList": [
       {
-        "auditId": "AUD-2026-8914",
-        "timestamp": "2026-09-19T09:12:00Z",
-        "userId": "USER-301",
-        "userName": "Dr. Kavita Menon",
-        "userRole": "Principal Investigator",
-        "action": "AE_Log_Created",
-        "entityModified": "AE-002-2026",
-        "oldValue": null,
-        "newValue": "Moderate Vertigo",
-        "reasonForChange": "Initial reporting by subject during Visit 3",
-        "ipAddress": "14.139.xxx.xxx",
-        "digitalSignature": "SHA256:098f6bcd4621d373cade4e832627b4f6"
+        "aeId": "AE-301",
+        "subjectId": "SUBJ-305",
+        "term": "Transient nausea following morning decoction",
+        "severity": "Moderate",
+        "status": "To report",
+        "isSerious": false,
+        "reportedDate": "2026-09-26"
       }
     ]
   },
@@ -721,85 +695,25 @@
     "alerts": [
       "Potential safety signal requires review"
     ],
-    "cdiscFhirConfig": {
-      "cdashDomains": ["DM", "VS", "AE", "LB", "RE"],
-      "sdtmExportStatus": "Validated (SDTM IG v3.3)",
-      "adamDatasetsReady": ["ADSL", "ADAE", "ADRESP"],
-      "defineXmlVersion": "2.1",
-      "fhirR4Mapping": {
-        "patientResource": "FHIR/R4/Patient/SUBJ-401",
-        "observationResource": "FHIR/R4/Observation/RESP-401",
-        "abdmSyncStatus": "Synced to ABDM Health Repository"
-      }
-    },
-    "adverseEventsList": [
+    "monitor": "Karan Mehta",
+    "findings": [
       {
-        "aeId": "AE-003-2026",
-        "subjectId": "SUBJ-412",
+        "findingId": "FND-401",
         "siteId": "SITE-007",
-        "term": "Bronchospasm Exacerbation",
-        "isSerious": true,
-        "saeCriteria": "Life-threatening event",
-        "onsetDatetime": "2026-09-15T18:00:00Z",
-        "reportedDatetime": "2026-09-15T20:00:00Z",
-        "expeditedReportingDeadline": "2026-09-16T20:00:00Z",
-        "medDraCoding": {
-          "soc": "Respiratory, thoracic and mediastinal disorders",
-          "hlgt": "Bronchial disorders (excl neoplasms)",
-          "hlt": "Asthma symptoms",
-          "pt": "Bronchospasm",
-          "llt": "Acute Bronchospasm"
-        },
-        "whoDrugCoding": {
-          "drugName": "Ayurvedic Herbal Decoction C",
-          "activeIngredient": "Herbal Mix Z"
-        },
-        "causalityAssessment": "Probable",
-        "actionTaken": "Drug Permanently Withdrawn",
-        "outcome": "Recovered with Sequelae",
-        "status": "DSMB Signal Logged"
-      }
-    ],
-    "consentRecords": [
-      {
-        "subjectId": "SUBJ-401",
-        "icfVersion": "v2.0_English",
-        "consentStatus": "Consented",
-        "consentTimestamp": "2025-08-28T09:30:00Z",
-        "digitalSignatureHash": "0x1b9c20...e99a",
-        "dataMinimizationNoticeSigned": true,
-        "abhaIdLinked": "91-3456-7890-1234",
-        "reConsentRequired": false
-      }
-    ],
-    "queriesList": [
-      {
-        "queryId": "QRY-401",
         "subjectId": "SUBJ-412",
-        "formName": "Spirometry / Pulmonary Test (RE)",
-        "fieldName": "FEV1_Score",
-        "issue": "Values inconsistently recorded post-dose",
-        "raisedBy": "Monitor (CRA)",
-        "raisedDate": "2026-09-17",
-        "status": "Resolved",
-        "assignedTo": "Study Coordinator",
-        "sdvStatus": "Verified"
-      }
-    ],
-    "auditTrail": [
+        "description": "Delay in reporting bronchospasm SAE beyond 24h window",
+        "severity": "Major",
+        "status": "In Progress",
+        "raisedDate": "2026-09-16"
+      },
       {
-        "auditId": "AUD-2026-8915",
-        "timestamp": "2026-09-15T20:05:00Z",
-        "userId": "USER-501",
-        "userName": "Dr. Rajiv Nair",
-        "userRole": "Principal Investigator",
-        "action": "SAE_Expedited_Notification_Sent",
-        "entityModified": "AE-003-2026",
-        "oldValue": "Draft",
-        "newValue": "Submitted to IEC and CDSCO",
-        "reasonForChange": "Mandatory 24-hour SAE notification",
-        "ipAddress": "14.139.xxx.xxx",
-        "digitalSignature": "SHA256:5d41402abc4b2a76b9719d911017c592"
+        "findingId": "FND-402",
+        "siteId": "SITE-008",
+        "subjectId": "SUBJ-420",
+        "description": "Consent form re-signature pending after protocol amendment",
+        "severity": "Minor",
+        "status": "Closed",
+        "raisedDate": "2026-09-05"
       }
     ]
   },
@@ -916,61 +830,7 @@
         "status": "Open"
       }
     ],
-    "alerts": [],
-    "cdiscFhirConfig": {
-      "cdashDomains": ["DM", "PE", "AE"],
-      "sdtmExportStatus": "Draft",
-      "adamDatasetsReady": [],
-      "defineXmlVersion": "2.1",
-      "fhirR4Mapping": {
-        "patientResource": "FHIR/R4/Patient/SUBJ-501",
-        "observationResource": "FHIR/R4/Observation/DERM-501",
-        "abdmSyncStatus": "Synced to ABDM Health Repository"
-      }
-    },
-    "adverseEventsList": [],
-    "consentRecords": [
-      {
-        "subjectId": "SUBJ-501",
-        "icfVersion": "v1.0",
-        "consentStatus": "Consented",
-        "consentTimestamp": "2026-02-15T14:20:00Z",
-        "digitalSignatureHash": "0x9c3d11...a42b",
-        "dataMinimizationNoticeSigned": true,
-        "abhaIdLinked": "91-7890-1234-5678",
-        "reConsentRequired": false
-      }
-    ],
-    "queriesList": [
-      {
-        "queryId": "QRY-501",
-        "subjectId": "SUBJ-510",
-        "formName": "Physical Examination (PE)",
-        "fieldName": "LesionArea_cm2",
-        "issue": "Unclear measurement unit",
-        "raisedBy": "Study Coordinator",
-        "raisedDate": "2026-09-21",
-        "status": "Open",
-        "assignedTo": "Study Coordinator",
-        "sdvStatus": "Unverified"
-      }
-    ],
-    "auditTrail": [
-      {
-        "auditId": "AUD-2026-8916",
-        "timestamp": "2026-09-21T11:00:00Z",
-        "userId": "USER-601",
-        "userName": "Dr. Priya Deshmukh",
-        "userRole": "Principal Investigator",
-        "action": "Query_Created",
-        "entityModified": "Subject SUBJ-510 / Lesion Form",
-        "oldValue": null,
-        "newValue": "Query QRY-501 Issued",
-        "reasonForChange": "Data validation rule trigger",
-        "ipAddress": "14.139.xxx.xxx",
-        "digitalSignature": "SHA256:008d3c321013a700f1352e89648937d1"
-      }
-    ]
+    "alerts": []
   },
   {
     "studyId": "AIIA-AYU-006",
@@ -1101,58 +961,16 @@
       }
     ],
     "alerts": [],
-    "cdiscFhirConfig": {
-      "cdashDomains": ["DM", "VS", "EG", "LB", "CM"],
-      "sdtmExportStatus": "Validated (SDTM IG v3.3)",
-      "adamDatasetsReady": ["ADSL", "ADVS"],
-      "defineXmlVersion": "2.1",
-      "fhirR4Mapping": {
-        "patientResource": "FHIR/R4/Patient/SUBJ-601",
-        "observationResource": "FHIR/R4/Observation/BP-601",
-        "abdmSyncStatus": "Synced to ABDM Health Repository"
-      }
-    },
-    "adverseEventsList": [],
-    "consentRecords": [
+    "monitor": "Karan Mehta",
+    "findings": [
       {
-        "subjectId": "SUBJ-601",
-        "icfVersion": "v2.0_Hindi",
-        "consentStatus": "Consented",
-        "consentTimestamp": "2025-06-15T10:00:00Z",
-        "digitalSignatureHash": "0x4a2e10...b99f",
-        "dataMinimizationNoticeSigned": true,
-        "abhaIdLinked": "91-2345-6789-0123",
-        "reConsentRequired": false
-      }
-    ],
-    "queriesList": [
-      {
-        "queryId": "QRY-601",
+        "findingId": "FND-601",
+        "siteId": "SITE-011",
         "subjectId": "SUBJ-615",
-        "formName": "ECG (EG)",
-        "fieldName": "QTc_Interval",
-        "issue": "Requires cardiologist re-verification",
-        "raisedBy": "Monitor (CRA)",
-        "raisedDate": "2026-09-20",
+        "description": "ECG QTc interval requires cardiologist re-verification",
+        "severity": "Minor",
         "status": "Open",
-        "assignedTo": "Principal Investigator",
-        "sdvStatus": "Unverified"
-      }
-    ],
-    "auditTrail": [
-      {
-        "auditId": "AUD-2026-8917",
-        "timestamp": "2026-09-20T15:30:00Z",
-        "userId": "USER-701",
-        "userName": "Dr. Sameer Iyer",
-        "userRole": "Principal Investigator",
-        "action": "Interim_Dataset_Export",
-        "entityModified": "SDTM Domain VS & EG",
-        "oldValue": null,
-        "newValue": "Export Generated (ZIP)",
-        "reasonForChange": "Interim analysis submission",
-        "ipAddress": "14.139.xxx.xxx",
-        "digitalSignature": "SHA256:32625293c0d8329d0106208a0d93f18a"
+        "raisedDate": "2026-09-20"
       }
     ]
   },
@@ -1279,60 +1097,6 @@
     ],
     "alerts": [
       "2 data queries overdue"
-    ],
-    "cdiscFhirConfig": {
-      "cdashDomains": ["DM", "VS", "GI"],
-      "sdtmExportStatus": "In Progress",
-      "adamDatasetsReady": [],
-      "defineXmlVersion": "2.1",
-      "fhirR4Mapping": {
-        "patientResource": "FHIR/R4/Patient/SUBJ-701",
-        "observationResource": "FHIR/R4/Observation/GI-701",
-        "abdmSyncStatus": "Synced to ABDM Health Repository"
-      }
-    },
-    "adverseEventsList": [],
-    "consentRecords": [
-      {
-        "subjectId": "SUBJ-701",
-        "icfVersion": "v1.0_Gujarati",
-        "consentStatus": "Consented",
-        "consentTimestamp": "2026-04-22T09:10:00Z",
-        "digitalSignatureHash": "0x12a3b4...c56d",
-        "dataMinimizationNoticeSigned": true,
-        "abhaIdLinked": "91-8901-2345-6789",
-        "reConsentRequired": false
-      }
-    ],
-    "queriesList": [
-      {
-        "queryId": "QRY-701",
-        "subjectId": "SUBJ-705",
-        "formName": "Dietary Log (GI)",
-        "fieldName": "Calorie_Intake",
-        "issue": "Missing daily entry for Day 4",
-        "raisedBy": "Study Coordinator",
-        "raisedDate": "2026-09-23",
-        "status": "Open",
-        "assignedTo": "Study Coordinator",
-        "sdvStatus": "Unverified"
-      }
-    ],
-    "auditTrail": [
-      {
-        "auditId": "AUD-2026-8918",
-        "timestamp": "2026-09-23T10:00:00Z",
-        "userId": "USER-801",
-        "userName": "Dr. Meera Joshi",
-        "userRole": "Principal Investigator",
-        "action": "Form_Validation_Failed",
-        "entityModified": "Subject SUBJ-705 / Visit 1",
-        "oldValue": "Incomplete",
-        "newValue": "Query Raised",
-        "reasonForChange": "Automated system check",
-        "ipAddress": "14.139.xxx.xxx",
-        "digitalSignature": "SHA256:81dc9bdb52d04dc20036dbd8313ed055"
-      }
     ]
   },
   {
@@ -1456,60 +1220,6 @@
     ],
     "alerts": [
       "Ethics approval renewal required"
-    ],
-    "cdiscFhirConfig": {
-      "cdashDomains": ["DM", "VS", "QS"],
-      "sdtmExportStatus": "Validated (SDTM IG v3.3)",
-      "adamDatasetsReady": ["ADSL", "ADQS"],
-      "defineXmlVersion": "2.1",
-      "fhirR4Mapping": {
-        "patientResource": "FHIR/R4/Patient/SUBJ-801",
-        "observationResource": "FHIR/R4/Observation/PSQI-801",
-        "abdmSyncStatus": "Synced to ABDM Health Repository"
-      }
-    },
-    "adverseEventsList": [],
-    "consentRecords": [
-      {
-        "subjectId": "SUBJ-801",
-        "icfVersion": "v1.0_English",
-        "consentStatus": "Consented",
-        "consentTimestamp": "2025-10-20T11:45:00Z",
-        "digitalSignatureHash": "0x5e6f7a...b12c",
-        "dataMinimizationNoticeSigned": true,
-        "abhaIdLinked": "91-9012-3456-7890",
-        "reConsentRequired": false
-      }
-    ],
-    "queriesList": [
-      {
-        "queryId": "QRY-801",
-        "subjectId": "SUBJ-812",
-        "formName": "Sleep Index Questionnaire (QS)",
-        "fieldName": "PSQI_Score",
-        "issue": "Score miscalculated on paper source",
-        "raisedBy": "Monitor (CRA)",
-        "raisedDate": "2026-09-18",
-        "status": "Resolved",
-        "assignedTo": "Study Coordinator",
-        "sdvStatus": "Verified"
-      }
-    ],
-    "auditTrail": [
-      {
-        "auditId": "AUD-2026-8919",
-        "timestamp": "2026-09-18T16:00:00Z",
-        "userId": "USER-901",
-        "userName": "Dr. Ritu Kapoor",
-        "userRole": "Principal Investigator",
-        "action": "Ethics_Renewal_Document_Uploaded",
-        "entityModified": "Ethics Approval Document",
-        "oldValue": "IEC/AIIA/2025/021 (Expired)",
-        "newValue": "IEC/AIIA/2025/021_Renewal_Draft",
-        "reasonForChange": "Annual renewal submission process",
-        "ipAddress": "14.139.xxx.xxx",
-        "digitalSignature": "SHA256:a87ff679a2f3e71d9181a67b7542122c"
-      }
     ]
   },
   {
@@ -1644,61 +1354,7 @@
         "status": "Open"
       }
     ],
-    "alerts": [],
-    "cdiscFhirConfig": {
-      "cdashDomains": ["DM", "VS", "PE", "AE"],
-      "sdtmExportStatus": "Validated (SDTM IG v3.3)",
-      "adamDatasetsReady": ["ADSL", "ADAE"],
-      "defineXmlVersion": "2.1",
-      "fhirR4Mapping": {
-        "patientResource": "FHIR/R4/Patient/SUBJ-901",
-        "observationResource": "FHIR/R4/Observation/RESP-901",
-        "abdmSyncStatus": "Synced to ABDM Health Repository"
-      }
-    },
-    "adverseEventsList": [],
-    "consentRecords": [
-      {
-        "subjectId": "SUBJ-901",
-        "icfVersion": "v1.0_Malayalam",
-        "consentStatus": "Consented",
-        "consentTimestamp": "2025-04-12T10:15:00Z",
-        "digitalSignatureHash": "0x2b3c4d...e56f",
-        "dataMinimizationNoticeSigned": true,
-        "abhaIdLinked": "91-0123-4567-8901",
-        "reConsentRequired": false
-      }
-    ],
-    "queriesList": [
-      {
-        "queryId": "QRY-901",
-        "subjectId": "SUBJ-930",
-        "formName": "Demographics (DM)",
-        "fieldName": "Age",
-        "issue": "Date of birth vs age discrepancy",
-        "raisedBy": "Study Coordinator",
-        "raisedDate": "2026-08-28",
-        "status": "Open",
-        "assignedTo": "Study Coordinator",
-        "sdvStatus": "Unverified"
-      }
-    ],
-    "auditTrail": [
-      {
-        "auditId": "AUD-2026-8920",
-        "timestamp": "2026-08-30T17:45:00Z",
-        "userId": "USER-1001",
-        "userName": "Dr. Arjun Rao",
-        "userRole": "Principal Investigator",
-        "action": "Data_Lock_Executed",
-        "entityModified": "All Study Domains",
-        "oldValue": "Unlocked",
-        "newValue": "Locked for Close-out Analysis",
-        "reasonForChange": "Data collection complete",
-        "ipAddress": "14.139.xxx.xxx",
-        "digitalSignature": "SHA256:e4d909c290d0fb1ca068ffaddf22cbd0"
-      }
-    ]
+    "alerts": []
   },
   {
     "studyId": "AIIA-AYU-010",
@@ -1813,60 +1469,6 @@
         "status": "Open"
       }
     ],
-    "alerts": [],
-    "cdiscFhirConfig": {
-      "cdashDomains": ["DM", "VS", "LB"],
-      "sdtmExportStatus": "In Progress",
-      "adamDatasetsReady": [],
-      "defineXmlVersion": "2.1",
-      "fhirR4Mapping": {
-        "patientResource": "FHIR/R4/Patient/SUBJ-1001",
-        "observationResource": "FHIR/R4/Observation/MET-1001",
-        "abdmSyncStatus": "Synced to ABDM Health Repository"
-      }
-    },
-    "adverseEventsList": [],
-    "consentRecords": [
-      {
-        "subjectId": "SUBJ-1001",
-        "icfVersion": "v1.0_Hindi",
-        "consentStatus": "Consented",
-        "consentTimestamp": "2026-06-18T11:20:00Z",
-        "digitalSignatureHash": "0x6f5e4d...c321",
-        "dataMinimizationNoticeSigned": true,
-        "abhaIdLinked": "91-1122-3344-5566",
-        "reConsentRequired": false
-      }
-    ],
-    "queriesList": [
-      {
-        "queryId": "QRY-1001",
-        "subjectId": "SUBJ-1005",
-        "formName": "Lab Testing (LB)",
-        "fieldName": "HbA1c",
-        "issue": "Lab report scan attachment missing",
-        "raisedBy": "Monitor (CRA)",
-        "raisedDate": "2026-09-22",
-        "status": "Open",
-        "assignedTo": "Study Coordinator",
-        "sdvStatus": "Unverified"
-      }
-    ],
-    "auditTrail": [
-      {
-        "auditId": "AUD-2026-8921",
-        "timestamp": "2026-09-22T13:10:00Z",
-        "userId": "USER-1101",
-        "userName": "Dr. Neelam Singh",
-        "userRole": "Principal Investigator",
-        "action": "Site_Monitoring_Initiated",
-        "entityModified": "Site SITE-017",
-        "oldValue": "Inactive",
-        "newValue": "Active Monitoring",
-        "reasonForChange": "First site visit scheduled",
-        "ipAddress": "14.139.xxx.xxx",
-        "digitalSignature": "SHA256:f12a3b4c5d6e7f8a9b0c1d2e3f4a5b6c"
-      }
-    ]
+    "alerts": []
   }
 ]

@@ -1,14 +1,63 @@
 import React from 'react';
+import { LogOut } from 'lucide-react';
 import Badge from './Badge';
 
-export default function Header({ onNavigate, currentPage }) {
-  const navItems = [
-    { label: '📊 Portfolio Overview', page: 'ExecutiveDashboard' },
-    { label: '📁 Clinical Studies', page: 'StudyDetails' },
-    { label: '🛡️ Pharmacovigilance', page: 'PvDashboard' },
-    { label: '📋 IEC Approvals', page: 'IecApprovals' },
-    { label: '📜 ALCOA+ Logs', page: 'AuditLogs' },
-  ];
+export default function Header({ onNavigate, currentPage, sessionUser: sessionUserProp, onLogout }) {
+  let sessionUser = sessionUserProp;
+  if (sessionUser === undefined) {
+    try {
+      sessionUser = JSON.parse(sessionStorage.getItem('ayudrishti_user') || 'null');
+    } catch {
+      sessionUser = null;
+    }
+  }
+
+  const isPi = (sessionUser?.role || '').trim() === 'Principal Investigator';
+  const isCoordinator = (sessionUser?.role || '').trim() === 'Study Coordinator';
+  const isMonitor = (sessionUser?.role || '').trim() === 'Monitor';
+  const isEthics = (sessionUser?.role || '').trim() === 'Ethics Committee';
+  const homePage = isPi
+    ? 'PIDashboard'
+    : isCoordinator
+      ? 'CoordinatorDashboard'
+      : isMonitor
+        ? 'MonitorDashboard'
+        : isEthics
+          ? 'EthicsDashboard'
+          : 'ExecutiveDashboard';
+
+  const navItems = isPi
+    ? [
+
+    ]
+    : isCoordinator
+      ? [
+
+      ]
+      : isMonitor
+        ? [
+
+        ]
+        : isEthics
+          ? [
+
+          ]
+          : [
+            { label: '📊 Portfolio Overview', page: 'ExecutiveDashboard' },
+            { label: '📁 Clinical Studies', page: 'StudyDetails' },
+            { label: '🛡️ Pharmacovigilance', page: 'PvDashboard' },
+            { label: '📋 IEC Approvals', page: 'IecApprovals' },
+            { label: '📜 ALCOA+ Logs', page: 'AuditLogs' },
+          ];
+
+  const displayName = sessionUser?.name || 'Dr. Ananya Sharma';
+  const displayRole = sessionUser?.role || 'Investigator';
+  const initials = displayName
+    .split(' ')
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0]?.toUpperCase())
+    .join('') || 'AD';
 
   return (
     <header style={{
@@ -27,18 +76,16 @@ export default function Header({ onNavigate, currentPage }) {
         maxWidth: '1440px',
         margin: '0 auto',
       }}>
-        {/* Left: Branding */}
-        <div 
+        <div
           style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer' }}
-          onClick={() => onNavigate('ExecutiveDashboard')}
+          onClick={() => onNavigate(homePage)}
         >
           <div style={{ fontSize: '22px', fontWeight: 800, color: 'var(--accent)', letterSpacing: '0.5px' }}>
-            AIIA CTMS
+            AyuDrishti
           </div>
-          <Badge status="Compliant" text="AIIA Institutional" />
+          <Badge status="Compliant" text={isPi ? 'PI Workspace' : isCoordinator ? 'Coordinator Desk' : isMonitor ? 'Monitor Desk' : isEthics ? 'IEC Chamber' : 'AIIA Institutional'} />
         </div>
 
-        {/* Center: Global Navigation Tabs */}
         <nav style={{ display: 'flex', gap: '8px' }}>
           {navItems.map((item) => {
             const isActive = currentPage === item.page;
@@ -58,10 +105,10 @@ export default function Header({ onNavigate, currentPage }) {
                   transition: 'all 0.2s ease',
                 }}
                 onMouseEnter={(e) => {
-                  if (!isActive) e.target.style.background = 'var(--code-bg)';
+                  if (!isActive) e.currentTarget.style.background = 'var(--code-bg)';
                 }}
                 onMouseLeave={(e) => {
-                  if (!isActive) e.target.style.background = 'transparent';
+                  if (!isActive) e.currentTarget.style.background = 'transparent';
                 }}
               >
                 {item.label}
@@ -70,7 +117,6 @@ export default function Header({ onNavigate, currentPage }) {
           })}
         </nav>
 
-        {/* Right: Profile */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <div style={{
             width: '36px',
@@ -84,12 +130,36 @@ export default function Header({ onNavigate, currentPage }) {
             fontWeight: 700,
             fontSize: '14px',
           }}>
-            AS
+            {initials}
           </div>
           <div style={{ fontSize: '13px' }}>
-            <div style={{ fontWeight: 600, color: 'var(--text-h)' }}>Dr. Ananya Sharma</div>
-            <div style={{ color: 'var(--text-muted)' }}>Investigator</div>
+            <div style={{ fontWeight: 600, color: 'var(--text-h)' }}>{displayName}</div>
+            <div style={{ color: 'var(--text-muted)' }}>{displayRole}</div>
           </div>
+          {onLogout && (
+            <button
+              type="button"
+              onClick={onLogout}
+              title="Log out"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 6,
+                marginLeft: 6,
+                background: 'transparent',
+                border: '1px solid var(--border)',
+                borderRadius: 8,
+                padding: '8px 12px',
+                fontSize: 13,
+                fontWeight: 600,
+                color: 'var(--text-h)',
+                cursor: 'pointer',
+              }}
+            >
+              <LogOut size={14} />
+              Logout
+            </button>
+          )}
         </div>
       </div>
     </header>
