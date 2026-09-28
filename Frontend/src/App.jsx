@@ -14,6 +14,8 @@ import PIDashboard from './pages/PIDashboard';
 import CoordinatorDashboard from './pages/CoordinatorDashboard';
 import MonitorDashboard from './pages/MonitorDashboard';
 import EthicsDashboard from './pages/EthicsDashboard';
+import RegulatorDashboard from './pages/RegulatorDashboard';
+import AdminDashboard from './pages/AdminDashboard';
 
 // --- Dedicated Secondary Page Views ---
 
@@ -112,6 +114,9 @@ export default function App() {
     if (path.includes('auditlogs')) {
       return 'AuditLogs';
     }
+    if (path.includes('admindashboard') || path.includes('/admin') || path === '/admin') {
+      return 'AdminDashboard';
+    }
     if (path.includes('executivedashboard')) {
       return 'ExecutiveDashboard';
     }
@@ -126,6 +131,9 @@ export default function App() {
     }
     if (path.includes('ethicsdashboard') || path.includes('/ethics') || path === '/iec') {
       return 'EthicsDashboard';
+    }
+    if (path.includes('regulatordashboard') || path.includes('/regulator') || path === '/regulator') {
+      return 'RegulatorDashboard';
     }
     return 'Landing';
   };
@@ -151,6 +159,8 @@ export default function App() {
     if (key === 'Study Coordinator') return 'CoordinatorDashboard';
     if (key === 'Monitor') return 'MonitorDashboard';
     if (key === 'Ethics Committee') return 'EthicsDashboard';
+    if (key === 'Regulator' || key === 'Read-only Regulator') return 'RegulatorDashboard';
+    if (key === 'Admin' || key === 'Administration' || key === 'Administrator') return 'AdminDashboard';
     return 'ExecutiveDashboard';
   };
 
@@ -267,6 +277,24 @@ export default function App() {
             }}
           />
         );
+      case 'RegulatorDashboard':
+        return (
+          <RegulatorDashboard
+            studies={mockData}
+            onOpenStudy={handleSelectStudy}
+          />
+        );
+      case 'AdminDashboard':
+        return (
+          <AdminDashboard
+            studies={mockData}
+            onOpenStudy={handleSelectStudy}
+            onAddProtocol={() => {
+              setCurrentPage('RegisterProtocol');
+              window.history.pushState({}, '', '/RegisterProtocol');
+            }}
+          />
+        );
       case 'ExecutiveDashboard':
         return (
           <ExecutiveDashboard 
@@ -294,13 +322,20 @@ export default function App() {
         return (
           <StudyDetails 
             study={selectedStudy} 
+            role={
+              sessionUser?.role === 'Regulator' || sessionUser?.role === 'Read-only Regulator' 
+                ? 'regulator' 
+                : sessionUser?.role === 'Admin' || sessionUser?.role === 'Administration'
+                ? 'admin'
+                : 'pi'
+            }
             onBack={navigateToHome} 
           />
         );
       case 'RegisterProtocol':
         return <RegisterProtocolPage onBack={navigateToHome} />;
       case 'ConsentManagement':
-      return <ConsentManagementPage onBack={navigateToHome} />;
+        return <ConsentManagementPage onBack={navigateToHome} />;
       case 'IecApprovals':
         return <IecApprovals onBack={navigateToHome} />;
       case 'AuditLogs':
