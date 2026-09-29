@@ -19,6 +19,7 @@ import {
   TrendingUp,
   Briefcase
 } from 'lucide-react';
+import StatusPill from '../components/pi/StatusPill';
 
 // Default fallback dataset for Admin / Leadership workspace
 const DEFAULT_ADMIN_STUDIES = [
@@ -128,186 +129,99 @@ export default function AdminDashboard({
   const avgCompliance = Math.round(dataset.reduce((acc, s) => acc + (s.complianceScore || 95), 0) / (totalStudies || 1));
   const totalSaes = dataset.reduce((acc, s) => acc + (s.safety?.seriousAdverseEvents || 0), 0);
 
+  const kpis = [
+    { label: 'Total Portfolio Studies', val: totalStudies, icon: Building2, accent: 'border-t-sage', sub: `${activeStudies} Active · ${delayedStudies} Delayed` },
+    { label: 'CTRI Registration Rate', val: `${Math.round((ctriRegisteredCount / (totalStudies || 1)) * 100)}%`, icon: Award, accent: 'border-t-gold-ink', sub: `${ctriRegisteredCount}/${totalStudies} CTRI Prospectively Verified` },
+    { label: 'Overall Recruitment Target', val: `${totalEnrolled}/${totalTarget}`, icon: TrendingUp, accent: 'border-t-sage', sub: `${Math.round((totalEnrolled / (totalTarget || 1)) * 100)}% Portfolio Completion` },
+    { label: 'Avg GCP Compliance Score', val: `${avgCompliance}%`, icon: ShieldCheck, accent: 'border-t-sage', sub: 'Across all active trial sites' },
+    { label: 'Safety & SAE Alerts', val: totalSaes, icon: ShieldAlert, accent: 'border-t-clay', sub: `${totalSaes} Expedited SAEs Monitored` },
+  ];
+
   return (
-    <div style={{
-      width: '100%',
-      padding: '20px 0',
-      boxSizing: 'border-box',
-      fontFamily: 'system-ui, -apple-system, sans-serif',
-      color: 'var(--text, #1C1917)',
-    }}>
+    <div className="w-full pt-5">
       
       {/* 1. ADMINISTRATION & LEADERSHIP HEADER */}
-      <div style={{
-        background: 'linear-gradient(135deg, rgba(20, 40, 25, 0.95) 0%, rgba(35, 60, 40, 0.98) 100%)',
-        borderRadius: '16px',
-        padding: '24px 28px',
-        color: '#EFE8D8',
-        boxShadow: '0 12px 32px -8px rgba(0,0,0,0.25), 0 0 0 1px rgba(212, 163, 115, 0.3)',
-        marginBottom: '20px',
-        position: 'relative',
-        overflow: 'hidden'
-      }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
-          <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
-              <span style={{
-                background: 'linear-gradient(90deg, #84A98C, #D4A373)',
-                color: '#FFF',
-                fontSize: '11px',
-                fontWeight: 800,
-                padding: '4px 10px',
-                borderRadius: '20px',
-                letterSpacing: '0.12em',
-                textTransform: 'uppercase'
-              }}>
-                🏛️ Institutional Governance
-              </span>
-              <span style={{ fontSize: '12px', color: '#D4A373', fontWeight: 600 }}>
-                AIIA Portfolio Leadership Desk
-              </span>
-            </div>
-            <h1 style={{ margin: 0, fontSize: '28px', fontWeight: 800, color: '#FFF' }}>
-              Administration & Portfolio Leadership
-            </h1>
-            <p style={{ margin: '6px 0 0 0', fontSize: '13px', color: 'rgba(239, 232, 216, 0.75)' }}>
-              Overarching logistics, site setup, CTRI registrations, high-level milestone progress, close-outs, and publication oversight.
-            </p>
+      <div className="mb-5 flex flex-wrap items-start justify-between gap-4 border-b-2 border-sage pb-4">
+        <div>
+          <div className="mb-1.5 flex items-center gap-2">
+            <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-sage-deep">
+              Institutional Governance
+            </span>
+            <span className="text-[11px] font-semibold text-gold-ink">
+              · AIIA Portfolio Leadership Desk
+            </span>
           </div>
+          <h1 className="m-0 text-[28px] tracking-tight text-forest">
+            Administration & Portfolio Leadership
+          </h1>
+          <p className="mt-1.5 text-[13px] text-muted">
+            Overarching logistics, site setup, CTRI registrations, high-level milestone progress, close-outs, and publication oversight.
+          </p>
+        </div>
 
-          <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-            {onAddProtocol && (
-              <button
-                onClick={onAddProtocol}
-                style={{
-                  background: 'linear-gradient(135deg, #D4A373 0%, #B08256 100%)',
-                  color: '#FFF',
-                  border: 'none',
-                  padding: '10px 18px',
-                  borderRadius: '8px',
-                  fontSize: '12px',
-                  fontWeight: 800,
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  boxShadow: '0 4px 14px rgba(212, 163, 115, 0.35)',
-                  transition: 'transform 0.2s ease'
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
-                onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-              >
-                <FolderPlus size={16} /> Setup / Register Protocol
-              </button>
-            )}
-          </div>
+        <div className="flex flex-wrap items-center gap-2 pt-1">
+          {onAddProtocol && (
+            <button
+              type="button"
+              onClick={onAddProtocol}
+              className="inline-flex items-center gap-1.5 rounded-lg bg-sage px-3.5 py-2 text-xs font-semibold text-cream-ink shadow-sm transition-all hover:bg-sage-deep"
+            >
+              <FolderPlus size={15} /> Setup / Register Protocol
+            </button>
+          )}
         </div>
       </div>
 
       {/* 2. EXECUTIVE KPI & RISK SUMMARY GRID */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(210px, 1fr))',
-        gap: '16px',
-        marginBottom: '20px'
-      }}>
-        {[
-          { label: 'Total Portfolio Studies', val: totalStudies, icon: Building2, color: 'var(--accent, #84A98C)', sub: `${activeStudies} Active · ${delayedStudies} Delayed` },
-          { label: 'CTRI Registration Rate', val: `${Math.round((ctriRegisteredCount / (totalStudies || 1)) * 100)}%`, icon: Award, color: 'var(--accent-gold, #D4A373)', sub: `${ctriRegisteredCount}/${totalStudies} CTRI Prospectively Verified` },
-          { label: 'Overall Recruitment Target', val: `${totalEnrolled}/${totalTarget}`, icon: TrendingUp, color: 'var(--accent, #84A98C)', sub: `${Math.round((totalEnrolled / (totalTarget || 1)) * 100)}% Portfolio Completion` },
-          { label: 'Avg GCP Compliance Score', val: `${avgCompliance}%`, icon: ShieldCheck, color: 'var(--accent, #84A98C)', sub: 'Across all active trial sites' },
-          { label: 'Safety & SAE Alerts', val: totalSaes, icon: ShieldAlert, color: 'var(--accent-terracotta, #C86D51)', sub: `${totalSaes} Expedited SAEs Monitored` },
-        ].map((card, i) => (
+      <div className="mb-5 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+        {kpis.map((k, i) => (
           <div
             key={i}
-            style={{
-              background: 'var(--card-bg, #FFF)',
-              border: '1px solid var(--border, #E5E7EB)',
-              borderTop: `3px solid ${card.color}`,
-              borderRadius: '10px',
-              padding: '16px 18px',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
-              transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-2px)';
-              e.currentTarget.style.boxShadow = '0 6px 16px rgba(0,0,0,0.08)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.04)';
-            }}
+            className={`min-h-[108px] rounded-b-[10px] border border-ochre border-t-[3px] bg-cream px-4 py-3.5 shadow-[var(--shadow)] transition-transform hover:-translate-y-0.5 ${k.accent}`}
           >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-              <span style={{ fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', color: 'var(--text-muted, #78716C)' }}>
-                {card.label}
-              </span>
-              <card.icon size={16} color={card.color} />
+            <div className="mb-2.5 flex items-center justify-between text-[11px] font-bold uppercase tracking-wide text-muted">
+              <span>{k.label}</span>
+              <k.icon size={15} className="text-muted" />
             </div>
-            <div style={{ fontSize: '26px', fontWeight: 900, color: 'var(--text-h, #0C0A09)', lineHeight: 1 }}>
-              {card.val}
+            <div className="text-[26px] font-extrabold leading-none text-forest">
+              {k.val}
             </div>
-            <div style={{ fontSize: '11px', color: 'var(--text-muted, #78716C)', marginTop: '6px' }}>
-              {card.sub}
+            <div className="mt-1.5 text-xs text-muted">
+              {k.sub}
             </div>
           </div>
         ))}
       </div>
 
       {/* 3. PORTFOLIO-WIDE STUDY DIRECTORY TABLE */}
-      <section style={{
-        background: 'var(--card-bg, #FFF)',
-        border: '1px solid var(--border, #E5E7EB)',
-        borderRadius: '12px',
-        padding: '20px',
-        marginBottom: '20px',
-        boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
-      }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', flexWrap: 'wrap', gap: '12px' }}>
+      <section className="mb-5 rounded-xl border border-ochre bg-cream p-4 shadow-[var(--shadow)]">
+        <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
           <div>
-            <h3 style={{ margin: 0, fontSize: '16px', fontWeight: 800, color: 'var(--text-h, #0C0A09)', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <Briefcase size={18} color="var(--accent-gold, #D4A373)" /> Institutional Portfolio & CTRI Tracking
+            <h3 className="m-0 flex items-center gap-2 text-[15px] font-bold text-forest">
+              <Briefcase size={16} className="text-gold-ink" /> Institutional Portfolio & CTRI Tracking
             </h3>
-            <p style={{ margin: '4px 0 0 0', fontSize: '12px', color: 'var(--text-muted, #78716C)' }}>
+            <p className="mt-1 text-xs text-muted">
               Master overview of protocol setups, recruitment progress, CTRI status, and compliance scores.
             </p>
           </div>
 
           {/* Search Bar & Filter Controls */}
-          <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-            <div style={{ position: 'relative', width: '240px' }}>
-              <Search size={14} style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted, #78716C)' }} />
+          <div className="flex flex-wrap items-center gap-2">
+            <div className="relative w-60">
+              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
               <input
                 type="text"
                 placeholder="Search study, PI, CTRI..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                style={{
-                  width: '100%',
-                  padding: '8px 10px 8px 30px',
-                  borderRadius: '6px',
-                  border: '1px solid var(--border, #E5E7EB)',
-                  background: 'var(--bg, #FAFAF9)',
-                  color: 'var(--text, #1C1917)',
-                  fontSize: '12px',
-                  outline: 'none',
-                  boxSizing: 'border-box'
-                }}
+                className="w-full rounded-lg border border-ochre bg-linen py-1.5 pl-8 pr-3 text-xs text-forest placeholder:text-muted/70 focus:outline-none focus:ring-1 focus:ring-sage"
               />
             </div>
 
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              style={{
-                padding: '8px 12px',
-                borderRadius: '6px',
-                border: '1px solid var(--border, #E5E7EB)',
-                background: 'var(--bg, #FAFAF9)',
-                color: 'var(--text, #1C1917)',
-                fontSize: '12px',
-                fontWeight: 600
-              }}
+              className="rounded-lg border border-ochre bg-linen px-3 py-1.5 text-xs font-semibold text-forest focus:outline-none focus:ring-1 focus:ring-sage"
             >
               <option value="All">All Statuses</option>
               <option value="Active">Active</option>
@@ -318,12 +232,12 @@ export default function AdminDashboard({
         </div>
 
         {/* Directory Table */}
-        <div style={{ overflowX: 'auto', borderRadius: '8px', border: '1px solid var(--border, #E5E7EB)' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '13px' }}>
+        <div className="max-h-96 overflow-auto rounded-xl border border-ochre">
+          <table className="w-full border-collapse text-left text-sm">
             <thead>
-              <tr style={{ background: 'var(--bg, #FAFAF9)', borderBottom: '1px solid var(--border, #E5E7EB)' }}>
+              <tr className="border-b border-ochre bg-linen">
                 {['Protocol ID & Title', 'PI & Primary Site', 'CTRI Registration', 'Lifecycle Stage', 'Enrolment / Target', 'Compliance', 'Status', 'Action'].map((h) => (
-                  <th key={h} style={{ padding: '12px 14px', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', color: 'var(--text-muted, #78716C)' }}>
+                  <th key={h} className="sticky top-0 bg-linen px-3.5 py-3 text-[11px] font-bold uppercase tracking-wide text-muted">
                     {h}
                   </th>
                 ))}
@@ -332,13 +246,12 @@ export default function AdminDashboard({
             <tbody>
               {filteredStudies.length === 0 && (
                 <tr>
-                  <td colSpan={8} style={{ padding: '24px', textAlign: 'center', color: 'var(--text-muted, #78716C)' }}>
+                  <td colSpan={8} className="px-3.5 py-6 text-center text-muted">
                     No institutional protocols found matching query.
                   </td>
                 </tr>
               )}
               {filteredStudies.map((s) => {
-                const isHovered = hoveredRow === s.studyId;
                 const enrPct = s.participants?.target ? Math.round((s.participants.enrolled / s.participants.target) * 100) : 0;
 
                 return (
@@ -347,72 +260,45 @@ export default function AdminDashboard({
                     onMouseEnter={() => setHoveredRow(s.studyId)}
                     onMouseLeave={() => setHoveredRow(null)}
                     onClick={() => onOpenStudy && onOpenStudy(s)}
-                    style={{
-                      borderBottom: '1px solid var(--border, #E5E7EB)',
-                      background: isHovered ? 'rgba(132, 169, 140, 0.08)' : 'transparent',
-                      cursor: 'pointer',
-                      transition: 'background 0.15s ease'
-                    }}
+                    className="cursor-pointer border-b border-ochre/40 last:border-0 hover:bg-mint transition-colors"
                   >
-                    <td style={{ padding: '12px 14px' }}>
-                      <div style={{ fontWeight: 800, color: 'var(--text-h, #0C0A09)' }}>{s.studyId}</div>
-                      <div style={{ fontSize: '11px', color: 'var(--text-muted, #78716C)', marginTop: '2px' }}>{s.shortTitle || s.title}</div>
+                    <td className="px-3.5 py-3.5">
+                      <div className="font-bold text-forest">{s.studyId}</div>
+                      <div className="mt-0.5 text-[11px] text-muted">{s.shortTitle || s.title}</div>
                     </td>
-                    <td style={{ padding: '12px 14px' }}>
-                      <div style={{ fontWeight: 600, color: 'var(--text, #1C1917)' }}>{s.principalInvestigator}</div>
-                      <div style={{ fontSize: '11px', color: 'var(--text-muted, #78716C)' }}>{s.primarySite || s.leadSite || 'AIIA Unit'}</div>
+                    <td className="px-3.5 py-3.5">
+                      <div className="font-semibold text-forest">{s.principalInvestigator}</div>
+                      <div className="mt-0.5 text-[11px] text-muted">{s.primarySite || s.leadSite || 'AIIA Unit'}</div>
                     </td>
-                    <td style={{ padding: '12px 14px', fontWeight: 700, color: 'var(--accent-gold, #D4A373)', whiteSpace: 'nowrap' }}>
+                    <td className="whitespace-nowrap px-3.5 py-3.5 font-bold text-gold-ink">
                       {s.ctriNumber || 'CTRI Pending'}
                     </td>
-                    <td style={{ padding: '12px 14px', fontSize: '12px', color: 'var(--text, #1C1917)', fontWeight: 600 }}>
+                    <td className="px-3.5 py-3.5 text-xs font-semibold text-forest">
                       {s.stage || 'Active Trial'}
                     </td>
-                    <td style={{ padding: '12px 14px', minWidth: '130px' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', marginBottom: '4px' }}>
+                    <td className="min-w-[140px] px-3.5 py-3.5">
+                      <div className="mb-1 flex justify-between text-[11px] text-muted">
                         <span>{s.participants?.enrolled || 0}/{s.participants?.target || 0}</span>
-                        <span style={{ fontWeight: 700 }}>{enrPct}%</span>
+                        <span className="font-bold text-forest">{enrPct}%</span>
                       </div>
-                      <div style={{ height: '6px', width: '100%', background: 'var(--border, #E5E7EB)', borderRadius: '3px', overflow: 'hidden' }}>
-                        <div style={{ height: '100%', width: `${Math.min(enrPct, 100)}%`, background: 'var(--accent, #84A98C)' }} />
+                      <div className="h-1.5 overflow-hidden rounded-full bg-linen">
+                        <div className="h-full bg-sage" style={{ width: `${Math.min(enrPct, 100)}%` }} />
                       </div>
                     </td>
-                    <td style={{ padding: '12px 14px', fontWeight: 800, color: 'var(--accent, #84A98C)' }}>
+                    <td className="px-3.5 py-3.5 font-extrabold text-sage-deep">
                       {s.complianceScore || 95}%
                     </td>
-                    <td style={{ padding: '12px 14px' }}>
-                      <span style={{
-                        fontSize: '11px',
-                        fontWeight: 800,
-                        padding: '3px 10px',
-                        borderRadius: '12px',
-                        background: s.status === 'Active' ? 'rgba(132, 169, 140, 0.15)' : s.status === 'Completed' ? 'rgba(212, 163, 115, 0.15)' : 'rgba(200, 109, 81, 0.15)',
-                        color: s.status === 'Active' ? 'var(--accent, #84A98C)' : s.status === 'Completed' ? 'var(--accent-gold, #D4A373)' : 'var(--accent-terracotta, #C86D51)'
-                      }}>
-                        {s.status}
-                      </span>
+                    <td className="px-3.5 py-3.5">
+                      <StatusPill status={s.status} />
                     </td>
-                    <td style={{ padding: '12px 14px' }}>
+                    <td className="px-3.5 py-3.5">
                       <button
                         type="button"
                         onClick={(e) => {
                           e.stopPropagation();
                           if (onOpenStudy) onOpenStudy(s);
                         }}
-                        style={{
-                          background: 'var(--accent, #84A98C)',
-                          color: '#FFF',
-                          border: 'none',
-                          padding: '6px 12px',
-                          borderRadius: '6px',
-                          fontSize: '11px',
-                          fontWeight: 700,
-                          cursor: 'pointer',
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: '4px',
-                          boxShadow: '0 2px 6px rgba(132, 169, 140, 0.3)'
-                        }}
+                        className="inline-flex items-center gap-1 rounded-lg bg-sage px-2.5 py-1 text-xs font-semibold text-cream-ink hover:bg-sage-deep transition-colors"
                       >
                         <Eye size={12} /> Inspect Dossier
                       </button>
@@ -426,105 +312,59 @@ export default function AdminDashboard({
       </section>
 
       {/* 4. ADMINISTRATIVE CLOSE-OUT, ARCHIVING & PUBLICATIONS OVERVIEW */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))',
-        gap: '20px',
-      }}>
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         
         {/* Administrative Close-Out & Archiving Panel */}
-        <section style={{
-          background: 'var(--card-bg, #FFF)',
-          border: '1px solid var(--border, #E5E7EB)',
-          borderRadius: '12px',
-          padding: '20px',
-          boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
-        }}>
-          <h3 style={{ margin: '0 0 4px 0', fontSize: '15px', fontWeight: 800, color: 'var(--text-h, #0C0A09)', display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <Archive size={16} color="var(--accent-gold, #D4A373)" /> Study Close-Out & 21 CFR Part 11 Archiving
+        <section className="rounded-xl border border-ochre bg-cream p-4 shadow-[var(--shadow)]">
+          <h3 className="m-0 flex items-center gap-2 text-[15px] font-bold text-forest">
+            <Archive size={16} className="text-gold-ink" /> Study Close-Out & 21 CFR Part 11 Archiving
           </h3>
-          <p style={{ margin: '0 0 14px 0', fontSize: '12px', color: 'var(--text-muted, #78716C)' }}>
+          <p className="mb-3 mt-1 text-xs text-muted">
             Administrative tracking of study completion, TMF reconciliation, and regulatory archiving.
           </p>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          <div className="flex flex-col gap-2">
             {dataset.map((s) => (
               <div
                 key={s.studyId}
-                style={{
-                  display: 'flex',
-                  justify: 'space-between',
-                  alignItems: 'center',
-                  padding: '10px 14px',
-                  borderRadius: '8px',
-                  background: 'var(--bg, #FAFAF9)',
-                  border: '1px solid var(--border, #E5E7EB)',
-                  fontSize: '12px'
-                }}
+                className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-ochre/40 bg-sand px-3 py-2.5 text-xs transition-colors hover:bg-mint/40"
               >
                 <div>
-                  <span style={{ fontWeight: 800, color: 'var(--text-h, #0C0A09)' }}>{s.studyId}</span>
-                  <div style={{ fontSize: '11px', color: 'var(--text-muted, #78716C)', marginTop: '2px' }}>{s.shortTitle}</div>
+                  <span className="font-bold text-forest">{s.studyId}</span>
+                  <div className="mt-0.5 text-[11px] text-muted">{s.shortTitle}</div>
                 </div>
-                <span style={{
-                  fontSize: '11px',
-                  fontWeight: 700,
-                  padding: '3px 8px',
-                  borderRadius: '6px',
-                  background: 'rgba(212, 163, 115, 0.15)',
-                  color: 'var(--accent-gold, #D4A373)'
-                }}>
-                  {s.closeOutStatus || 'Active Study'}
-                </span>
+                <StatusPill
+                  status={s.closeOutStatus?.includes('Archived') ? 'Completed' : s.closeOutStatus === 'In Progress' ? 'Pending' : 'Pending'}
+                  text={s.closeOutStatus || 'Active Study'}
+                />
               </div>
             ))}
           </div>
         </section>
 
         {/* Publication & Reporting Oversight Panel */}
-        <section style={{
-          background: 'var(--card-bg, #FFF)',
-          border: '1px solid var(--border, #E5E7EB)',
-          borderRadius: '12px',
-          padding: '20px',
-          boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
-        }}>
-          <h3 style={{ margin: '0 0 4px 0', fontSize: '15px', fontWeight: 800, color: 'var(--text-h, #0C0A09)', display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <BookOpen size={16} color="var(--accent, #84A98C)" /> Reporting & Publication Logistics
+        <section className="rounded-xl border border-ochre bg-cream p-4 shadow-[var(--shadow)]">
+          <h3 className="m-0 flex items-center gap-2 text-[15px] font-bold text-forest">
+            <BookOpen size={16} className="text-sage-deep" /> Reporting & Publication Logistics
           </h3>
-          <p style={{ margin: '0 0 14px 0', fontSize: '12px', color: 'var(--text-muted, #78716C)' }}>
+          <p className="mb-3 mt-1 text-xs text-muted">
             Oversight of trial disclosures, peer-reviewed publications, and Ministry reporting.
           </p>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          <div className="flex flex-col gap-2">
             {dataset.map((s) => (
               <div
                 key={s.studyId}
-                style={{
-                  display: 'flex',
-                  justify: 'space-between',
-                  alignItems: 'center',
-                  padding: '10px 14px',
-                  borderRadius: '8px',
-                  background: 'var(--bg, #FAFAF9)',
-                  border: '1px solid var(--border, #E5E7EB)',
-                  fontSize: '12px'
-                }}
+                className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-ochre/40 bg-sand px-3 py-2.5 text-xs transition-colors hover:bg-mint/40"
               >
                 <div>
-                  <span style={{ fontWeight: 800, color: 'var(--text-h, #0C0A09)' }}>{s.studyId}</span>
-                  <div style={{ fontSize: '11px', color: 'var(--text-muted, #78716C)', marginTop: '2px' }}>PI: {s.principalInvestigator}</div>
+                  <span className="font-bold text-forest">{s.studyId}</span>
+                  <div className="mt-0.5 text-[11px] text-muted">PI: {s.principalInvestigator}</div>
                 </div>
-                <span style={{
-                  fontSize: '11px',
-                  fontWeight: 700,
-                  padding: '3px 8px',
-                  borderRadius: '6px',
-                  background: 'rgba(132, 169, 140, 0.15)',
-                  color: 'var(--accent, #84A98C)'
-                }}>
-                  {s.publicationStatus || 'Protocol Registered'}
-                </span>
+                <StatusPill
+                  status={s.publicationStatus?.includes('Published') ? 'Completed' : s.publicationStatus?.includes('Drafted') ? 'Pending' : 'Active'}
+                  text={s.publicationStatus || 'Protocol Registered'}
+                />
               </div>
             ))}
           </div>

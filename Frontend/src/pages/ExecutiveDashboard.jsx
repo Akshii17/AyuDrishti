@@ -22,9 +22,9 @@ export default function ExecutiveDashboard({ studies = mockData, onSelectStudy, 
   // Filter studies for the table
   const filteredStudies = studies.filter(s => {
     const matchesPhase = selectedPhase === 'All' || s.phase === selectedPhase || (selectedPhase === 'Observational' && s.studyType === 'Observational');
-    const matchesSearch = s.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                          s.studyId.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                          s.principalInvestigator.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesSearch = s.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      s.studyId.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      s.principalInvestigator.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesPhase && matchesSearch;
   });
 
@@ -106,8 +106,8 @@ export default function ExecutiveDashboard({ studies = mockData, onSelectStudy, 
       header: 'Study ID',
       render: (row) => (
         <div>
-          <strong 
-            style={{ color: 'var(--text-h)', cursor: 'pointer', textDecoration: 'underline' }} 
+          <strong
+            style={{ color: 'var(--text-h)', cursor: 'pointer', textDecoration: 'underline' }}
             onClick={() => onSelectStudy && onSelectStudy(row)}
           >
             {row.studyId}
@@ -166,8 +166,8 @@ export default function ExecutiveDashboard({ studies = mockData, onSelectStudy, 
     {
       header: 'Action',
       render: (row) => (
-        <button 
-          className="btn-primary" 
+        <button
+          className="btn-primary"
           style={{ padding: '6px 12px', fontSize: '12px' }}
           onClick={() => onSelectStudy && onSelectStudy(row)}
         >
@@ -179,7 +179,7 @@ export default function ExecutiveDashboard({ studies = mockData, onSelectStudy, 
 
   return (
     <div style={{ padding: '24px 0', width: '100%', boxSizing: 'border-box' }}>
-      
+
       {/* Dynamic Inline CSS for Animations & Hover Glows */}
       <style>{`
         .glow-card {
@@ -209,7 +209,7 @@ export default function ExecutiveDashboard({ studies = mockData, onSelectStudy, 
       {/* Page Title & Subtitle */}
       <div style={{ marginBottom: '24px', textAlign: 'left' }}>
         <h1 style={{ margin: '0 0 6px 0', fontSize: '28px', color: 'var(--text-h)' }}>
-          Portfolio Executive Overview
+          Pharmacovigilance Dashboard
         </h1>
         <p style={{ color: 'var(--text-muted)', fontSize: '14px', margin: 0 }}>
           All India Institute of Ayurveda — Live CTMS & GCP Compliance Dashboard
@@ -218,7 +218,7 @@ export default function ExecutiveDashboard({ studies = mockData, onSelectStudy, 
 
       {/* 1. TOP METRIC CARDS (GRID WITH GLOW ANIMATION) */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px', marginBottom: '24px' }}>
-        
+
         {/* Metric 1 */}
         <div className="card glow-card" style={{ margin: 0, borderLeft: '4px solid var(--accent)' }}>
           <div style={{ fontSize: '12px', fontWeight: 700, color: 'var(--text-muted)', letterSpacing: '0.5px' }}>
@@ -279,7 +279,7 @@ export default function ExecutiveDashboard({ studies = mockData, onSelectStudy, 
 
       {/* 2. VISUAL GRAPH ANALYTICS SECTION */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(480px, 1fr))', gap: '20px', marginBottom: '24px' }}>
-        
+
         {/* Chart 1: Enrolment Progress Graph */}
         <Card title="Top Studies Recruitment Performance" subtitle="Target vs. Actual Enrolled Subjects">
           <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', marginTop: '8px' }}>
@@ -292,9 +292,9 @@ export default function ExecutiveDashboard({ studies = mockData, onSelectStudy, 
                     <span style={{ color: 'var(--text-muted)' }}>{s.participants?.enrolled} / {s.participants?.target} ({pct}%)</span>
                   </div>
                   <div style={{ height: '10px', background: 'var(--code-bg)', borderRadius: '5px', overflow: 'hidden' }}>
-                    <div style={{ 
-                      width: `${pct}%`, 
-                      height: '100%', 
+                    <div style={{
+                      width: `${pct}%`,
+                      height: '100%',
                       background: pct >= 80 ? 'var(--accent)' : pct >= 50 ? '#D4A373' : 'var(--accent-terracotta)',
                       borderRadius: '5px',
                       transition: 'width 0.6s ease'
@@ -309,13 +309,13 @@ export default function ExecutiveDashboard({ studies = mockData, onSelectStudy, 
         {/* Chart 2: Clean Interactive Donut Chart */}
         <Card title="Portfolio Phase & Regulatory Standing" subtitle="Hover slices for detailed breakdown">
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-around', minHeight: '180px' }}>
-            
+
             {/* Interactive SVG Donut Container */}
             <div style={{ position: 'relative', width: `${pieSize}px`, height: `${pieSize}px` }}>
               <svg width={pieSize} height={pieSize} viewBox={`0 0 ${pieSize} ${pieSize}`}>
                 {pieSlices}
               </svg>
-              
+
               {/* Dynamic Center Badge (Zero Overlap Issue) */}
               <div style={{
                 position: 'absolute',
@@ -354,11 +354,11 @@ export default function ExecutiveDashboard({ studies = mockData, onSelectStudy, 
             {/* Responsive Legend */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '13px', marginLeft: '16px' }}>
               {phaseData.map((slice, index) => (
-                <div 
-                  key={index} 
-                  style={{ 
-                    display: 'flex', 
-                    alignItems: 'center', 
+                <div
+                  key={index}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
                     gap: '10px',
                     opacity: hoveredSlice !== null && hoveredSlice !== index ? 0.5 : 1,
                     transition: 'opacity 0.2s ease',
@@ -367,17 +367,17 @@ export default function ExecutiveDashboard({ studies = mockData, onSelectStudy, 
                   onMouseEnter={() => setHoveredSlice(index)}
                   onMouseLeave={() => setHoveredSlice(null)}
                 >
-                  <span style={{ 
-                    width: '12px', 
-                    height: '12px', 
-                    borderRadius: '50%', 
+                  <span style={{
+                    width: '12px',
+                    height: '12px',
+                    borderRadius: '50%',
                     background: slice.color,
                     transition: 'transform 0.2s ease, box-shadow 0.2s ease',
                     boxShadow: hoveredSlice === index ? `0 0 6px ${slice.color}` : 'none',
                     transform: hoveredSlice === index ? 'scale(1.25)' : 'scale(1)'
                   }} />
                   <span style={{ fontWeight: hoveredSlice === index ? 700 : 500 }}>
-                    {slice.label} 
+                    {slice.label}
                     <span style={{ color: 'var(--text-muted)', marginLeft: '6px' }}>({slice.count})</span>
                   </span>
                 </div>
@@ -408,8 +408,8 @@ export default function ExecutiveDashboard({ studies = mockData, onSelectStudy, 
       </div>
 
       {/* 4. INTERACTIVE PORTFOLIO TABLE WITH FILTERS */}
-      <Card 
-        title="Clinical Trial Portfolio Directory" 
+      <Card
+        title="Clinical Trial Portfolio Directory"
         subtitle="Search and filter through all registered Ayurveda trials"
         action={
           <button className="btn-primary" style={{ fontSize: '13px' }} onClick={onAddProtocol}>
@@ -419,15 +419,15 @@ export default function ExecutiveDashboard({ studies = mockData, onSelectStudy, 
       >
         {/* Filter Bar */}
         <div style={{ display: 'flex', gap: '12px', marginBottom: '16px', flexWrap: 'wrap' }}>
-          <input 
-            type="text" 
-            placeholder="Search study title, ID, or PI..." 
+          <input
+            type="text"
+            placeholder="Search study title, ID, or PI..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            style={{ 
-              padding: '8px 12px', 
-              borderRadius: '6px', 
-              border: '1px solid var(--border)', 
+            style={{
+              padding: '8px 12px',
+              borderRadius: '6px',
+              border: '1px solid var(--border)',
               background: 'var(--bg)',
               color: 'var(--text)',
               fontSize: '13px',
@@ -437,7 +437,7 @@ export default function ExecutiveDashboard({ studies = mockData, onSelectStudy, 
           />
           <div style={{ display: 'flex', gap: '6px' }}>
             {['All', 'Phase III', 'Phase II', 'Phase I', 'Observational'].map((phase) => (
-              <button 
+              <button
                 key={phase}
                 onClick={() => setSelectedPhase(phase)}
                 style={{

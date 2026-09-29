@@ -43,11 +43,7 @@ export default function Header({ onNavigate, currentPage, sessionUser: sessionUs
 
           ]
           : [
-            { label: '📊 Portfolio Overview', page: 'ExecutiveDashboard' },
-            { label: '📁 Clinical Studies', page: 'StudyDetails' },
-            { label: '🛡️ Pharmacovigilance', page: 'PvDashboard' },
-            { label: '📋 IEC Approvals', page: 'IecApprovals' },
-            { label: '📜 ALCOA+ Logs', page: 'AuditLogs' },
+
           ];
 
   const displayName = sessionUser?.name || 'Dr. Ananya Sharma';
