@@ -22,6 +22,15 @@ import {
   MessageSquareWarning,
   ShieldAlert,
   Users,
+  BrainCircuit,
+  Sparkles,
+  PlusCircle,
+  ChevronRight,
+  Clock,
+  FileCheck2,
+  ArrowUpRight,
+  TrendingUp,
+  Activity
 } from 'lucide-react';
 import StatusPill from '../components/pi/StatusPill';
 import { TODAY, enrollmentPct, getDeviationRows } from '../utils/piStudy';
@@ -193,9 +202,11 @@ function statusBadge(status) {
   return status;
 }
 
-export default function PIDashboard({ studies, sessionUser, onOpenStudy }) {
+export default function PIDashboard({ studies = [], sessionUser, onOpenStudy }) {
   const mine = useMemo(() => studiesForLoggedInPi(studies, sessionUser), [studies, sessionUser]);
   const [approved, setApproved] = useState({});
+  const [taskModalOpen, setTaskModalOpen] = useState(false);
+  const [newTaskTitle, setNewTaskTitle] = useState('');
 
   const enrolled = mine.reduce((a, s) => a + (s.participants?.enrolled || 0), 0);
   const pendingDevs = mine.reduce((a, s) => a + (s.protocolDeviations?.open || 0), 0);
@@ -225,19 +236,44 @@ export default function PIDashboard({ studies, sessionUser, onOpenStudy }) {
     { label: 'Open SAEs', value: openSaes, sub: 'Serious events on my studies', icon: ShieldAlert, accent: 'border-t-clay' },
   ];
 
+  const handleCreateTask = (e) => {
+    e.preventDefault();
+    alert(`Task "${newTaskTitle}" created and assigned to Study Coordinator.`);
+    setNewTaskTitle('');
+    setTaskModalOpen(false);
+  };
+
   return (
     <div className="w-full pt-5">
+
+      {/* 1. PI HEADER */}
       <div className="mb-5 flex flex-wrap items-start justify-between gap-4 border-b-2 border-sage pb-4">
         <div>
-          <p className="mb-1.5 text-[11px] font-bold uppercase tracking-[0.16em] text-sage-deep">Investigator workspace</p>
-          <h1 className="m-0 text-[28px] tracking-tight text-forest">PI dashboard</h1>
+          <div className="mb-1.5 flex items-center gap-2">
+            <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-sage-deep">
+              Investigator Desk
+            </span>
+            <span className="text-[11px] font-semibold text-gold-ink">
+              · {sessionUser?.name || 'Dr. Ananya Sharma'}
+            </span>
+          </div>
+          <h1 className="m-0 text-[28px] tracking-tight text-forest">
+            Principal Investigator Workspace
+          </h1>
           <p className="mt-1.5 text-[13px] text-muted">
-            Protocols where you are Principal Investigator — quality, enrolment, safety, and sign-off.
+            Protocols where you are Principal Investigator — quality, enrolment, safety, and sign-off verification.
           </p>
         </div>
-        <div className="flex flex-wrap gap-2 pt-1">
-          <StatusPill status="Compliant" text="PI workspace" />
+        <div className="flex flex-wrap items-center gap-2 pt-1">
+          <StatusPill status="Compliant" text="PI Workspace" />
           <StatusPill status="Pending" text={`${reviewQueue.length} awaiting review`} />
+          <button
+            type="button"
+            onClick={() => setTaskModalOpen(true)}
+            className="inline-flex items-center gap-1.5 rounded-lg bg-sage px-3 py-1.5 text-xs font-semibold text-cream-ink shadow-sm transition-all hover:bg-sage-deep ml-2"
+          >
+            <PlusCircle size={14} /> Create Task
+          </button>
         </div>
       </div>
 
@@ -247,6 +283,7 @@ export default function PIDashboard({ studies, sessionUser, onOpenStudy }) {
         </div>
       )}
 
+      {/* 2. TOP METRIC CARDS */}
       <div className="mb-5 grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
         {kpis.map((k) => (
           <div
@@ -263,6 +300,127 @@ export default function PIDashboard({ studies, sessionUser, onOpenStudy }) {
         ))}
       </div>
 
+      {/* 3. ATTENTION REQUIRED PANEL (CRITICAL PI REQUIREMENT) */}
+      <section className="mb-5 rounded-xl border border-clay/60 bg-cream p-4 shadow-[var(--shadow)]">
+        <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <h3 className="m-0 flex items-center gap-2 text-[15px] font-bold text-clay">
+              <ShieldAlert size={18} /> Attention Required Section
+            </h3>
+            <p className="mt-0.5 text-xs text-muted">
+              Critical triggers needing PI review, verification, or action sign-off.
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={() => setTaskModalOpen(true)}
+            className="inline-flex items-center gap-1 rounded-lg border border-clay/40 bg-sand px-3 py-1 text-xs font-bold text-clay hover:bg-clay hover:text-white transition-colors"
+          >
+            <PlusCircle size={13} /> + Create Task
+          </button>
+        </div>
+
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-4">
+          {/* Card 1 */}
+          <div className="rounded-lg border border-clay/30 border-l-[4px] border-l-clay bg-sand p-3">
+            <div className="flex items-center justify-between text-xs font-bold text-clay">
+              <span>Recruitment Delay</span>
+              <span className="rounded bg-clay/20 px-1.5 py-0.5 text-[10px] text-clay">HIGH RISK</span>
+            </div>
+            <p className="my-1.5 text-xs font-semibold text-forest">
+              AIIA-AYU-003 is 38% behind target velocity.
+            </p>
+            <button
+              onClick={() => mine[0] && onOpenStudy && onOpenStudy(mine[0])}
+              className="inline-flex items-center gap-1 text-[11px] font-bold text-sage-deep hover:underline"
+            >
+              Open Study Workspace <ChevronRight size={12} />
+            </button>
+          </div>
+
+          {/* Card 2 */}
+          <div className="rounded-lg border border-ochre border-l-[4px] border-l-gold-ink bg-sand p-3">
+            <div className="flex items-center justify-between text-xs font-bold text-gold-ink">
+              <span>IEC Renewal Due</span>
+              <span className="rounded bg-gold-ink/20 px-1.5 py-0.5 text-[10px] text-gold-ink">18 Days Left</span>
+            </div>
+            <p className="my-1.5 text-xs font-semibold text-forest">
+              IEC/AIIA/2025/031 approval renewal due on Oct 15.
+            </p>
+            <button
+              onClick={() => mine[0] && onOpenStudy && onOpenStudy(mine[0])}
+              className="inline-flex items-center gap-1 text-[11px] font-bold text-sage-deep hover:underline"
+            >
+              Open Study Workspace <ChevronRight size={12} />
+            </button>
+          </div>
+
+          {/* Card 3 */}
+          <div className="rounded-lg border border-clay/30 border-l-[4px] border-l-clay bg-sand p-3">
+            <div className="flex items-center justify-between text-xs font-bold text-clay">
+              <span>SAE Review</span>
+              <span className="rounded bg-clay/20 px-1.5 py-0.5 text-[10px] text-clay">3 Pending</span>
+            </div>
+            <p className="my-1.5 text-xs font-semibold text-forest">
+              3 serious adverse events requiring PI causality review.
+            </p>
+            <button
+              onClick={() => mine[0] && onOpenStudy && onOpenStudy(mine[0])}
+              className="inline-flex items-center gap-1 text-[11px] font-bold text-sage-deep hover:underline"
+            >
+              Open Study Workspace <ChevronRight size={12} />
+            </button>
+          </div>
+
+          {/* Card 4 */}
+          <div className="rounded-lg border border-ochre border-l-[4px] border-l-sage bg-sand p-3">
+            <div className="flex items-center justify-between text-xs font-bold text-sage-deep">
+              <span>Open Deviations</span>
+              <span className="rounded bg-sage/20 px-1.5 py-0.5 text-[10px] text-sage-deep">4 Open</span>
+            </div>
+            <p className="my-1.5 text-xs font-semibold text-forest">
+              4 protocol deviations awaiting PI sign-off.
+            </p>
+            <button
+              onClick={() => mine[0] && onOpenStudy && onOpenStudy(mine[0])}
+              className="inline-flex items-center gap-1 text-[11px] font-bold text-sage-deep hover:underline"
+            >
+              Open Study Workspace <ChevronRight size={12} />
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* AI FEATURE #1: RECRUITMENT VELOCITY PREDICTOR WIDGET */}
+      <section className="mb-5 rounded-xl border border-ochre bg-cream p-4 shadow-[var(--shadow)]">
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <div className="mb-1.5 flex items-center gap-2">
+              <span className="inline-flex items-center gap-1 rounded-full bg-mint px-2.5 py-0.5 text-[10px] font-extrabold uppercase text-mint-ink border border-sage/40">
+                <BrainCircuit size={12} /> AI Intelligence Engine
+              </span>
+              <span className="text-xs font-semibold text-gold-ink">
+                · PI Recruitment Velocity Predictor
+              </span>
+            </div>
+            <h3 className="m-0 text-base font-bold text-forest">
+              Projected Protocol Target Completion: Dec 2026
+            </h3>
+            <p className="mt-1 text-xs text-muted">
+              AI predicts <strong>AIIA-AYU-001</strong> will complete enrollment 12 days ahead of target, while <strong>AIIA-AYU-003</strong> requires 2 additional satellite recruitment nodes.
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={() => alert('AI Recruitment Analysis: Velocity is strong at Central Unit (8 subjects/week). Recommending community outreach for AYU-003.')}
+            className="inline-flex items-center gap-1.5 rounded-lg bg-sage px-3.5 py-2 text-xs font-bold text-cream-ink shadow-sm transition-all hover:bg-sage-deep"
+          >
+            <Sparkles size={14} /> View AI Predictions
+          </button>
+        </div>
+      </section>
+
+      {/* 4. CHARTS SECTION */}
       <div className="mb-5 grid grid-cols-1 gap-4 lg:grid-cols-2">
         <section className="rounded-xl border border-ochre bg-cream p-4 shadow-[var(--shadow)]">
           <h3 className="m-0 text-[15px] text-forest">Enrolment, AE and SAE by study</h3>
@@ -314,6 +472,7 @@ export default function PIDashboard({ studies, sessionUser, onOpenStudy }) {
         </section>
       </div>
 
+      {/* 5. ALERTS & FLAGS SECTION */}
       <section className="mb-5 rounded-xl border border-ochre bg-cream p-4 shadow-[var(--shadow)]">
         <h3 className="m-0 flex items-center gap-2 text-[15px] text-forest">
           <AlertTriangle size={16} className="text-clay" /> Alerts needing attention
@@ -325,7 +484,7 @@ export default function PIDashboard({ studies, sessionUser, onOpenStudy }) {
           )}
           <div className="flex flex-col gap-2">
             {alerts.map((a) => (
-              <div key={a.id} className="flex flex-wrap items-start justify-between gap-2 rounded-lg border border-ochre/40 bg-sand px-3 py-2.5">
+              <div key={a.id} className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-ochre/40 bg-sand px-3 py-2.5">
                 <div>
                   <div className="flex items-center gap-2 text-sm font-semibold text-forest">
                     {a.title.includes('monitoring') ? <CalendarClock size={14} /> : null}
@@ -340,11 +499,12 @@ export default function PIDashboard({ studies, sessionUser, onOpenStudy }) {
         </div>
       </section>
 
+      {/* 6. NEEDS MY REVIEW & SIGN-OFF SECTION */}
       <section className="mb-5 rounded-xl border border-ochre bg-cream p-4 shadow-[var(--shadow)]">
         <h3 className="m-0 flex items-center gap-2 text-[15px] text-forest">
-          <ClipboardList size={16} className="text-sage-deep" /> Needs my review
+          <ClipboardList size={16} className="text-sage-deep" /> Needs my review & verify
         </h3>
-        <p className="mb-3 mt-1 text-xs text-muted">Open deviations and data queries awaiting PI approval. Approve records a sign-off on this desk.</p>
+        <p className="mb-3 mt-1 text-xs text-muted">Open deviations and data queries awaiting PI approval. Click Approve to sign off on this record.</p>
         <div className="max-h-80 overflow-auto">
           {reviewQueue.length === 0 && (
             <p className="m-0 text-sm text-muted">Nothing pending your sign-off.</p>
@@ -367,7 +527,7 @@ export default function PIDashboard({ studies, sessionUser, onOpenStudy }) {
                     className="inline-flex items-center gap-1 rounded-lg bg-sage px-3 py-1.5 text-xs font-semibold text-cream-ink hover:bg-sage-deep"
                     onClick={() => setApproved((m) => ({ ...m, [row.id]: true }))}
                   >
-                    <CheckCircle2 size={13} /> Approve
+                    <CheckCircle2 size={13} /> Verify & Approve
                   </button>
                 </div>
               </div>
@@ -376,14 +536,15 @@ export default function PIDashboard({ studies, sessionUser, onOpenStudy }) {
         </div>
       </section>
 
+      {/* 7. MY STUDIES TABLE */}
       <section className="rounded-xl border border-ochre bg-cream p-4 shadow-[var(--shadow)]">
         <h3 className="m-0 text-[15px] text-forest">My studies</h3>
-        <p className="mb-3 mt-1 text-xs text-muted">Click a row to open the study dossier.</p>
+        <p className="mb-3 mt-1 text-xs text-muted">Click a row to open the full study workspace dossier.</p>
         <div className="max-h-80 overflow-auto rounded-xl border border-ochre">
           <table className="w-full border-collapse text-left text-sm">
             <thead>
               <tr className="border-b border-ochre bg-linen">
-                {['Study ID', 'Title', 'Phase', 'Enrolled / target', 'Status'].map((h) => (
+                {['Study ID', 'Title', 'Phase', 'Enrolled / target', 'Status', 'Action'].map((h) => (
                   <th key={h} className="sticky top-0 bg-linen px-3.5 py-3 text-[11px] font-bold uppercase tracking-wide text-muted">
                     {h}
                   </th>
@@ -393,7 +554,7 @@ export default function PIDashboard({ studies, sessionUser, onOpenStudy }) {
             <tbody>
               {mine.length === 0 && (
                 <tr>
-                  <td colSpan={5} className="px-3.5 py-6 text-center text-muted">No PI-assigned studies.</td>
+                  <td colSpan={6} className="px-3.5 py-6 text-center text-muted">No PI-assigned studies.</td>
                 </tr>
               )}
               {mine.map((row) => {
@@ -401,8 +562,8 @@ export default function PIDashboard({ studies, sessionUser, onOpenStudy }) {
                 return (
                   <tr
                     key={row.studyId}
-                    className="cursor-pointer border-b border-ochre/40 last:border-0 hover:bg-mint"
-                    onClick={() => onOpenStudy(row)}
+                    className="cursor-pointer border-b border-ochre/40 last:border-0 hover:bg-mint transition-colors"
+                    onClick={() => onOpenStudy && onOpenStudy(row)}
                   >
                     <td className="px-3.5 py-3.5 font-bold text-forest">{row.studyId}</td>
                     <td className="px-3.5 py-3.5 font-semibold text-forest">{row.title}</td>
@@ -422,6 +583,18 @@ export default function PIDashboard({ studies, sessionUser, onOpenStudy }) {
                         text={row.status}
                       />
                     </td>
+                    <td className="px-3.5 py-3.5">
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          if (onOpenStudy) onOpenStudy(row);
+                        }}
+                        className="inline-flex items-center gap-1 rounded-lg bg-sage px-2.5 py-1 text-xs font-semibold text-cream-ink hover:bg-sage-deep"
+                      >
+                        Open Workspace <ChevronRight size={12} />
+                      </button>
+                    </td>
                   </tr>
                 );
               })}
@@ -429,6 +602,45 @@ export default function PIDashboard({ studies, sessionUser, onOpenStudy }) {
           </table>
         </div>
       </section>
+
+      {/* CREATE TASK MODAL */}
+      {taskModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm">
+          <div className="w-full max-w-md rounded-xl border border-ochre bg-cream p-5 shadow-2xl">
+            <h3 className="m-0 text-base font-bold text-forest">Create PI Task</h3>
+            <p className="mt-1 text-xs text-muted">Assign an operational task to the Study Coordinator or Monitor.</p>
+            <form onSubmit={handleCreateTask} className="mt-4 flex flex-col gap-3">
+              <div>
+                <label className="block text-xs font-bold text-forest mb-1">Task Title / Instruction</label>
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g. Expedite IEC renewal dossier submission"
+                  value={newTaskTitle}
+                  onChange={(e) => setNewTaskTitle(e.target.value)}
+                  className="w-full rounded-lg border border-ochre bg-linen p-2 text-xs text-forest focus:outline-none focus:ring-1 focus:ring-sage"
+                />
+              </div>
+              <div className="flex justify-end gap-2 pt-2">
+                <button
+                  type="button"
+                  onClick={() => setTaskModalOpen(false)}
+                  className="rounded-lg border border-ochre px-3 py-1.5 text-xs font-semibold text-muted hover:bg-linen"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="rounded-lg bg-sage px-4 py-1.5 text-xs font-bold text-cream-ink hover:bg-sage-deep"
+                >
+                  Assign Task
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }

@@ -1,6 +1,21 @@
 import React, { useState } from 'react';
 import Badge from '../components/common/Badge';
-import { ShieldCheck, AlertTriangle, FileText, ArrowLeft, X, Download, CheckCircle2 } from 'lucide-react';
+import {
+  ShieldCheck,
+  AlertTriangle,
+  FileText,
+  ArrowLeft,
+  X,
+  Download,
+  CheckCircle2,
+  BrainCircuit,
+  Sparkles,
+  ShieldAlert,
+  ChevronRight,
+  Clock,
+  FileCheck2,
+  Gavel
+} from 'lucide-react';
 
 export default function IecApprovals({ onBack }) {
   const [selectedProtocol, setSelectedProtocol] = useState(null);
@@ -68,9 +83,9 @@ export default function IecApprovals({ onBack }) {
   // Pipeline Stages
   const pipelineStages = [
     { id: 'Submitted & Vetted', label: '📥 Submitted & Vetted', color: '#6272A4' },
-    { id: 'Under IEC Review', label: '🔬 Under IEC Review', color: 'var(--accent)' },
-    { id: 'Approved & Active', label: '✓ Approved & Active', color: 'var(--badge-active-text)' },
-    { id: 'Renewal Required', label: '⚠️ Renewal Required', color: 'var(--accent-terracotta)' },
+    { id: 'Under IEC Review', label: '🔬 Under IEC Review', color: 'var(--accent, #84A98C)' },
+    { id: 'Approved & Active', label: '✓ Approved & Active', color: 'var(--accent, #84A98C)' },
+    { id: 'Renewal Required', label: '⚠️ Renewal Required', color: 'var(--accent-terracotta, #C86D51)' },
   ];
 
   const handleApproveProtocol = (protocolId) => {
@@ -81,8 +96,8 @@ export default function IecApprovals({ onBack }) {
           return {
             ...p,
             stage: 'Approved & Active',
-            approvalDate: '26-Sep-2026',
-            expiryDate: '25-Sep-2027',
+            approvalDate: '29-Sep-2026',
+            expiryDate: '28-Sep-2027',
             daysToExpiry: 365,
             gcpStatus: 'Full Clearance Extended',
           };
@@ -95,92 +110,146 @@ export default function IecApprovals({ onBack }) {
     }, 1000);
   };
 
+  const activeClearances = protocols.filter(p => p.stage === 'Approved & Active').length;
+  const renewalsDue = protocols.filter(p => p.stage === 'Renewal Required' || p.daysToExpiry <= 30).length;
+
   return (
-    <div style={{ padding: '24px 0', width: '100%', boxSizing: 'border-box' }}>
-      
-      {/* Top Header */}
+    <div style={{ padding: '24px 0', width: '100%', maxWidth: '1440px', margin: '0 auto', boxSizing: 'border-box', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+
+      {/* Dynamic Aesthetic Animations CSS */}
+      <style>{`
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(8px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes pulseSlow {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.6; }
+        }
+        .animate-fade-in {
+          animation: fadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .iec-pipeline-card {
+          transition: all 0.22s ease-in-out;
+        }
+        .iec-pipeline-card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 12px 24px -6px rgba(132, 169, 140, 0.25);
+          border-color: var(--accent, #84A98C) !important;
+        }
+      `}</style>
+
+      {/* 1. TOP HEADER & METRIC STAT CARDS */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px', flexWrap: 'wrap', gap: '16px' }}>
         <div>
-          <button 
-            className="btn-primary" 
-            onClick={onBack} 
-            style={{ padding: '6px 14px', fontSize: '12px', marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '6px' }}
+          <button
+            type="button"
+            onClick={onBack}
+            style={{
+              padding: '6px 14px',
+              fontSize: '12px',
+              marginBottom: '10px',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              background: 'var(--card-bg, #FFF)',
+              border: '1px solid var(--border, #E5E7EB)',
+              borderRadius: '8px',
+              fontWeight: 700,
+              cursor: 'pointer',
+              color: 'var(--text-h, #0C0A09)'
+            }}
           >
             <ArrowLeft size={14} /> Back to Dashboard
           </button>
-          <h1 style={{ margin: 0, fontSize: '28px', color: 'var(--text-h)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+            <span style={{
+              background: 'rgba(132, 169, 140, 0.18)',
+              color: 'var(--accent, #84A98C)',
+              fontSize: '11px',
+              fontWeight: 800,
+              padding: '3px 10px',
+              borderRadius: '12px',
+              textTransform: 'uppercase',
+              letterSpacing: '0.08em'
+            }}>
+              IEC Governance Desk
+            </span>
+          </div>
+          <h1 style={{ margin: 0, fontSize: '28px', color: 'var(--text-h, #0C0A09)', fontWeight: 800 }}>
             📋 Institutional Ethics Committee (IEC) Approvals Hub
           </h1>
-          <p style={{ color: 'var(--text-muted)', fontSize: '14px', marginTop: '4px' }}>
+          <p style={{ color: 'var(--text-muted, #78716C)', fontSize: '14px', marginTop: '4px' }}>
             Ayush-GCP Ethical Oversight, Protocol Review Pipelines & Annual Re-certifications
           </p>
         </div>
 
-        {/* REDESIGNED PRETTY METRIC STAT CARDS WITH LUCIDE ICONS */}
-        <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-          
+        {/* METRIC STAT CARDS */}
+        <div style={{ display: 'flex', gap: '14px', alignItems: 'center', flexWrap: 'wrap' }}>
+
           {/* Active Clearances Stat Card */}
-          <div style={{ 
-            background: 'var(--card-bg)', 
-            padding: '12px 20px', 
-            borderRadius: '12px', 
-            border: '1px solid var(--border)',
+          <div style={{
+            background: 'var(--card-bg, #FFF)',
+            padding: '12px 20px',
+            borderRadius: '12px',
+            border: '1px solid var(--border, #E5E7EB)',
+            borderLeft: '4px solid var(--accent, #84A98C)',
             boxShadow: '0 4px 12px rgba(0, 0, 0, 0.03)',
             display: 'flex',
             alignItems: 'center',
             gap: '14px',
             minWidth: '180px'
           }}>
-            <div style={{ 
-              backgroundColor: 'rgba(39, 201, 63, 0.12)', 
-              color: 'var(--badge-active-text)', 
-              padding: '10px', 
+            <div style={{
+              backgroundColor: 'rgba(132, 169, 140, 0.15)',
+              color: 'var(--accent, #84A98C)',
+              padding: '10px',
               borderRadius: '10px',
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'center'
+              justify: 'center'
             }}>
               <ShieldCheck size={22} />
             </div>
             <div>
-              <div style={{ fontSize: '11px', color: 'var(--text-muted)', fontWeight: 700, letterSpacing: '0.5px' }}>
+              <div style={{ fontSize: '11px', color: 'var(--text-muted, #78716C)', fontWeight: 800, letterSpacing: '0.5px' }}>
                 ACTIVE CLEARANCES
               </div>
-              <div style={{ fontSize: '15px', fontWeight: 800, color: 'var(--text-h)', marginTop: '1px' }}>
-                2 Protocols
+              <div style={{ fontSize: '16px', fontWeight: 900, color: 'var(--text-h, #0C0A09)', marginTop: '1px' }}>
+                {activeClearances} Protocols
               </div>
             </div>
           </div>
 
           {/* Renewals Due Stat Card */}
-          <div style={{ 
-            background: 'var(--card-bg)', 
-            padding: '12px 20px', 
-            borderRadius: '12px', 
-            border: '1px solid var(--accent-terracotta)',
-            boxShadow: '0 4px 14px rgba(192, 86, 33, 0.08)',
+          <div style={{
+            background: 'var(--card-bg, #FFF)',
+            padding: '12px 20px',
+            borderRadius: '12px',
+            border: '1px solid var(--accent-terracotta, #C86D51)',
+            boxShadow: '0 4px 14px rgba(200, 109, 81, 0.12)',
             display: 'flex',
             alignItems: 'center',
             gap: '14px',
             minWidth: '180px'
           }}>
-            <div style={{ 
-              backgroundColor: 'var(--badge-urgent-bg)', 
-              color: 'var(--accent-terracotta)', 
-              padding: '10px', 
+            <div style={{
+              backgroundColor: 'rgba(200, 109, 81, 0.15)',
+              color: 'var(--accent-terracotta, #C86D51)',
+              padding: '10px',
               borderRadius: '10px',
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'center'
+              justify: 'center'
             }}>
               <AlertTriangle size={22} />
             </div>
             <div>
-              <div style={{ fontSize: '11px', color: 'var(--accent-terracotta)', fontWeight: 700, letterSpacing: '0.5px' }}>
+              <div style={{ fontSize: '11px', color: 'var(--accent-terracotta, #C86D51)', fontWeight: 800, letterSpacing: '0.5px' }}>
                 RENEWALS DUE
               </div>
-              <div style={{ fontSize: '15px', fontWeight: 800, color: 'var(--accent-terracotta)', marginTop: '2px' }}>
-                1 Critical
+              <div style={{ fontSize: '16px', fontWeight: 900, color: 'var(--accent-terracotta, #C86D51)', marginTop: '2px' }}>
+                {renewalsDue} Critical
               </div>
             </div>
           </div>
@@ -188,19 +257,142 @@ export default function IecApprovals({ onBack }) {
         </div>
       </div>
 
-      {/* Stage Filter Buttons */}
+      {/* 2. ATTENTION REQUIRED SECTION (COMMITTEE BOTTLENECKS) */}
+      <section className="animate-fade-in" style={{
+        background: 'var(--card-bg, #FFF)',
+        border: '1px solid var(--accent-terracotta, #C86D51)',
+        borderRadius: '14px',
+        padding: '20px 24px',
+        marginBottom: '24px',
+        boxShadow: '0 4px 16px rgba(200, 109, 81, 0.12)'
+      }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', flexWrap: 'wrap', gap: '12px' }}>
+          <div>
+            <h3 style={{ margin: 0, fontSize: '17px', fontWeight: 800, color: 'var(--accent-terracotta, #C86D51)', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <ShieldAlert size={20} /> Ethics Committee — Attention Required Panel
+            </h3>
+            <p style={{ margin: '4px 0 0 0', fontSize: '12px', color: 'var(--text-muted, #78716C)' }}>
+              Protocols awaiting primary vetting, expedited renewal clearance, or safety amendment approvals.
+            </p>
+          </div>
+          <span style={{
+            background: 'rgba(200, 109, 81, 0.15)',
+            color: 'var(--accent-terracotta, #C86D51)',
+            padding: '4px 12px',
+            borderRadius: '12px',
+            fontSize: '11px',
+            fontWeight: 800
+          }}>
+            {protocols.filter(p => p.stage !== 'Approved & Active').length} Submissions Pending
+          </span>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '14px' }}>
+          {protocols.filter(p => p.stage !== 'Approved & Active').map(p => (
+            <div key={p.id} style={{
+              background: 'var(--bg, #FAFAF9)',
+              border: '1px solid var(--border, #E5E7EB)',
+              borderLeft: `4px solid ${p.stage === 'Renewal Required' ? 'var(--accent-terracotta, #C86D51)' : 'var(--accent-gold, #D4A373)'}`,
+              borderRadius: '10px',
+              padding: '14px'
+            }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                <span style={{ fontSize: '12px', fontWeight: 800, color: 'var(--text-h, #0C0A09)' }}>{p.id}</span>
+                <span style={{ fontSize: '10px', fontWeight: 800, padding: '2px 6px', borderRadius: '6px', background: 'rgba(212, 163, 115, 0.2)', color: 'var(--accent-gold, #D4A373)' }}>
+                  {p.stage}
+                </span>
+              </div>
+              <p style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text-h, #0C0A09)', margin: '0 0 8px 0', lineHeight: 1.4 }}>
+                {p.title}
+              </p>
+              <button
+                type="button"
+                onClick={() => setSelectedProtocol(p)}
+                style={{ background: 'transparent', border: 'none', color: 'var(--accent, #84A98C)', fontSize: '11px', fontWeight: 800, cursor: 'pointer', padding: 0, display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+              >
+                Review Submission Dossier &rarr;
+              </button>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* AI FEATURE #4: AI PROTOCOL PARSER & ETHICS RISK CLASSIFIER */}
+      <section className="animate-fade-in" style={{
+        background: 'linear-gradient(135deg, rgba(20, 35, 25, 0.95) 0%, rgba(35, 55, 40, 0.98) 100%)',
+        borderRadius: '14px',
+        padding: '20px 24px',
+        color: '#FFF',
+        marginBottom: '24px',
+        boxShadow: '0 8px 24px -4px rgba(0,0,0,0.15), 0 0 0 1px rgba(132, 169, 140, 0.3)'
+      }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
+              <span style={{
+                background: 'linear-gradient(90deg, #D4A373, #84A98C)',
+                color: '#FFF',
+                fontSize: '10px',
+                fontWeight: 800,
+                padding: '3px 8px',
+                borderRadius: '12px',
+                textTransform: 'uppercase',
+                letterSpacing: '0.08em',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '4px'
+              }}>
+                <BrainCircuit size={12} /> AI Intelligence Engine
+              </span>
+              <span style={{ fontSize: '12px', color: '#D4A373', fontWeight: 600 }}>
+                AI Protocol Parser & Ethics Deviation Classifier
+              </span>
+            </div>
+            <h3 style={{ margin: 0, fontSize: '18px', fontWeight: 800, color: '#FFF' }}>
+              Auto-Parsed Dossier: Protocol AIIA-AYU-007 (Ver 1.0)
+            </h3>
+            <p style={{ margin: '4px 0 0 0', fontSize: '12px', color: 'rgba(255, 255, 255, 0.8)' }}>
+              AI verified <strong>minimal risk classification</strong> for Samshamani Vati trial. Informed Consent Form (ICF) compliant with CDSCO 2026 Ayush-GCP guidelines.
+            </p>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => alert('AI Protocol Analysis: Risk score = Low (1.2/5). Blood sampling volume is within ethics thresholds (10mL total). ICF readability score = High.')}
+            style={{
+              background: 'linear-gradient(135deg, #D4A373 0%, #B08256 100%)',
+              color: '#FFF',
+              border: 'none',
+              padding: '10px 16px',
+              borderRadius: '8px',
+              fontSize: '12px',
+              fontWeight: 800,
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              boxShadow: '0 4px 12px rgba(212, 163, 115, 0.4)'
+            }}
+          >
+            <Sparkles size={14} /> Parse Dossier PDF
+          </button>
+        </div>
+      </section>
+
+      {/* 3. PIPELINE STAGE FILTER BUTTONS */}
       <div style={{ display: 'flex', gap: '8px', marginBottom: '20px', flexWrap: 'wrap', alignItems: 'center' }}>
-        <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--text-muted)' }}>Pipeline Stage Filter:</span>
+        <span style={{ fontSize: '12px', fontWeight: 800, color: 'var(--text-muted, #78716C)' }}>Pipeline Stage Filter:</span>
         <button
+          type="button"
           onClick={() => setActiveStageFilter('All')}
           style={{
             padding: '6px 14px',
             borderRadius: '20px',
-            border: '1px solid var(--border)',
-            background: activeStageFilter === 'All' ? 'var(--accent)' : 'var(--card-bg)',
-            color: activeStageFilter === 'All' ? 'var(--accent-text)' : 'var(--text)',
+            border: '1px solid var(--border, #E5E7EB)',
+            background: activeStageFilter === 'All' ? 'var(--accent, #84A98C)' : 'var(--card-bg, #FFF)',
+            color: activeStageFilter === 'All' ? '#FFF' : 'var(--text, #1C1917)',
             fontSize: '12px',
-            fontWeight: 600,
+            fontWeight: 700,
             cursor: 'pointer',
             transition: 'all 0.2s ease',
           }}
@@ -211,15 +403,16 @@ export default function IecApprovals({ onBack }) {
         {pipelineStages.map((stg) => (
           <button
             key={stg.id}
+            type="button"
             onClick={() => setActiveStageFilter(stg.id)}
             style={{
               padding: '6px 14px',
               borderRadius: '20px',
-              border: '1px solid var(--border)',
-              background: activeStageFilter === stg.id ? 'var(--accent)' : 'var(--card-bg)',
-              color: activeStageFilter === stg.id ? 'var(--accent-text)' : 'var(--text)',
+              border: '1px solid var(--border, #E5E7EB)',
+              background: activeStageFilter === stg.id ? 'var(--accent, #84A98C)' : 'var(--card-bg, #FFF)',
+              color: activeStageFilter === stg.id ? '#FFF' : 'var(--text, #1C1917)',
               fontSize: '12px',
-              fontWeight: 600,
+              fontWeight: 700,
               cursor: 'pointer',
               transition: 'all 0.2s ease',
             }}
@@ -229,10 +422,10 @@ export default function IecApprovals({ onBack }) {
         ))}
       </div>
 
-      {/* PIPELINE KANBAN REVIEW BOARD */}
-      <div style={{ 
-        display: 'grid', 
-        gridTemplateColumns: activeStageFilter === 'All' ? 'repeat(4, 1fr)' : '1fr', 
+      {/* 4. PIPELINE KANBAN REVIEW BOARD */}
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: activeStageFilter === 'All' ? 'repeat(auto-fit, minmax(260px, 1fr))' : '1fr',
         gap: '16px',
         alignItems: 'start',
       }}>
@@ -241,30 +434,30 @@ export default function IecApprovals({ onBack }) {
           .map((stage) => {
             const stageProtocols = protocols.filter(p => p.stage === stage.id);
             return (
-              <div 
-                key={stage.id} 
-                className="card" 
-                style={{ 
-                  backgroundColor: 'var(--code-bg)', 
-                  borderTop: `4px solid ${stage.color}`, 
+              <div
+                key={stage.id}
+                style={{
+                  backgroundColor: 'var(--card-bg, #FFF)',
+                  border: '1px solid var(--border, #E5E7EB)',
+                  borderTop: `4px solid ${stage.color}`,
+                  borderRadius: '12px',
                   padding: '16px',
-                  minHeight: '0',
-                  maxHeight: '480px',
                   display: 'flex',
                   flexDirection: 'column',
                   gap: '12px',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.03)'
                 }}
               >
                 {/* Column Header */}
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '8px', borderBottom: '1px solid var(--border)' }}>
-                  <strong style={{ fontSize: '13px', color: 'var(--text-h)' }}>{stage.label}</strong>
-                  <span style={{ 
-                    fontSize: '11px', 
-                    fontWeight: 800, 
-                    background: 'var(--card-bg)', 
-                    padding: '2px 8px', 
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '8px', borderBottom: '1px solid var(--border, #E5E7EB)' }}>
+                  <strong style={{ fontSize: '13px', color: 'var(--text-h, #0C0A09)', fontWeight: 800 }}>{stage.label}</strong>
+                  <span style={{
+                    fontSize: '11px',
+                    fontWeight: 800,
+                    background: 'var(--bg, #FAFAF9)',
+                    padding: '2px 8px',
                     borderRadius: '10px',
-                    border: '1px solid var(--border)',
+                    border: '1px solid var(--border, #E5E7EB)',
                   }}>
                     {stageProtocols.length}
                   </span>
@@ -272,50 +465,50 @@ export default function IecApprovals({ onBack }) {
 
                 {/* Protocol Cards in Stage Column */}
                 {stageProtocols.length === 0 ? (
-                  <div style={{ padding: '20px 0', textAlign: 'center', fontSize: '12px', color: 'var(--text-muted)' }}>
+                  <div style={{ padding: '20px 0', textAlign: 'center', fontSize: '12px', color: 'var(--text-muted, #78716C)' }}>
                     No protocols in this stage.
                   </div>
                 ) : (
-                  <div style={{ maxHeight: 360, overflow: 'auto', display: 'flex', flexDirection: 'column', gap: 12 }}>
-                  {stageProtocols.map((p) => (
-                    <div
-                      key={p.id}
-                      className="iec-pipeline-card"
-                      onClick={() => setSelectedProtocol(p)}
-                      style={{
-                        padding: '14px',
-                        borderRadius: '10px',
-                        border: '1px solid var(--border)',
-                        background: 'var(--card-bg)',
-                        cursor: 'pointer',
-                        position: 'relative',
-                      }}
-                    >
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '6px' }}>
-                        <span style={{ fontSize: '12px', fontWeight: 800, color: 'var(--accent)' }}>{p.id}</span>
-                        {p.daysToExpiry > 0 && p.daysToExpiry <= 30 && (
-                          <span style={{ fontSize: '10px', fontWeight: 800, color: 'var(--accent-terracotta)', background: 'var(--badge-urgent-bg)', padding: '2px 6px', borderRadius: '4px', display: 'flex', alignItems: 'center', gap: '3px' }}>
-                            <AlertTriangle size={10} /> {p.daysToExpiry}d Expiry
+                  <div style={{ maxHeight: '420px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                    {stageProtocols.map((p) => (
+                      <div
+                        key={p.id}
+                        className="iec-pipeline-card"
+                        onClick={() => setSelectedProtocol(p)}
+                        style={{
+                          padding: '14px',
+                          borderRadius: '10px',
+                          border: '1px solid var(--border, #E5E7EB)',
+                          background: 'var(--bg, #FAFAF9)',
+                          cursor: 'pointer',
+                          position: 'relative',
+                        }}
+                      >
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '6px' }}>
+                          <span style={{ fontSize: '12px', fontWeight: 800, color: 'var(--accent, #84A98C)' }}>{p.id}</span>
+                          {p.daysToExpiry > 0 && p.daysToExpiry <= 30 && (
+                            <span style={{ fontSize: '10px', fontWeight: 800, color: 'var(--accent-terracotta, #C86D51)', background: 'rgba(200, 109, 81, 0.15)', padding: '2px 6px', borderRadius: '4px', display: 'flex', alignItems: 'center', gap: '3px' }}>
+                              <AlertTriangle size={10} /> {p.daysToExpiry}d Expiry
+                            </span>
+                          )}
+                        </div>
+
+                        <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-h, #0C0A09)', marginBottom: '8px', lineHeight: '140%' }}>
+                          {p.title}
+                        </div>
+
+                        <div style={{ fontSize: '11px', color: 'var(--text-muted, #78716C)', marginBottom: '10px' }}>
+                          PI: <strong>{p.pi}</strong>
+                        </div>
+
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '8px', borderTop: '1px dashed var(--border, #E5E7EB)', fontSize: '11px' }}>
+                          <span style={{ color: 'var(--text-muted, #78716C)', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                            <FileText size={12} /> {p.documents.length} Files
                           </span>
-                        )}
+                          <span style={{ color: 'var(--accent, #84A98C)', fontWeight: 700 }}>Review Dossier &rarr;</span>
+                        </div>
                       </div>
-
-                      <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-h)', marginBottom: '8px', lineHeight: '140%' }}>
-                        {p.title}
-                      </div>
-
-                      <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginBottom: '10px' }}>
-                        PI: <strong>{p.pi}</strong>
-                      </div>
-
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '8px', borderTop: '1px dashed var(--border)', fontSize: '11px' }}>
-                        <span style={{ color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                          <FileText size={12} /> {p.documents.length} Files
-                        </span>
-                        <span style={{ color: 'var(--accent)', fontWeight: 600 }}>Review Dossier &rarr;</span>
-                      </div>
-                    </div>
-                  ))}
+                    ))}
                   </div>
                 )}
               </div>
@@ -323,33 +516,49 @@ export default function IecApprovals({ onBack }) {
           })}
       </div>
 
-      {/* DOCUMENT REVIEW & APPROVAL ACTION DRAWER MODAL */}
+      {/* 5. DOCUMENT REVIEW & APPROVAL ACTION DRAWER MODAL */}
       {selectedProtocol && (
-        <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.4)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          zIndex: 1000,
-          padding: '20px',
-        }}>
-          <div className="card" style={{ maxWidth: '600px', width: '100%', backgroundColor: 'var(--card-bg)', position: 'relative' }}>
-            
-            <button 
+        <div
+          className="animate-fade-in"
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.55)',
+            display: 'flex',
+            alignItems: 'center',
+            justify: 'center',
+            zIndex: 1000,
+            padding: '20px',
+            backdropFilter: 'blur(5px)'
+          }}
+        >
+          <div style={{
+            maxWidth: '620px',
+            width: '100%',
+            backgroundColor: 'var(--card-bg, #FFF)',
+            borderRadius: '16px',
+            padding: '24px',
+            boxShadow: '0 24px 60px rgba(0,0,0,0.3)',
+            position: 'relative',
+            border: '1px solid var(--border, #E5E7EB)',
+            maxHeight: '90vh',
+            overflowY: 'auto'
+          }}>
+
+            <button
+              type="button"
               onClick={() => setSelectedProtocol(null)}
               style={{
                 position: 'absolute',
-                top: '16px',
-                right: '16px',
+                top: '18px',
+                right: '18px',
                 border: 'none',
                 background: 'transparent',
                 cursor: 'pointer',
-                color: 'var(--text-muted)',
+                color: 'var(--text-muted, #78716C)',
               }}
             >
               <X size={20} />
@@ -357,17 +566,17 @@ export default function IecApprovals({ onBack }) {
 
             <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginBottom: '8px' }}>
               <Badge status={selectedProtocol.stage === 'Approved & Active' ? 'Active' : 'Urgent'} text={selectedProtocol.stage} />
-              <strong style={{ fontSize: '14px', color: 'var(--text-h)' }}>{selectedProtocol.id}</strong>
+              <strong style={{ fontSize: '14px', color: 'var(--text-h, #0C0A09)' }}>{selectedProtocol.id}</strong>
             </div>
 
-            <h2 style={{ fontSize: '20px', margin: '0 0 8px 0', color: 'var(--text-h)' }}>
+            <h2 style={{ fontSize: '20px', margin: '0 0 8px 0', color: 'var(--text-h, #0C0A09)', fontWeight: 800 }}>
               {selectedProtocol.title}
             </h2>
-            <p style={{ fontSize: '12px', color: 'var(--text-muted)', marginBottom: '16px' }}>
+            <p style={{ fontSize: '12px', color: 'var(--text-muted, #78716C)', marginBottom: '16px' }}>
               Reviewing Authority: <strong>{selectedProtocol.committee}</strong>
             </p>
 
-            <div style={{ background: 'var(--code-bg)', padding: '14px', borderRadius: '8px', fontSize: '13px', marginBottom: '16px' }}>
+            <div style={{ background: 'var(--bg, #FAFAF9)', border: '1px solid var(--border, #E5E7EB)', padding: '14px', borderRadius: '10px', fontSize: '13px', marginBottom: '16px' }}>
               <div style={{ marginBottom: '6px' }}><strong>Principal Investigator:</strong> {selectedProtocol.pi}</div>
               <div style={{ marginBottom: '6px' }}><strong>GCP Compliance Status:</strong> {selectedProtocol.gcpStatus}</div>
               <div style={{ marginBottom: '6px' }}><strong>Approval Window:</strong> {selectedProtocol.approvalDate} to {selectedProtocol.expiryDate}</div>
@@ -376,18 +585,18 @@ export default function IecApprovals({ onBack }) {
 
             {/* Document Vault Tree */}
             <div style={{ marginBottom: '20px' }}>
-              <label style={{ display: 'block', fontSize: '11px', fontWeight: 700, color: 'var(--text-muted)', marginBottom: '8px' }}>
-                DOCUMENT VAULT & VERSION CONTROL ({selectedProtocol.documents.length} ATTACHMENTS)
+              <label style={{ display: 'block', fontSize: '11px', fontWeight: 800, color: 'var(--text-muted, #78716C)', marginBottom: '8px', textTransform: 'uppercase' }}>
+                Document Vault & Version Control ({selectedProtocol.documents.length} Attachments)
               </label>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                 {selectedProtocol.documents.map((doc, idx) => (
-                  <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 12px', background: 'var(--bg)', borderRadius: '6px', border: '1px solid var(--border)', fontSize: '12px' }}>
-                    <span style={{ fontWeight: 600, color: 'var(--text-h)', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                      <FileText size={14} /> {doc}
+                  <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 14px', background: 'var(--card-bg, #FFF)', borderRadius: '8px', border: '1px solid var(--border, #E5E7EB)', fontSize: '12px' }}>
+                    <span style={{ fontWeight: 600, color: 'var(--text-h, #0C0A09)', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <FileText size={14} color="var(--accent, #84A98C)" /> {doc}
                     </span>
-                    <button 
-                      className="btn-primary" 
-                      style={{ padding: '4px 10px', fontSize: '11px', display: 'flex', alignItems: 'center', gap: '4px' }}
+                    <button
+                      type="button"
+                      style={{ padding: '6px 12px', fontSize: '11px', display: 'flex', alignItems: 'center', gap: '4px', background: 'var(--accent, #84A98C)', color: '#FFF', border: 'none', borderRadius: '6px', fontWeight: 700, cursor: 'pointer' }}
                       onClick={() => alert(`Downloading verified document: ${doc}`)}
                     >
                       <Download size={12} /> PDF
@@ -398,19 +607,23 @@ export default function IecApprovals({ onBack }) {
             </div>
 
             {/* Committee Actions */}
-            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px' }}>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px', paddingTop: '14px', borderTop: '1px solid var(--border, #E5E7EB)' }}>
               {selectedProtocol.stage !== 'Approved & Active' && (
-                <button 
-                  className="btn-primary"
+                <button
+                  type="button"
                   onClick={() => handleApproveProtocol(selectedProtocol.id)}
                   disabled={approvalActionDone}
-                  style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
+                  style={{ display: 'flex', alignItems: 'center', gap: '6px', background: 'var(--accent, #84A98C)', color: '#FFF', border: 'none', padding: '10px 18px', borderRadius: '8px', fontWeight: 800, fontSize: '13px', cursor: 'pointer', boxShadow: '0 4px 12px rgba(132, 169, 140, 0.35)' }}
                 >
                   <CheckCircle2 size={16} />
                   {approvalActionDone ? 'Signing Ethics Clearance...' : 'Grant IEC Ethical Clearance'}
                 </button>
               )}
-              <button className="btn-primary" onClick={() => setSelectedProtocol(null)} style={{ background: 'transparent', color: 'var(--text)', border: '1px solid var(--border)' }}>
+              <button
+                type="button"
+                onClick={() => setSelectedProtocol(null)}
+                style={{ background: 'transparent', color: 'var(--text, #1C1917)', border: '1px solid var(--border, #E5E7EB)', padding: '10px 18px', borderRadius: '8px', fontWeight: 700, fontSize: '13px', cursor: 'pointer' }}
+              >
                 Close Dossier
               </button>
             </div>

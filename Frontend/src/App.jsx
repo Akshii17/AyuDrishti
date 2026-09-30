@@ -16,6 +16,7 @@ import MonitorDashboard from './pages/MonitorDashboard';
 import EthicsDashboard from './pages/EthicsDashboard';
 import RegulatorDashboard from './pages/RegulatorDashboard';
 import AdminDashboard from './pages/AdminDashboard';
+import CopilotModal from './components/CopilotModal';
 
 // --- Dedicated Secondary Page Views ---
 
@@ -36,7 +37,7 @@ function RegisterProtocolPage({ onBack }) {
       <button className="btn-primary" onClick={onBack} style={{ marginBottom: '16px', fontSize: '12px' }}>
         &larr; Back to Dashboard
       </button>
-      
+
       <div className="card" style={{ maxWidth: '640px', margin: '0 auto' }}>
         <h2 style={{ fontSize: '22px', marginBottom: '4px' }}>+ Register New Clinical Protocol</h2>
         <p style={{ color: 'var(--text-muted)', fontSize: '13px', marginBottom: '20px' }}>
@@ -46,10 +47,10 @@ function RegisterProtocolPage({ onBack }) {
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <div>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, marginBottom: '6px' }}>Full Protocol Title</label>
-            <input 
-              type="text" 
-              required 
-              value={title} 
+            <input
+              type="text"
+              required
+              value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="e.g., Clinical Evaluation of Samshamani Vati in Viral Fever Recovery"
               style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid var(--border)', background: 'var(--bg)', color: 'var(--text)' }}
@@ -58,10 +59,10 @@ function RegisterProtocolPage({ onBack }) {
 
           <div>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, marginBottom: '6px' }}>Principal Investigator (PI)</label>
-            <input 
-              type="text" 
-              required 
-              value={pi} 
+            <input
+              type="text"
+              required
+              value={pi}
               onChange={(e) => setPi(e.target.value)}
               placeholder="e.g., Prof. Dr. Anand Kumar"
               style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid var(--border)', background: 'var(--bg)', color: 'var(--text)' }}
@@ -70,8 +71,8 @@ function RegisterProtocolPage({ onBack }) {
 
           <div>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, marginBottom: '6px' }}>Trial Phase</label>
-            <select 
-              value={phase} 
+            <select
+              value={phase}
               onChange={(e) => setPhase(e.target.value)}
               style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid var(--border)', background: 'var(--bg)', color: 'var(--text)' }}
             >
@@ -155,12 +156,15 @@ export default function App() {
 
   const homePageForRole = (role) => {
     const key = (role || '').trim();
+
     if (key === 'Principal Investigator') return 'PIDashboard';
     if (key === 'Study Coordinator') return 'CoordinatorDashboard';
     if (key === 'Monitor') return 'MonitorDashboard';
     if (key === 'Ethics Committee') return 'EthicsDashboard';
+    if (key === 'Pharmacovigilance') return 'PvDashboard';
     if (key === 'Regulator' || key === 'Read-only Regulator') return 'RegulatorDashboard';
     if (key === 'Admin' || key === 'Administration' || key === 'Administrator') return 'AdminDashboard';
+
     return 'ExecutiveDashboard';
   };
 
@@ -297,7 +301,7 @@ export default function App() {
         );
       case 'ExecutiveDashboard':
         return (
-          <ExecutiveDashboard 
+          <ExecutiveDashboard
             studies={mockData}
             onSelectStudy={handleSelectStudy}
             onAddProtocol={() => {
@@ -312,7 +316,7 @@ export default function App() {
         );
       case 'PvDashboard':
         return (
-          <PVDashboard 
+          <PVDashboard
             studies={mockData}
             onSelectStudy={handleSelectStudy}
             onBack={navigateToHome}
@@ -320,16 +324,16 @@ export default function App() {
         );
       case 'StudyDetails':
         return (
-          <StudyDetails 
-            study={selectedStudy} 
+          <StudyDetails
+            study={selectedStudy}
             role={
-              sessionUser?.role === 'Regulator' || sessionUser?.role === 'Read-only Regulator' 
-                ? 'regulator' 
+              sessionUser?.role === 'Regulator' || sessionUser?.role === 'Read-only Regulator'
+                ? 'regulator'
                 : sessionUser?.role === 'Admin' || sessionUser?.role === 'Administration'
-                ? 'admin'
-                : 'pi'
+                  ? 'admin'
+                  : 'pi'
             }
-            onBack={navigateToHome} 
+            onBack={navigateToHome}
           />
         );
       case 'RegisterProtocol':
@@ -342,8 +346,8 @@ export default function App() {
         return <AuditLogs onBack={navigateToHome} />;
       default:
         return (
-          <ExecutiveDashboard 
-            studies={mockData} 
+          <ExecutiveDashboard
+            studies={mockData}
             onSelectStudy={handleSelectStudy}
             onAddProtocol={() => {
               setCurrentPage('RegisterProtocol');
@@ -400,6 +404,7 @@ export default function App() {
           onSuccess={handleAuthSuccess}
         />
       )}
+      <CopilotModal currentRole={sessionUser?.role || 'PI'} activeStudy={selectedStudy} />
     </div>
   );
 }

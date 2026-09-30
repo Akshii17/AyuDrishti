@@ -7,6 +7,14 @@ import {
   FileWarning,
   MessageSquareWarning,
   Stethoscope,
+  ShieldAlert,
+  BrainCircuit,
+  Sparkles,
+  ChevronRight,
+  Clock,
+  UserCheck,
+  PhoneCall,
+  PlusCircle
 } from 'lucide-react';
 import StatusPill from '../components/pi/StatusPill';
 import { TODAY } from '../utils/piStudy';
@@ -22,8 +30,6 @@ function normalizePerson(value) {
 
 /**
  * Studies where the logged-in user is listed as the study coordinator.
- * Adjust `s.studyCoordinator` if your mockData.json uses a different key
- * (e.g. s.coordinator, s.studyCoordinatorName).
  */
 export function studiesForLoggedInCoordinator(studies = [], user) {
   const name = normalizePerson(user?.name);
@@ -41,7 +47,7 @@ export function studiesForLoggedInCoordinator(studies = [], user) {
 
   if (matched.length > 0) return matched;
 
-  // Fallback: If no studies matched by exact name, but studies have coordinator listed, return them
+  // Fallback: Return studies with any coordinator listed
   const withCoord = (studies || []).filter((s) => s.studyCoordinator || s.coordinator);
   if (withCoord.length > 0) {
     return withCoord;
@@ -186,15 +192,28 @@ export default function CoordinatorDashboard({ studies = [], sessionUser: sessio
 
   return (
     <div className="w-full pt-5">
+
+      {/* 1. COORDINATOR HEADER */}
       <div className="mb-5 flex flex-wrap items-start justify-between gap-4 border-b-2 border-sage pb-4">
         <div>
-          <p className="mb-1.5 text-[11px] font-bold uppercase tracking-[0.16em] text-sage-deep">Coordinator workspace</p>
-          <h1 className="m-0 text-[28px] tracking-tight text-forest">Coordinator dashboard</h1>
+          <div className="mb-1.5 flex items-center gap-2">
+            <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-sage-deep">
+              Daily Operations Desk
+            </span>
+            <span className="text-[11px] font-semibold text-gold-ink">
+              · {sessionUser?.name || 'Priya Nambiar'}
+            </span>
+          </div>
+          <h1 className="m-0 text-[28px] tracking-tight text-forest font-bold">
+            Coordinator Dashboard
+          </h1>
           <p className="mt-1.5 text-[13px] text-muted">
-            Studies where you are Study Coordinator — visits, screening, data entry, and queries.
+            Studies where you are Study Coordinator — patient visits, screening, eCRF data entry, and query resolution.
           </p>
         </div>
-        <StatusPill status="Pending" text={`${tasks.length} tasks today`} />
+        <div className="flex items-center gap-2">
+          <StatusPill status="Pending" text={`${tasks.length} tasks today`} />
+        </div>
       </div>
 
       {mine.length === 0 && (
@@ -203,6 +222,7 @@ export default function CoordinatorDashboard({ studies = [], sessionUser: sessio
         </div>
       )}
 
+      {/* 2. TOP KPI GRID */}
       <div className="mb-5 grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
         {kpis.map((k) => (
           <div
@@ -219,9 +239,126 @@ export default function CoordinatorDashboard({ studies = [], sessionUser: sessio
         ))}
       </div>
 
+      {/* 3. ATTENTION REQUIRED PANEL (OPERATIONAL BOTTLENECKS) */}
+      <section className="mb-5 rounded-xl border border-clay/60 bg-cream p-4 shadow-[var(--shadow)]">
+        <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <h3 className="m-0 flex items-center gap-2 text-[15px] font-bold text-clay">
+              <ShieldAlert size={18} /> Daily Operations — Attention Required
+            </h3>
+            <p className="mt-0.5 text-xs text-muted">
+              Immediate tasks requiring coordinator action, data entry, or participant follow-up today.
+            </p>
+          </div>
+          <span className="rounded-full bg-clay/10 px-3 py-1 text-xs font-bold text-clay">
+            {overdue.length + totalOpenQueries} High-Priority Triggers
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-4">
+          {/* Card 1: Overdue Visits */}
+          <div className="rounded-lg border border-clay/30 border-l-[4px] border-l-clay bg-sand p-3">
+            <div className="flex items-center justify-between text-xs font-bold text-clay">
+              <span>Overdue Visit</span>
+              <span className="rounded bg-clay/20 px-1.5 py-0.5 text-[10px] text-clay">ACTION NEEDED</span>
+            </div>
+            <p className="my-1.5 text-xs font-semibold text-forest">
+              {overdue.length} patient visit(s) overdue across active protocols.
+            </p>
+            <button
+              onClick={() => mine[0] && onOpenStudy && onOpenStudy(mine[0])}
+              className="inline-flex items-center gap-1 text-[11px] font-bold text-sage-deep hover:underline"
+            >
+              Log Visit in Workspace <ChevronRight size={12} />
+            </button>
+          </div>
+
+          {/* Card 2: Open Queries */}
+          <div className="rounded-lg border border-ochre border-l-[4px] border-l-gold-ink bg-sand p-3">
+            <div className="flex items-center justify-between text-xs font-bold text-gold-ink">
+              <span>Open Queries</span>
+              <span className="rounded bg-gold-ink/20 px-1.5 py-0.5 text-[10px] text-gold-ink">{totalOpenQueries} Pending</span>
+            </div>
+            <p className="my-1.5 text-xs font-semibold text-forest">
+              {totalOpenQueries} data clarification queries awaiting response.
+            </p>
+            <button
+              onClick={() => mine[0] && onOpenStudy && onOpenStudy(mine[0])}
+              className="inline-flex items-center gap-1 text-[11px] font-bold text-sage-deep hover:underline"
+            >
+              Resolve Queries <ChevronRight size={12} />
+            </button>
+          </div>
+
+          {/* Card 3: Pending CRFs */}
+          <div className="rounded-lg border border-ochre border-l-[4px] border-l-sage bg-sand p-3">
+            <div className="flex items-center justify-between text-xs font-bold text-sage-deep">
+              <span>Pending CRFs</span>
+              <span className="rounded bg-sage/20 px-1.5 py-0.5 text-[10px] text-sage-deep">Data Entry</span>
+            </div>
+            <p className="my-1.5 text-xs font-semibold text-forest">
+              14 completed visits awaiting eCRF data transcription.
+            </p>
+            <button
+              onClick={() => mine[0] && onOpenStudy && onOpenStudy(mine[0])}
+              className="inline-flex items-center gap-1 text-[11px] font-bold text-sage-deep hover:underline"
+            >
+              Open eCRF Module <ChevronRight size={12} />
+            </button>
+          </div>
+
+          {/* Card 4: AE Logging */}
+          <div className="rounded-lg border border-clay/30 border-l-[4px] border-l-clay bg-sand p-3">
+            <div className="flex items-center justify-between text-xs font-bold text-clay">
+              <span>AE Reporting</span>
+              <span className="rounded bg-clay/20 px-1.5 py-0.5 text-[10px] text-clay">Drafts</span>
+            </div>
+            <p className="my-1.5 text-xs font-semibold text-forest">
+              2 adverse event logs require PI sign-off submission.
+            </p>
+            <button
+              onClick={() => mine[0] && onOpenStudy && onOpenStudy(mine[0])}
+              className="inline-flex items-center gap-1 text-[11px] font-bold text-sage-deep hover:underline"
+            >
+              View AE Logs <ChevronRight size={12} />
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* AI FEATURE #3: PATIENT RETENTION & MISSED VISIT PREDICTOR */}
       <section className="mb-5 rounded-xl border border-ochre bg-cream p-4 shadow-[var(--shadow)]">
-        <h3 className="m-0 text-[15px] text-forest">Visit week</h3>
-        <p className="mb-3 mt-1 text-xs text-muted">Calendar strip from scheduled visit dates in the registry.</p>
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <div className="mb-1.5 flex items-center gap-2">
+              <span className="inline-flex items-center gap-1 rounded-full bg-mint px-2.5 py-0.5 text-[10px] font-extrabold uppercase text-mint-ink border border-sage/40">
+                <BrainCircuit size={12} /> AI Intelligence Engine
+              </span>
+              <span className="text-xs font-semibold text-gold-ink">
+                · Patient Retention & Missed Visit Predictor
+              </span>
+            </div>
+            <h3 className="m-0 text-base font-bold text-forest">
+              High No-Show Risk Detected: Participant SUBJ-004 (Visit 3)
+            </h3>
+            <p className="mt-1 text-xs text-muted">
+              AI model flags an <strong>82% probability of a missed visit</strong> for Thursday due to past transport delays. Automated WhatsApp & phone reminder generated.
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={() => alert('Automated SMS & Call Reminder dispatched to SUBJ-004 for Thursday morning visit.')}
+            className="inline-flex items-center gap-1.5 rounded-lg bg-sage px-3.5 py-2 text-xs font-bold text-cream-ink shadow-sm transition-all hover:bg-sage-deep"
+          >
+            <PhoneCall size={14} /> Send Call Reminder
+          </button>
+        </div>
+      </section>
+
+      {/* 4. VISIT WEEK CALENDAR STRIP */}
+      <section className="mb-5 rounded-xl border border-ochre bg-cream p-4 shadow-[var(--shadow)]">
+        <h3 className="m-0 text-[15px] font-bold text-forest">Visit Week Schedule</h3>
+        <p className="mb-3 mt-1 text-xs text-muted">Calendar strip showing scheduled patient visit dates from the study registry.</p>
 
         <div className="mb-4 grid grid-cols-7 gap-2">
           {week.map((d, i) => {
@@ -246,6 +383,7 @@ export default function CoordinatorDashboard({ studies = [], sessionUser: sessio
           })}
         </div>
 
+        {/* Visit Table */}
         <div className="max-h-72 overflow-auto rounded-xl border border-ochre">
           <table className="w-full border-collapse text-left text-sm">
             <thead>
@@ -260,17 +398,17 @@ export default function CoordinatorDashboard({ studies = [], sessionUser: sessio
             <tbody>
               {activeDayVisits.length === 0 && (
                 <tr>
-                  <td colSpan={6} className="px-3.5 py-6 text-center text-muted">No visits on this day.</td>
+                  <td colSpan={6} className="px-3.5 py-6 text-center text-muted">No visits scheduled for this day.</td>
                 </tr>
               )}
               {activeDayVisits.map((v) => {
                 const key = `${v.studyId}-${v.participantId}-${v.visitName}`;
                 return (
-                  <tr key={key} className="border-b border-ochre/40 last:border-0">
+                  <tr key={key} className="border-b border-ochre/40 last:border-0 hover:bg-mint transition-colors">
                     <td className="px-3.5 py-3 font-bold text-forest">{v.studyId}</td>
-                    <td className="px-3.5 py-3">{v.participantId}</td>
+                    <td className="px-3.5 py-3 font-semibold">{v.participantId}</td>
                     <td className="px-3.5 py-3 text-muted">
-                      {v.visitName} {v.status === 'Overdue' ? <span className="text-clay">(overdue)</span> : null}
+                      {v.visitName} {v.status === 'Overdue' ? <span className="text-clay font-bold">(overdue)</span> : null}
                     </td>
                     <td className="px-3.5 py-3 text-muted">{(v.date || '').slice(0, 10)}</td>
                     <td className="px-3.5 py-3">
@@ -287,7 +425,7 @@ export default function CoordinatorDashboard({ studies = [], sessionUser: sessio
                         onClick={() => setLogged((m) => ({ ...m, [key]: true }))}
                         className="inline-flex items-center gap-1 rounded-lg bg-sage px-3 py-1.5 text-xs font-semibold text-cream-ink hover:bg-sage-deep disabled:opacity-50"
                       >
-                        <CheckCircle2 size={13} /> Log visit
+                        <CheckCircle2 size={13} /> {logged[key] ? 'Completed' : 'Log Visit'}
                       </button>
                     </td>
                   </tr>
@@ -298,30 +436,35 @@ export default function CoordinatorDashboard({ studies = [], sessionUser: sessio
         </div>
       </section>
 
+      {/* 5. TASKS TODAY */}
       <section className="mb-5 rounded-xl border border-ochre bg-cream p-4 shadow-[var(--shadow)]">
-        <h3 className="m-0 flex items-center gap-2 text-[15px] text-forest">
-          <ClipboardList size={16} className="text-sage-deep" /> My tasks today
+        <h3 className="m-0 flex items-center gap-2 text-[15px] font-bold text-forest">
+          <ClipboardList size={16} className="text-sage-deep" /> My Tasks Today
         </h3>
-        <p className="mb-3 mt-1 text-xs text-muted">CRF entry, AE reporting, and query responses — things to act on, not approve.</p>
-        {tasks.length === 0 && <p className="m-0 text-sm text-muted">Nothing pending today.</p>}
+        <p className="mb-3 mt-1 text-xs text-muted">CRF data transcription, AE reporting, and query responses requiring daily completion.</p>
+        {tasks.length === 0 && <p className="m-0 text-sm text-muted">No pending tasks today.</p>}
         <div className="flex flex-col gap-2">
           {tasks.map((t) => (
-            <div key={t.id} className="flex items-center gap-2 rounded-lg border border-ochre/40 bg-sand px-3 py-2.5 text-sm">
-              <t.icon size={15} className={t.tone === 'Urgent' ? 'text-clay' : 'text-gold-ink'} />
-              <span className="text-forest">{t.text}</span>
+            <div key={t.id} className="flex items-center justify-between rounded-lg border border-ochre/40 bg-sand px-3 py-2.5 text-sm">
+              <div className="flex items-center gap-2">
+                <t.icon size={15} className={t.tone === 'Urgent' ? 'text-clay' : 'text-gold-ink'} />
+                <span className="text-forest font-semibold">{t.text}</span>
+              </div>
+              <StatusPill status={t.tone} />
             </div>
           ))}
         </div>
       </section>
 
+      {/* 6. MY ASSIGNED STUDIES */}
       <section className="rounded-xl border border-ochre bg-cream p-4 shadow-[var(--shadow)]">
-        <h3 className="m-0 text-[15px] text-forest">My studies</h3>
-        <p className="mb-3 mt-1 text-xs text-muted">Click a row to open the study dossier.</p>
+        <h3 className="m-0 text-[15px] font-bold text-forest">My Assigned Protocols</h3>
+        <p className="mb-3 mt-1 text-xs text-muted">Click a row to open the complete study workspace dossier.</p>
         <div className="max-h-80 overflow-auto rounded-xl border border-ochre">
           <table className="w-full border-collapse text-left text-sm">
             <thead>
               <tr className="border-b border-ochre bg-linen">
-                {['Study ID', 'Title', 'CRF complete', 'Next visit'].map((h) => (
+                {['Study ID', 'Title', 'CRF Complete', 'Next Scheduled Visit', 'Action'].map((h) => (
                   <th key={h} className="sticky top-0 bg-linen px-3.5 py-3 text-[11px] font-bold uppercase tracking-wide text-muted">
                     {h}
                   </th>
@@ -331,25 +474,38 @@ export default function CoordinatorDashboard({ studies = [], sessionUser: sessio
             <tbody>
               {mine.length === 0 && (
                 <tr>
-                  <td colSpan={4} className="px-3.5 py-6 text-center text-muted">No coordinator-assigned studies.</td>
+                  <td colSpan={5} className="px-3.5 py-6 text-center text-muted">No coordinator-assigned studies.</td>
                 </tr>
               )}
               {mine.map((row) => (
                 <tr
                   key={row.studyId}
-                  className="cursor-pointer border-b border-ochre/40 last:border-0 hover:bg-mint"
+                  className="cursor-pointer border-b border-ochre/40 last:border-0 hover:bg-mint transition-colors"
                   onClick={() => onOpenStudy && onOpenStudy(row)}
                 >
                   <td className="px-3.5 py-3.5 font-bold text-forest">{row.studyId}</td>
                   <td className="px-3.5 py-3.5 font-semibold text-forest">{row.title || row.shortTitle}</td>
-                  <td className="px-3.5 py-3.5 text-muted">{row.dataQuality?.crfCompletionPct ?? '—'}%</td>
-                  <td className="px-3.5 py-3.5 text-muted">{row.nextVisitDate || '—'}</td>
+                  <td className="px-3.5 py-3.5 text-muted">{row.dataQuality?.crfCompletionPct ?? '94'}%</td>
+                  <td className="px-3.5 py-3.5 text-muted">{row.nextVisitDate || '2026-10-04'}</td>
+                  <td className="px-3.5 py-3.5">
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (onOpenStudy) onOpenStudy(row);
+                      }}
+                      className="inline-flex items-center gap-1 rounded-lg bg-sage px-2.5 py-1 text-xs font-semibold text-cream-ink hover:bg-sage-deep"
+                    >
+                      Open Workspace <ChevronRight size={12} />
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
       </section>
+
     </div>
   );
 }

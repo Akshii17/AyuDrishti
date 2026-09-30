@@ -1,7 +1,22 @@
 import React, { useState } from 'react';
 import { X, Mail, Lock, User, ChevronDown, LogIn, UserPlus, UserCog } from 'lucide-react';
-import { USER_ROLES } from '../../constants/roles';
+import { USER_ROLES as CONSTANT_USER_ROLES } from '../../constants/roles';
 import './AuthModal.css';
+
+// Fallback list of all 7 SIH roles if constants file is missing or partial
+const DEFAULT_USER_ROLES = [
+  'Principal Investigator',
+  'Study Coordinator',
+  'Monitor',
+  'Ethics Committee',
+  'Pharmacovigilance',
+  'Administration',
+  'Read-only Regulator',
+];
+
+const USER_ROLES = (Array.isArray(CONSTANT_USER_ROLES) && CONSTANT_USER_ROLES.length > 0)
+  ? CONSTANT_USER_ROLES
+  : DEFAULT_USER_ROLES;
 
 export default function AuthModal({ mode, onClose, onSwitchMode, onSuccess }) {
   const isLogin = mode === 'login';
@@ -56,7 +71,6 @@ export default function AuthModal({ mode, onClose, onSwitchMode, onSuccess }) {
           <X size={18} />
         </button>
 
-        
         <h2 id="auth-title">{isLogin ? 'Welcome back' : 'Create your account'}</h2>
         <p className="auth-modal-sub">
           {isLogin
